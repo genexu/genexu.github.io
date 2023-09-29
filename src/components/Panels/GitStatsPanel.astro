@@ -1,0 +1,12 @@
+---
+import Panel from "./Panel.astro";
+import GitStatsIframe from "./GitPanelIframe/GitStatsIframe";
+
+const { class: className } = Astro.props;
+---
+
+<Panel class:list={[className]}>
+	<div class="h-full flex flex-col justify-center">
+		<GitStatsIframe client:load />
+	</div>
+</Panel>

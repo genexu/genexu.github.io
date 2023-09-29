@@ -1,0 +1,36 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ThemeToggle from "../../components/ThemeToggle.astro";
+import { type CollectionEntry, getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+	const posts = await getCollection("blog");
+	return posts.map((post) => ({
+		params: { slug: post.slug },
+		props: post,
+	}));
+}
+type Props = CollectionEntry<"blog">;
+
+const post = Astro.props;
+const { Content } = await post.render();
+
+const { title, description, publicationDate } = post.data;
+---
+
+<Layout title={title} description={description}>
+	<div class="flex items-center space-x-2">
+		<ThemeToggle size={24} />
+		<h1 class="text-xl">{title}</h1>
+	</div>
+	<time class="text-sm" datetime={publicationDate.toISOString()}>
+		{
+			publicationDate.toLocaleDateString("en-us", {
+				year: "numeric",
+				month: "short",
+				day: "numeric",
+			})
+		}
+	</time>
+	<Content />
+</Layout>

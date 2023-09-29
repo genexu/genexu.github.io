@@ -1,0 +1,9 @@
+---
+const { class: className } = Astro.props;
+---
+
+<div class={[className]}>
+	<div class="px-6 py-4 h-full rounded shadow-md bg-slate-400 dark:bg-white dark:bg-opacity-10 bg-opacity-20">
+		<slot />
+	</div>
+</div>

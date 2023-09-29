@@ -1,0 +1,23 @@
+---
+import Panel from "./Panel.astro";
+import GithubIcon from "../Icons/Github.astro";
+import EmailIcon from "../Icons/Email.astro";
+
+const { class: className } = Astro.props;
+---
+
+<Panel class:list={[className]}>
+	<div class="h-full flex flex-col justify-center">
+		<h1 class="text-6xl font-light">GeneX.io</h1>
+		<h1 class="text-6xl text-right font-light">Workspace</h1>
+		<p class="my-4 text-sm text-gray-500">Powered by Astro</p>
+		<div class="flex space-x-2">
+			<a href="https://github.com/genexu" target="_blank">
+				<GithubIcon size={24} />
+			</a>
+			<a href="mailto: genexu1117.dev@gmail.com">
+				<EmailIcon size={24} />
+			</a>
+		</div>
+	</div>
+</Panel>

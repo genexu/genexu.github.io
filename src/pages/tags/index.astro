@@ -1,0 +1,28 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ThemeToggle from "../../components/ThemeToggle.astro";
+import { getCollection } from "astro:content";
+
+const allPosts = (await getCollection("blog")).sort(
+	(a, b) => a.data.publicationDate.valueOf() - b.data.publicationDate.valueOf()
+);
+const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
+---
+
+<Layout title="GeneX.io Tags" description="">
+	<div class="flex items-center space-x-2">
+		<h1 class="text-2xl">Tags</h1>
+		<ThemeToggle size={24} />
+	</div>
+	<div class="my-4 flex space-x-2">
+		{
+			tags.map((tag) => (
+				<a href={`/tags/${tag}`}>
+					<span class="inline-flex items-center rounded-md px-2 py-1 text-sm font-medium text-blue-400 hover:text-blue-500 ring-1 ring-inset ring-blue-600/50">
+						{tag}
+					</span>
+				</a>
+			))
+		}
+	</div>
+</Layout>
