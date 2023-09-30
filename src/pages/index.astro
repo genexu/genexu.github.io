@@ -18,8 +18,9 @@ import ProfilePanel from "../components/Panels/ProfilePanel.astro";
 		<ControlPanel class="md:col-span-2" />
 		<SearchPanel class="hidden lg:block" />
 		<ProfilePanel class="hidden lg:block row-span-2" />
-		<GitStatsPanel class="row-span-2" />
-		<GitTopLangPanel class="row-span-2" />
+		<!-- hidden Git Stats panel on mobile -->
+		<GitStatsPanel class="hidden md:block row-span-2" />
+		<GitTopLangPanel class="hidden md:block row-span-2" />
 		<YoutubePanel />
 	</div>
 </Layout>
