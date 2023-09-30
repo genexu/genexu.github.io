@@ -1,0 +1,44 @@
+name: Check with Lighthouse CI
+
+on: [push]
+
+env:
+  BUILD_PATH: "."
+
+jobs:
+  lighthouseci:
+    name: Lighthouse CI
+    runs-on: ubuntu-latest
+    # Follow the environment name defined in repository settings
+    environment: development 
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: "yarn"
+          cache-dependency-path: ${{ env.BUILD_PATH }}/yarn.lock
+
+      - name: Install dependencies
+        working-directory: ${{ env.BUILD_PATH }}
+        run: yarn install
+
+      - name: Build with Astro
+        working-directory: ${{ env.BUILD_PATH }}
+        run: |
+          yarn build
+
+      - name: Run Lighthouse CI
+        run: |
+          yarn global add @lhci/cli@0.12.x
+          lhci autorun
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: ${{ env.BUILD_PATH }}/.lighthouseci
