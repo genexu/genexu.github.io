@@ -6,14 +6,18 @@ env:
   BUILD_PATH: "."
 
 jobs:
-  lighthouseci:
-    name: Lighthouse CI
+  build:
     runs-on: ubuntu-latest
-    # Follow the environment name defined in repository settings
-    environment: development 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Cache Dest
+        id: cache-dest
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.BUILD_PATH }}/dist
+          key: ${{ runner.os }}-dest
 
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -24,21 +28,79 @@ jobs:
 
       - name: Install dependencies
         working-directory: ${{ env.BUILD_PATH }}
-        run: yarn install
-
+        run: |
+          yarn install
+        
       - name: Build with Astro
         working-directory: ${{ env.BUILD_PATH }}
         run: |
           yarn build
+          
+  lighthouseci-mobile:
+    name: Lighthouse CI Mobile
+    needs: build
+    runs-on: ubuntu-latest
+    # Follow the environment name defined in repository settings
+    environment: development 
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Restore cached dest
+        id: cache-dest-restore
+        uses: actions/cache/restore@v3
+        with:
+          path: ${{ env.BUILD_PATH }}/dist
+          key: ${{ runner.os }}-dest
+
+      - name: Install LHCI
+        working-directory: ${{ env.BUILD_PATH }}
+        run: |
+          yarn global add @lhci/cli@0.12.x
 
       - name: Run Lighthouse CI
         run: |
-          yarn global add @lhci/cli@0.12.x
           lhci autorun
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
+          name: lighthouseci-report-mobile
+          path: ${{ env.BUILD_PATH }}/.lighthouseci
+
+
+  lighthouseci-desktop:
+    name: Lighthouse CI Desktop
+    needs: build
+    runs-on: ubuntu-latest
+    # Follow the environment name defined in repository settings
+    environment: development 
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Restore cached dest
+        id: cache-dest-restore
+        uses: actions/cache/restore@v3
+        with:
+          path: ${{ env.BUILD_PATH }}/dist
+          key: ${{ runner.os }}-dest
+
+      - name: Install LHCI
+        working-directory: ${{ env.BUILD_PATH }}
+        run: |
+          yarn global add @lhci/cli@0.12.x
+          
+      - name: Run Lighthouse CI
+        run: |
+          lhci autorun --config=lighthouserc-desktop.json
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: lighthouseci-report-desktop
           path: ${{ env.BUILD_PATH }}/.lighthouseci
