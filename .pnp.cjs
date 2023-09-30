@@ -28,6 +28,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {\
           "packageLocation": "./",\
           "packageDependencies": [\
+            ["@astrojs/partytown", "npm:2.0.0"],\
             ["@astrojs/react", "virtual:fa353087821c41cb63bfa6f034837e3254ac2a6d8d83d0996b517dba252ab609d72e30911e9e704be000d805533218ea335d4a7b67220cc8cd2f2221cd73839a#npm:3.0.2"],\
             ["@astrojs/tailwind", "virtual:fa353087821c41cb63bfa6f034837e3254ac2a6d8d83d0996b517dba252ab609d72e30911e9e704be000d805533218ea335d4a7b67220cc8cd2f2221cd73839a#npm:5.0.0"],\
             ["@types/react", "npm:18.2.23"],\
@@ -111,6 +112,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packagePeers": [\
             "@types/astro",\
             "astro"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@astrojs/partytown", [\
+        ["npm:2.0.0", {\
+          "packageLocation": "./.yarn/cache/@astrojs-partytown-npm-2.0.0-4c1c0afea7-18e7c5fad4.zip/node_modules/@astrojs/partytown/",\
+          "packageDependencies": [\
+            ["@astrojs/partytown", "npm:2.0.0"],\
+            ["@builder.io/partytown", "npm:0.8.1"],\
+            ["mrmime", "npm:1.0.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -684,6 +696,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/helper-string-parser", "npm:7.22.5"],\
             ["@babel/helper-validator-identifier", "npm:7.22.20"],\
             ["to-fast-properties", "npm:2.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@builder.io/partytown", [\
+        ["npm:0.8.1", {\
+          "packageLocation": "./.yarn/cache/@builder.io-partytown-npm-0.8.1-90e093a9ed-acf94e657b.zip/node_modules/@builder.io/partytown/",\
+          "packageDependencies": [\
+            ["@builder.io/partytown", "npm:0.8.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -2768,6 +2789,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["genexu-github-io", "workspace:."],\
+            ["@astrojs/partytown", "npm:2.0.0"],\
             ["@astrojs/react", "virtual:fa353087821c41cb63bfa6f034837e3254ac2a6d8d83d0996b517dba252ab609d72e30911e9e704be000d805533218ea335d4a7b67220cc8cd2f2221cd73839a#npm:3.0.2"],\
             ["@astrojs/tailwind", "virtual:fa353087821c41cb63bfa6f034837e3254ac2a6d8d83d0996b517dba252ab609d72e30911e9e704be000d805533218ea335d4a7b67220cc8cd2f2221cd73839a#npm:5.0.0"],\
             ["@types/react", "npm:18.2.23"],\
@@ -4368,6 +4390,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/mri-npm-1.2.0-8ecee0357d-83f515abbc.zip/node_modules/mri/",\
           "packageDependencies": [\
             ["mri", "npm:1.2.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["mrmime", [\
+        ["npm:1.0.1", {\
+          "packageLocation": "./.yarn/cache/mrmime-npm-1.0.1-d0aa4f5ddf-cc979da44b.zip/node_modules/mrmime/",\
+          "packageDependencies": [\
+            ["mrmime", "npm:1.0.1"]\
           ],\
           "linkType": "HARD"\
         }]\
