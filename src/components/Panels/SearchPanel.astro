@@ -1,7 +1,7 @@
 ---
+import { Icon } from "astro-icon";
 import { getCollection } from "astro:content";
 import Panel from "./Panel.astro";
-import SearchIcon from "../Icons/Search.astro";
 
 const { class: className } = Astro.props;
 
@@ -17,7 +17,7 @@ const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
 			>
 			<div class="relative">
 				<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-					<SearchIcon size={18} />
+					<Icon pack="mdi" name="magnify" width="24" height="24" />
 				</div>
 				<input
 					type="search"

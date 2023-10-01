@@ -1,7 +1,6 @@
 ---
+import { Icon } from "astro-icon";
 import Panel from "./Panel.astro";
-import GithubIcon from "../Icons/Github.astro";
-import EmailIcon from "../Icons/Email.astro";
 
 const { class: className } = Astro.props;
 ---
@@ -13,10 +12,13 @@ const { class: className } = Astro.props;
 		<p class="my-4 text-sm text-gray-500">Powered by Astro</p>
 		<div class="flex space-x-2">
 			<a href="https://github.com/genexu" target="_blank">
-				<GithubIcon size={24} />
+				<Icon pack="mdi" name="github" width="24" height="24" />
+			</a>
+			<a href="https://www.linkedin.com/in/gene-xu-05ab99139" target="_blank">
+				<Icon pack="mdi" name="linkedin" width="24" height="24" />
 			</a>
 			<a href="mailto: genexu1117.dev@gmail.com">
-				<EmailIcon size={24} />
+				<Icon pack="mdi" name="email-outline" width="24" height="24" />
 			</a>
 		</div>
 	</div>
