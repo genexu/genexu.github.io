@@ -35,6 +35,7 @@ jobs:
         working-directory: ${{ env.BUILD_PATH }}
         run: |
           yarn build
+          yarn pagefind
           
   lighthouseci-mobile:
     name: Lighthouse CI Mobile
