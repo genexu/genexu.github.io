@@ -50,6 +50,7 @@ jobs:
           yarn build \
             --site "${{ steps.pages.outputs.origin }}" \
             --base "${{ steps.pages.outputs.base_path }}"
+          yarn pagefind
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
