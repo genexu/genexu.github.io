@@ -15,9 +15,6 @@ const posts = (await getCollection("blog")).sort(
 		{
 			posts.map((post) => (
 				<li class="py-2 border-b border-white dark:border-slate-700 last:border-0">
-					<a href={`/blog/${post.slug}`}>
-						<h4 class="text-lg">{post.data.title}</h4>
-					</a>
 					<time class="text-xs italic" datetime={post.data.publicationDate.toISOString()}>
 						{post.data.publicationDate.toLocaleDateString("en-us", {
 							year: "numeric",
@@ -25,7 +22,10 @@ const posts = (await getCollection("blog")).sort(
 							day: "numeric",
 						})}
 					</time>
-					<p class="text-base ">{post.data.description}</p>
+					<a href={`/blog/${post.slug}`}>
+						<h4 class="text-lg underline text-blue-400 hover:text-blue-500">{post.data.title}</h4>
+					</a>
+					<p class=" text-xs">{post.data.description}</p>
 				</li>
 			))
 		}
