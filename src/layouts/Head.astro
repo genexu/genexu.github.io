@@ -1,5 +1,5 @@
 ---
-import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import GoogleAnalytics from "../components/GoogleAnalytics.astro";
 
 interface Props {
 	title: string;
@@ -11,8 +11,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const { title, description, image } = Astro.props;
 ---
+
 <!-- Google Analytics (use Google tag) -->
 <GoogleAnalytics id="G-EM82W78TKM" />
+
+<!-- Google Adsense -->
+<meta name="google-adsense-account" content="ca-pub-7359508219091811">
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
