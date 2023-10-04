@@ -19,21 +19,27 @@ const { title, description, publicationDate } = post.data;
 ---
 
 <Layout title={title} description={description}>
-	<div data-pagefind-body>
-		<div class="flex items-center space-x-2">
-			<ThemeToggle size={24} />
-			<h1 class="text-xl">{title}</h1>
+	<div class="flex flex-col justify-center items-center" data-pagefind-body>
+		<div class="w-full max-w-3xl">
+			<h1 class="text-4xl">{title}</h1>
+			<h2 class="text-base text-gray-400">{description}</h2>
+
+			<div class="flex space-x-2 py-2 my-4">
+				<time class="text-sm" datetime={publicationDate.toISOString()}>
+					{
+						publicationDate.toLocaleDateString("en-us", {
+							year: "numeric",
+							month: "short",
+							day: "numeric",
+						})
+					}
+				</time>
+				<ThemeToggle size={24} />
+			</div>
 		</div>
-		<time class="text-sm" datetime={publicationDate.toISOString()}>
-			{
-				publicationDate.toLocaleDateString("en-us", {
-					year: "numeric",
-					month: "short",
-					day: "numeric",
-				})
-			}
-		</time>
-		<article class="prose max-w-none prose-slate dark:prose-invert prose-img:rounded-xl prose-headings:underline prose-a:text-blue-400">
+		<article
+			class="prose w-full max-w-3xl prose-slate dark:prose-invert prose-img:rounded-xl prose-headings:underline prose-a:text-blue-400"
+		>
 			<Content />
 		</article>
 	</div>
