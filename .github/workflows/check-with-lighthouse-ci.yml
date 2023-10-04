@@ -17,7 +17,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ env.BUILD_PATH }}/dist
-          key: ${{ runner.os }}-dest
+          key: ${{ runner.os }}-${{ github.run_number }}-dest
 
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -52,7 +52,7 @@ jobs:
         uses: actions/cache/restore@v3
         with:
           path: ${{ env.BUILD_PATH }}/dist
-          key: ${{ runner.os }}-dest
+          key: ${{ runner.os }}-${{ github.run_number }}-dest
 
       - name: Install LHCI
         working-directory: ${{ env.BUILD_PATH }}
@@ -87,7 +87,7 @@ jobs:
         uses: actions/cache/restore@v3
         with:
           path: ${{ env.BUILD_PATH }}/dist
-          key: ${{ runner.os }}-dest
+          key: ${{ runner.os }}-${{ github.run_number }}-dest
 
       - name: Install LHCI
         working-directory: ${{ env.BUILD_PATH }}
