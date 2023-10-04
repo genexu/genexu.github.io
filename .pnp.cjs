@@ -42,6 +42,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-icons", "virtual:fa353087821c41cb63bfa6f034837e3254ac2a6d8d83d0996b517dba252ab609d72e30911e9e704be000d805533218ea335d4a7b67220cc8cd2f2221cd73839a#npm:4.11.0"],\
             ["remark-breaks", "npm:4.0.0"],\
             ["remark-gfm", "npm:4.0.0"],\
+            ["sharp", "npm:0.32.6"],\
             ["tailwindcss", "npm:3.3.3"],\
             ["vite", "virtual:3e244adcd43379a6e534a461ee50463bbfbc9b635532bbe1c349da105e21e419d7b43bb80fa79da262e5257e6895008c5d6fcb34b9f7309b4efca93719a78f97#npm:4.4.9"]\
           ],\
@@ -3045,6 +3046,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-icons", "virtual:fa353087821c41cb63bfa6f034837e3254ac2a6d8d83d0996b517dba252ab609d72e30911e9e704be000d805533218ea335d4a7b67220cc8cd2f2221cd73839a#npm:4.11.0"],\
             ["remark-breaks", "npm:4.0.0"],\
             ["remark-gfm", "npm:4.0.0"],\
+            ["sharp", "npm:0.32.6"],\
             ["tailwindcss", "npm:3.3.3"],\
             ["vite", "virtual:3e244adcd43379a6e534a461ee50463bbfbc9b635532bbe1c349da105e21e419d7b43bb80fa79da262e5257e6895008c5d6fcb34b9f7309b4efca93719a78f97#npm:4.4.9"]\
           ],\
