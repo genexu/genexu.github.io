@@ -4,9 +4,9 @@ import { getCollection } from "astro:content";
 
 const { class: className } = Astro.props;
 
-const posts = (await getCollection("blog")).sort(
-	(a, b) => a.data.publicationDate.valueOf() - b.data.publicationDate.valueOf()
-);
+const posts = (await getCollection("blog"))
+	.sort((a, b) => b.data.publicationDate.valueOf() - a.data.publicationDate.valueOf())
+	.slice(0, 3);
 ---
 
 <Panel class:list={[className]}>
