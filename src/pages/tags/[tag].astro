@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import SearchBar from "../../components/SearchBar";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -7,7 +8,10 @@ export async function getStaticPaths() {
 	const uniqueTags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
 
 	return uniqueTags.map((tag) => {
-		const filteredPosts = allPosts.filter((post) => post.data.tags.includes(tag));
+		const filteredPosts = allPosts
+			.filter((post) => post.data.tags.includes(tag))
+			.sort((a, b) => b.data.publicationDate.valueOf() - a.data.publicationDate.valueOf());
+
 		return {
 			params: { tag },
 			props: { posts: filteredPosts },
@@ -20,31 +24,36 @@ const { posts } = Astro.props;
 ---
 
 <Layout title={`GeneX.io Posts - ${tag}`} description="">
-	<div class="flex items-center space-x-2">
-		<h1 class="text-2xl">Posts</h1>
-		<span
-			class="inline-flex items-center rounded-md px-2 py-1 text-sm font-medium text-blue-400 hover:text-blue-500 ring-1 ring-inset ring-blue-600/50"
-		>
-			{tag}
-		</span>
+	<div class="flex flex-col space-y-4">
+		<div class="flex items-center space-x-2">
+			<h1 class="text-2xl">Posts</h1>
+			<span
+				class="inline-flex items-center rounded-md px-2 py-1 text-sm font-medium text-blue-400 hover:text-blue-500 ring-1 ring-inset ring-blue-600/50"
+			>
+				{tag}
+			</span>
+		</div>
+		<div>
+			<SearchBar client:load />
+		</div>
+		<ul class="my-0">
+			{
+				posts.map((post) => (
+					<li class="pb-4 border-b border-white dark:border-slate-700 last:border-0">
+						<time class="text-xs italic" datetime={post.data.publicationDate.toISOString()}>
+							{post.data.publicationDate.toLocaleDateString("en-us", {
+								year: "numeric",
+								month: "short",
+								day: "numeric",
+							})}
+						</time>
+						<a href={`/blog/${post.slug}`}>
+							<h2 class="text-lg underline text-blue-400 hover:text-blue-500">{post.data.title}</h2>
+						</a>	
+						<p class="text-xs">{post.data.description}</p>
+					</li>
+				))
+			}
+		</ul>
 	</div>
-	<ul>
-		{
-			posts.map((post) => (
-				<li class="py-4">
-					<a href={`/blog/${post.slug}`}>
-						<h2 class="text-lg">{post.data.title}</h2>
-					</a>
-					<time class="text-xs italic" datetime={post.data.publicationDate.toISOString()}>
-						{post.data.publicationDate.toLocaleDateString("en-us", {
-							year: "numeric",
-							month: "short",
-							day: "numeric",
-						})}
-					</time>
-					<p class="text-base ">{post.data.description}</p>
-				</li>
-			))
-		}
-	</ul>
 </Layout>
