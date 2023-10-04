@@ -1,11 +1,18 @@
 ---
 import { Icon } from "astro-icon";
+import ThemeToggle from "../components/ThemeToggle.astro";
 ---
 
 <header class="py-2x">
-	<nav class="container flex mx-auto py-2 justify-center space-x-4">
-		<a href="/">
-			<Icon pack="mdi" name="home-circle-outline" width="24" height="24" />
-		</a>
+	<nav class="container flex mx-auto py-2 px-2 justify-between">
+		<div class="flex-1"></div>
+		<div class="flex w-10 justify-center">
+			<a href="/">
+				<Icon pack="mdi" name="home-circle-outline" width="28" height="28" />
+			</a>
+		</div>
+		<div class="flex flex-1 justify-end">
+			<ThemeToggle size={36} />
+		</div>
 	</nav>
 </header>

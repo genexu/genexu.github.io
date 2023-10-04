@@ -1,6 +1,5 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import ThemeToggle from "../../components/ThemeToggle.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -22,9 +21,7 @@ const { posts } = Astro.props;
 
 <Layout title={`GeneX.io Posts - ${tag}`} description="">
 	<div class="flex items-center space-x-2">
-		
 		<h1 class="text-2xl">Posts</h1>
-        <ThemeToggle size={24} />
 		<span
 			class="inline-flex items-center rounded-md px-2 py-1 text-sm font-medium text-blue-400 hover:text-blue-500 ring-1 ring-inset ring-blue-600/50"
 		>

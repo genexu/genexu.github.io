@@ -1,6 +1,5 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import ThemeToggle from "../../components/ThemeToggle.astro";
 import { getCollection } from "astro:content";
 
 const allPosts = (await getCollection("blog")).sort(
@@ -10,10 +9,7 @@ const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
 ---
 
 <Layout title="GeneX.io Tags" description="">
-	<div class="flex items-center space-x-2">
-		<h1 class="text-2xl">Tags</h1>
-		<ThemeToggle size={24} />
-	</div>
+	<h1 class="text-2xl">Tags</h1>
 	<div class="my-4 flex space-x-2">
 		{
 			tags.map((tag) => (

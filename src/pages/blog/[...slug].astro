@@ -1,6 +1,5 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import ThemeToggle from "../../components/ThemeToggle.astro";
 import { type CollectionEntry, getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -23,7 +22,6 @@ const { title, description, publicationDate } = post.data;
 		<div class="w-full max-w-3xl">
 			<h1 class="text-4xl">{title}</h1>
 			<h2 class="text-base text-gray-400">{description}</h2>
-
 			<div class="flex space-x-2 py-2 my-4">
 				<time class="text-sm" datetime={publicationDate.toISOString()}>
 					{
@@ -34,7 +32,6 @@ const { title, description, publicationDate } = post.data;
 						})
 					}
 				</time>
-				<ThemeToggle size={24} />
 			</div>
 		</div>
 		<article

@@ -1,6 +1,5 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import ThemeToggle from "../../components/ThemeToggle.astro";
 import { getCollection } from "astro:content";
 
 const posts = (await getCollection("blog")).sort(
@@ -9,10 +8,7 @@ const posts = (await getCollection("blog")).sort(
 ---
 
 <Layout title="GeneX.io Posts" description="">
-	<div class="flex items-center space-x-2">
-		<h1 class="text-2xl">Posts</h1>
-		<ThemeToggle size={24} />
-	</div>
+	<h1 class="text-2xl">Posts</h1>
 	<ul class="my-2">
 		{
 			posts.map((post) => (
