@@ -7,7 +7,7 @@ tags: ["Astor", "Github Pages", "Git Action"]
 
 ### What is Astro
 
-Astro 是一個前端框架，它的特色是使用 Astro Markdown 來撰寫 HTML，並且支援 React、Vue、Svelte 等前端框架，並且支援 SSR、SSG 等功能。
+Astro 是一個前端框架，強調以內容為中心，並引入 Component Islands 的概念，同時整合多個框架，例如 React、Vue、Svelte 等，讓開發者可以自由選擇自己熟悉的框架來開發，這讓想要建立 Blog 同時喜歡把玩各個框架的我，選擇 Astro 來建立我的個人網站。
 
 ![](../../assets/images/astro-cover.png)
 
