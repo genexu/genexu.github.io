@@ -9,6 +9,20 @@ module.exports = {
 			fontFamily: {
 				sans: ["Lato", "Noto Sans TC", ...defaultTheme.fontFamily.sans],
 			},
+			typography: {
+				DEFAULT: {
+					// Checkbox does not render as expected
+					// https://github.com/tailwindlabs/tailwindcss-typography/issues/297
+					css: {
+						'ul > li:has(input[type="checkbox"])': {
+							listStyle: "none",
+						},
+						'ul > li > input[type="checkbox"]:first-child': {
+							margin: "0 16px 0 -32px !important",
+						},
+					},
+				},
+			},
 		},
 	},
 	plugins: [require("@tailwindcss/typography")],
