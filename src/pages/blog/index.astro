@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import SearchBar from "../../components/SearchBar";
+import PostList from "../../components/PostList/PostList.astro";
 import { deconstructSlug } from "../../i18n/utils";
 
 const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
@@ -20,38 +21,9 @@ const decoratedPosts = posts.map((post) => {
 <Layout title="GeneX.io Posts" description="">
 	<div class="flex flex-col space-y-4">
 		<h1 class="text-2xl">Posts</h1>
-		<div>
+		<div class="my-0">
 			<SearchBar client:load />
 		</div>
-		<ul class="my-0">
-			{
-				decoratedPosts.map((post) => (
-					<li class="pb-4 border-b border-white dark:border-slate-700 last:border-0">
-						<time class="text-xs italic" datetime={post.data.pubDate.toISOString()}>
-							{post.data.pubDate.toLocaleDateString("en-us", {
-								year: "numeric",
-								month: "short",
-								day: "numeric",
-							})}
-						</time>
-						<a href={`/${post.params.lang}/blog/${post.params.slug}`}>
-							<h2 class="text-lg underline text-blue-400 hover:text-blue-500">{post.data.title}</h2>
-						</a>
-						<p class="text-xs">{post.data.description}</p>
-						<div class="flex my-2 flex-wrap">
-							{post.data.tags.map((tag) => (
-								<div class="mr-2 mb-2">
-									<a href={`/tags/${tag}`}>
-										<span class="inline-flex items-center rounded-md  px-2 py-1 text-xs font-medium text-blue-400 hover:text-blue-500 ring-1 ring-inset ring-blue-600/50">
-											{tag}
-										</span>
-									</a>
-								</div>
-							))}
-						</div>
-					</li>
-				))
-			}
-		</ul>
+		<PostList posts={decoratedPosts} />
 	</div>
 </Layout>
