@@ -15,7 +15,7 @@ const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
 		<div class="flex my-2 flex-wrap">
 			{
 				tags.map((tag) => (
-					<div class=" mr-2 mb-2">
+					<div class="mr-2 mb-2">
 						<a href={`/tags/${tag}`}>
 							<span class="inline-flex items-center rounded-md  px-2 py-1 text-sm font-medium text-blue-400 hover:text-blue-500 ring-1 ring-inset ring-blue-600/50">
 								{tag}

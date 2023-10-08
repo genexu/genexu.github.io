@@ -3,9 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import SearchBar from "../../components/SearchBar";
 import { getCollection } from "astro:content";
 
-const allPosts = (await getCollection("blog")).sort(
-	(a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
-);
+const allPosts = (await getCollection("blog")).sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
 const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
 ---
 
@@ -15,14 +13,16 @@ const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
 		<div>
 			<SearchBar client:load />
 		</div>
-		<div class="flex space-x-2">
+		<div class="flex my-2 flex-wrap">
 			{
 				tags.map((tag) => (
-					<a href={`/tags/${tag}`}>
-						<span class="inline-flex items-center rounded-md px-2 py-1 text-sm font-medium text-blue-400 hover:text-blue-500 ring-1 ring-inset ring-blue-600/50">
-							{tag}
-						</span>
-					</a>
+					<div class="mr-2 mb-2">
+						<a href={`/tags/${tag}`}>
+							<span class="inline-flex items-center rounded-md px-2 py-1 text-sm font-medium text-blue-400 hover:text-blue-500 ring-1 ring-inset ring-blue-600/50">
+								{tag}
+							</span>
+						</a>
+					</div>
 				))
 			}
 		</div>

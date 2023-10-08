@@ -3,9 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import SearchBar from "../../components/SearchBar";
 import { getCollection } from "astro:content";
 
-const posts = (await getCollection("blog")).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <Layout title="GeneX.io Posts" description="">
@@ -29,6 +27,17 @@ const posts = (await getCollection("blog")).sort(
 							<h2 class="text-lg underline text-blue-400 hover:text-blue-500">{post.data.title}</h2>
 						</a>
 						<p class="text-xs">{post.data.description}</p>
+						<div class="flex my-2 flex-wrap">
+							{post.data.tags.map((tag) => (
+								<div class="mr-2 mb-2">
+									<a href={`/tags/${tag}`}>
+										<span class="inline-flex items-center rounded-md  px-2 py-1 text-xs font-medium text-blue-400 hover:text-blue-500 ring-1 ring-inset ring-blue-600/50">
+											{tag}
+										</span>
+									</a>
+								</div>
+							))}
+						</div>
 					</li>
 				))
 			}
