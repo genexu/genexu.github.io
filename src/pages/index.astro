@@ -2,25 +2,14 @@
 import { DEFAULT_SITE_TITLE, DEFAULT_SITE_DESCRIPTION } from "../constants";
 import Layout from "../layouts/Layout.astro";
 import PostPanel from "../components/Panels/PostPanel.astro";
-import ControlPanel from "../components/Panels/ControlPanel.astro";
 import SearchPanel from "../components/Panels/SearchPanel.astro";
-import GitStatsPanel from "../components/Panels/GitStatsPanel.astro";
-import GitTopLangPanel from "../components/Panels/GitTopLangPanel.astro";
-import YoutubePanel from "../components/Panels/YoutubePanel.astro";
 import ProfilePanel from "../components/Panels/ProfilePanel.astro";
 ---
 
 <Layout title={DEFAULT_SITE_TITLE} description={DEFAULT_SITE_DESCRIPTION}>
 	<div class="grid gap-2 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
-		<PostPanel class="row-span-2" />
-		<SearchPanel class="block lg:hidden" />
-		<ProfilePanel class="block lg:hidden" />
-		<ControlPanel class="md:col-span-2" />
-		<SearchPanel class="hidden lg:block" />
-		<ProfilePanel class="hidden lg:block row-span-2" />
-		<!-- hidden Git Stats panel on mobile -->
-		<GitStatsPanel class="hidden md:block row-span-2" />
-		<GitTopLangPanel class="hidden md:block row-span-2" />
-		<YoutubePanel />
+		<PostPanel class="row-span-2 lg:col-span-2" />
+		<SearchPanel class="block" />
+		<ProfilePanel class="block" />
 	</div>
 </Layout>
