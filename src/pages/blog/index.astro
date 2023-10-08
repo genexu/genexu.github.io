@@ -1,9 +1,20 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import SearchBar from "../../components/SearchBar";
-import { getCollection } from "astro:content";
+import { deconstructSlug } from "../../i18n/utils";
 
 const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const decoratedPosts = posts.map((post) => {
+	const { lang, slugWithoutLang } = deconstructSlug(post.slug);
+	return {
+		...post,
+		params: {
+			slug: slugWithoutLang,
+			lang: lang,
+		},
+	};
+});
 ---
 
 <Layout title="GeneX.io Posts" description="">
@@ -14,7 +25,7 @@ const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueO
 		</div>
 		<ul class="my-0">
 			{
-				posts.map((post) => (
+				decoratedPosts.map((post) => (
 					<li class="pb-4 border-b border-white dark:border-slate-700 last:border-0">
 						<time class="text-xs italic" datetime={post.data.pubDate.toISOString()}>
 							{post.data.pubDate.toLocaleDateString("en-us", {
@@ -23,7 +34,7 @@ const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueO
 								day: "numeric",
 							})}
 						</time>
-						<a href={`/blog/${post.slug}`}>
+						<a href={`/${post.params.lang}/blog/${post.params.slug}`}>
 							<h2 class="text-lg underline text-blue-400 hover:text-blue-500">{post.data.title}</h2>
 						</a>
 						<p class="text-xs">{post.data.description}</p>

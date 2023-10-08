@@ -1,16 +1,26 @@
 ---
-import Layout from "../../layouts/Layout.astro";
 import { type CollectionEntry, getCollection } from "astro:content";
+import Layout from "../../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
 	const posts = await getCollection("blog");
-	return posts.map((post) => ({
-		params: { slug: post.slug },
-		props: post,
-	}));
+	const paths = posts.map((post) => {
+		const [lang, ...slug] = post.slug.split('/');
+
+		return {
+			params: { 
+				lang: lang,
+				slug: slug.join('/') || undefined
+			},
+			props: post,
+		};
+	});
+
+	return paths;
 }
 type Props = CollectionEntry<"blog">;
 
+const { lang } = Astro.params;
 const post = Astro.props;
 const { Content } = await post.render();
 
@@ -25,7 +35,7 @@ const { title, description, pubDate } = post.data;
 			<div class="flex space-x-2 py-2 my-4">
 				<time class="text-sm" datetime={pubDate.toISOString()}>
 					{
-						pubDate.toLocaleDateString("en-us", {
+						pubDate.toLocaleDateString(lang, {
 							year: "numeric",
 							month: "short",
 							day: "numeric",

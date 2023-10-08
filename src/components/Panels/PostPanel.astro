@@ -1,19 +1,31 @@
 ---
-import Panel from "./Panel.astro";
 import { getCollection } from "astro:content";
+import Panel from "./Panel.astro";
+import { deconstructSlug } from "../../i18n/utils";
 
 const { class: className } = Astro.props;
 
 const posts = (await getCollection("blog"))
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 	.slice(0, 3);
+
+const decoratedPosts = posts.map((post) => {
+	const { lang, slugWithoutLang } = deconstructSlug(post.slug);
+	return {
+		...post,
+		params: {
+			slug: slugWithoutLang,
+			lang: lang,
+		},
+	};
+});
 ---
 
 <Panel class:list={[className]}>
 	<h3 class="text-2xl">Recent Posts</h3>
 	<ul class="my-2">
 		{
-			posts.map((post) => (
+			decoratedPosts.map((post) => (
 				<li class="py-2 border-b border-white dark:border-slate-700 last:border-0">
 					<time class="text-xs italic" datetime={post.data.pubDate.toISOString()}>
 						{post.data.pubDate.toLocaleDateString("en-us", {
@@ -22,7 +34,7 @@ const posts = (await getCollection("blog"))
 							day: "numeric",
 						})}
 					</time>
-					<a href={`/blog/${post.slug}`}>
+					<a href={`/${post.params.lang}/blog/${post.params.slug}`}>
 						<h4 class="text-lg underline text-blue-400 hover:text-blue-500">{post.data.title}</h4>
 					</a>
 					<p class="text-xs">{post.data.description}</p>

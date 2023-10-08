@@ -2,25 +2,35 @@
 import Head from "./Head.astro";
 import Header from "./Header.astro";
 import Footer from "./Footer.astro";
+import FallbackNotification from "../components/FallbackNotification.astro";
 
 import "../styles/global.css";
 
 interface Props {
 	title: string;
-	description: string;
+	description?: string;
+	lang?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description = "", lang = "zh-tw" } = Astro.props;
+const isFallback = !!Astro.params.fallback;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
 	<head>
 		<Head title={title} description={description} />
 	</head>
 	<body class="min-h-screen text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-slate-900">
 		<Header />
 		<main class="container mx-auto px-2">
+			{
+				isFallback && (
+					<div class="w-full mb-4 flex justify-center">
+						<FallbackNotification />
+					</div>
+				)
+			}
 			<slot />
 		</main>
 		<Footer />

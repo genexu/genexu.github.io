@@ -1,0 +1,82 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import Layout from "../../../layouts/Layout.astro";
+import languages, { defaultLanguage } from "../../../i18n/languages";
+import { getPageLangFromSlug, deconstructSlug } from '../../../i18n/utils'
+
+type TPath = {
+	params: {
+		lang: string;
+		fallback: string;
+	};
+	props: CollectionEntry<"blog">;
+};
+
+export async function getStaticPaths() {
+	// Handle fallbacks to zh-tw for langs without translations
+	const fallbackPaths: TPath[] = [];
+	const posts = await getCollection("blog");
+	// We can enhance this when we have more languages
+	const postsGroupedByLang = {
+		"zh-tw": posts.filter((post) => getPageLangFromSlug(post.slug) === "zh-tw"),
+		en: posts.filter((post) => getPageLangFromSlug(post.slug) === "en"),
+	};
+
+	Object.keys(languages).forEach((lang) => {
+		if (lang === defaultLanguage) return;
+
+		// For-each post in the default language, check if there is a post in the current language with the same slug
+		// If there are not, then we need to fallback to the default language
+		postsGroupedByLang[defaultLanguage].forEach((post) => {
+			const { slugWithoutLang } = deconstructSlug(post.slug);
+			const postInLang = postsGroupedByLang[lang].some(
+				(post) => deconstructSlug(post.slug).slugWithoutLang === slugWithoutLang
+			);
+
+			if (!!postInLang) return;
+
+			fallbackPaths.push({
+				params: {
+					lang,
+					fallback: slugWithoutLang,
+				},
+				props: post,
+			});
+		});
+	});
+
+	return fallbackPaths;
+}
+
+type Props = CollectionEntry<"blog">;
+const { lang } = Astro.params;
+const post = Astro.props;
+const { Content } = await post.render();
+
+const { title, description, pubDate } = post.data;
+---
+
+<Layout title={title} description={description}>
+	<div class="flex flex-col justify-center items-center" data-pagefind-body>
+		<div class="w-full max-w-3xl">
+			<h1 class="text-4xl">{title}</h1>
+			<h2 class="text-base text-gray-400">{description}</h2>
+			<div class="flex space-x-2 py-2 my-4">
+				<time class="text-sm" datetime={pubDate.toISOString()}>
+					{
+						pubDate.toLocaleDateString(lang, {
+							year: "numeric",
+							month: "short",
+							day: "numeric",
+						})
+					}
+				</time>
+			</div>
+		</div>
+		<article
+			class="prose w-full max-w-3xl prose-slate dark:prose-invert prose-img:rounded-xl prose-headings:underline prose-a:text-blue-400"
+		>
+			<Content />
+		</article>
+	</div>
+</Layout>

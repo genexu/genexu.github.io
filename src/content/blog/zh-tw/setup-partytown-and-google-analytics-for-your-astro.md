@@ -68,7 +68,7 @@ const { id } = Astro.props;
 
 ### 設定 Google Analytics 並取得 Google Analytics ID
 
-![](../../assets/images/google-analytics-installation-instructions.png)
+![](../../../assets/images/google-analytics-installation-instructions.png)
 
 ### 將 Google Analytics component 加入到網站中
 
@@ -105,6 +105,6 @@ export default defineConfig({
 
 ### 確認 Google Analytics 正常運作
 
-![](../../assets/images/google-analytics-overview.png)
+![](../../../assets/images/google-analytics-overview.png)
 
 這裡專注於專案內的設置，Google Analytics 的設定可以參考官方文件，有機會再寫一篇文章來說明如何設定 Google Analytics。
