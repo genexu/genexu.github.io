@@ -14,7 +14,7 @@ type Props = CollectionEntry<"blog">;
 const post = Astro.props;
 const { Content } = await post.render();
 
-const { title, description, publicationDate } = post.data;
+const { title, description, pubDate } = post.data;
 ---
 
 <Layout title={title} description={description}>
@@ -23,9 +23,9 @@ const { title, description, publicationDate } = post.data;
 			<h1 class="text-4xl">{title}</h1>
 			<h2 class="text-base text-gray-400">{description}</h2>
 			<div class="flex space-x-2 py-2 my-4">
-				<time class="text-sm" datetime={publicationDate.toISOString()}>
+				<time class="text-sm" datetime={pubDate.toISOString()}>
 					{
-						publicationDate.toLocaleDateString("en-us", {
+						pubDate.toLocaleDateString("en-us", {
 							year: "numeric",
 							month: "short",
 							day: "numeric",

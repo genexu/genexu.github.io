@@ -1,7 +1,7 @@
 ---
 title: "Astro + Github Pages + Git Action = 快速自動部署個人網站"
 description: "使用 Astro、Github Pages 以及 Git Action 快速建立並自動部署你的個人網站"
-publicationDate: "Oct 4 2023"
+pubDate: "Oct 4 2023"
 tags: ["Astor", "Github Pages", "Git Action"]
 ---
 

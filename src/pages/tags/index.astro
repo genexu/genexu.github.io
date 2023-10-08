@@ -4,7 +4,7 @@ import SearchBar from "../../components/SearchBar";
 import { getCollection } from "astro:content";
 
 const allPosts = (await getCollection("blog")).sort(
-	(a, b) => a.data.publicationDate.valueOf() - b.data.publicationDate.valueOf()
+	(a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
 );
 const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
 ---

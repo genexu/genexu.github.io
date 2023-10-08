@@ -4,7 +4,7 @@ import SearchBar from "../../components/SearchBar";
 import { getCollection } from "astro:content";
 
 const posts = (await getCollection("blog")).sort(
-	(a, b) => b.data.publicationDate.valueOf() - a.data.publicationDate.valueOf()
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 ---
 
@@ -18,8 +18,8 @@ const posts = (await getCollection("blog")).sort(
 			{
 				posts.map((post) => (
 					<li class="pb-4 border-b border-white dark:border-slate-700 last:border-0">
-						<time class="text-xs italic" datetime={post.data.publicationDate.toISOString()}>
-							{post.data.publicationDate.toLocaleDateString("en-us", {
+						<time class="text-xs italic" datetime={post.data.pubDate.toISOString()}>
+							{post.data.pubDate.toLocaleDateString("en-us", {
 								year: "numeric",
 								month: "short",
 								day: "numeric",

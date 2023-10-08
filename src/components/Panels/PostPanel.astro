@@ -5,7 +5,7 @@ import { getCollection } from "astro:content";
 const { class: className } = Astro.props;
 
 const posts = (await getCollection("blog"))
-	.sort((a, b) => b.data.publicationDate.valueOf() - a.data.publicationDate.valueOf())
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 	.slice(0, 3);
 ---
 
@@ -15,8 +15,8 @@ const posts = (await getCollection("blog"))
 		{
 			posts.map((post) => (
 				<li class="py-2 border-b border-white dark:border-slate-700 last:border-0">
-					<time class="text-xs italic" datetime={post.data.publicationDate.toISOString()}>
-						{post.data.publicationDate.toLocaleDateString("en-us", {
+					<time class="text-xs italic" datetime={post.data.pubDate.toISOString()}>
+						{post.data.pubDate.toLocaleDateString("en-us", {
 							year: "numeric",
 							month: "short",
 							day: "numeric",

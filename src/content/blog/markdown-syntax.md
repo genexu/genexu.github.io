@@ -1,7 +1,7 @@
 ---
 title: "Markdown Syntax"
 description: "紀錄 Markdown 語法，呈現與測試 Markdown Plugin 效果"
-publicationDate: "Oct 3 2023"
+pubDate: "Oct 3 2023"
 tags: ["Markdown"]
 ---
 

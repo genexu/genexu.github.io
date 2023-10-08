@@ -30,6 +30,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@astrojs/partytown", "npm:2.0.0"],\
             ["@astrojs/react", "virtual:fa353087821c41cb63bfa6f034837e3254ac2a6d8d83d0996b517dba252ab609d72e30911e9e704be000d805533218ea335d4a7b67220cc8cd2f2221cd73839a#npm:3.0.2"],\
+            ["@astrojs/rss", "npm:3.0.0"],\
             ["@astrojs/sitemap", "npm:3.0.0"],\
             ["@astrojs/tailwind", "virtual:fa353087821c41cb63bfa6f034837e3254ac2a6d8d83d0996b517dba252ab609d72e30911e9e704be000d805533218ea335d4a7b67220cc8cd2f2221cd73839a#npm:5.0.0"],\
             ["@tailwindcss/typography", "virtual:fa353087821c41cb63bfa6f034837e3254ac2a6d8d83d0996b517dba252ab609d72e30911e9e704be000d805533218ea335d4a7b67220cc8cd2f2221cd73839a#npm:0.5.10"],\
@@ -168,6 +169,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "@types/react",\
             "react-dom",\
             "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@astrojs/rss", [\
+        ["npm:3.0.0", {\
+          "packageLocation": "./.yarn/cache/@astrojs-rss-npm-3.0.0-3949592242-b930bd63e8.zip/node_modules/@astrojs/rss/",\
+          "packageDependencies": [\
+            ["@astrojs/rss", "npm:3.0.0"],\
+            ["fast-xml-parser", "npm:4.3.2"],\
+            ["kleur", "npm:4.1.5"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -2863,6 +2875,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["fast-xml-parser", [\
+        ["npm:4.3.2", {\
+          "packageLocation": "./.yarn/cache/fast-xml-parser-npm-4.3.2-ccbd0655a8-d507ce2efa.zip/node_modules/fast-xml-parser/",\
+          "packageDependencies": [\
+            ["fast-xml-parser", "npm:4.3.2"],\
+            ["strnum", "npm:1.0.5"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["fastq", [\
         ["npm:1.15.0", {\
           "packageLocation": "./.yarn/cache/fastq-npm-1.15.0-1013f6514e-0170e6bfcd.zip/node_modules/fastq/",\
@@ -3034,6 +3056,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["genexu-github-io", "workspace:."],\
             ["@astrojs/partytown", "npm:2.0.0"],\
             ["@astrojs/react", "virtual:fa353087821c41cb63bfa6f034837e3254ac2a6d8d83d0996b517dba252ab609d72e30911e9e704be000d805533218ea335d4a7b67220cc8cd2f2221cd73839a#npm:3.0.2"],\
+            ["@astrojs/rss", "npm:3.0.0"],\
             ["@astrojs/sitemap", "npm:3.0.0"],\
             ["@astrojs/tailwind", "virtual:fa353087821c41cb63bfa6f034837e3254ac2a6d8d83d0996b517dba252ab609d72e30911e9e704be000d805533218ea335d4a7b67220cc8cd2f2221cd73839a#npm:5.0.0"],\
             ["@tailwindcss/typography", "virtual:fa353087821c41cb63bfa6f034837e3254ac2a6d8d83d0996b517dba252ab609d72e30911e9e704be000d805533218ea335d4a7b67220cc8cd2f2221cd73839a#npm:0.5.10"],\
@@ -6711,6 +6734,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/strip-json-comments-npm-2.0.1-e7883b2d04-1074ccb632.zip/node_modules/strip-json-comments/",\
           "packageDependencies": [\
             ["strip-json-comments", "npm:2.0.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["strnum", [\
+        ["npm:1.0.5", {\
+          "packageLocation": "./.yarn/cache/strnum-npm-1.0.5-9ba11d2a0a-651b2031db.zip/node_modules/strnum/",\
+          "packageDependencies": [\
+            ["strnum", "npm:1.0.5"]\
           ],\
           "linkType": "HARD"\
         }]\
