@@ -1,12 +1,13 @@
 ---
 import { DEFAULT_SITE_TITLE, DEFAULT_SITE_DESCRIPTION } from "../constants";
+import { defaultLanguage } from "../i18n/languages";
 import Layout from "../layouts/Layout.astro";
 import PostPanel from "../components/Panels/PostPanel.astro";
 import SearchPanel from "../components/Panels/SearchPanel.astro";
 import ProfilePanel from "../components/Panels/ProfilePanel.astro";
 ---
 
-<Layout title={DEFAULT_SITE_TITLE} description={DEFAULT_SITE_DESCRIPTION}>
+<Layout title={DEFAULT_SITE_TITLE} description={DEFAULT_SITE_DESCRIPTION} lang={defaultLanguage}>
 	<div class="grid gap-2 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
 		<PostPanel class="row-span-2 lg:col-span-2" />
 		<SearchPanel class="block" />

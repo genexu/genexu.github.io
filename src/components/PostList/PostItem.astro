@@ -7,23 +7,35 @@ interface Props {
 }
 
 const { post } = Astro.props;
+const { data, params } = post;
+const { lang, slug, isLanguageNotSupported, isNolangPath } = params;
+const { title, description, tags, pubDate } = data;
 ---
 
-<FormattedDateTime datetime={post.data.pubDate} lang={post.params.lang} />
-<a href={`/${post.params.lang}/blog/${post.params.slug}`}>
-	<h2 class="text-lg underline text-blue-400 hover:text-blue-500">{post.data.title}</h2>
-</a>
-<p class="text-xs">{post.data.description}</p>
-<div class="flex my-2 flex-wrap">
+<li class="pb-4 border-b border-white dark:border-slate-700 last:border-0">
+	<FormattedDateTime datetime={pubDate} lang={lang} />
+	<a href={`/${lang}/blog/${slug}`}>
+		<h2 class="text-lg underline text-blue-400 hover:text-blue-500">{title}</h2>
+	</a>
+	<p class="text-xs">{description}</p>
+	<div class="flex my-2 flex-wrap">
+		{
+			tags.map((tag) => (
+				<div class="mr-2 mb-2">
+					<a href={isNolangPath ? `/tags/${tag}` : `/${lang}/tags/${tag}`}>
+						<span class="inline-flex items-center rounded-md  px-2 py-1 text-xs font-medium text-blue-400 hover:text-blue-500 ring-1 ring-inset ring-blue-600/50">
+							{tag}
+						</span>
+					</a>
+				</div>
+			))
+		}
+	</div>
 	{
-		post.data.tags.map((tag) => (
-			<div class="mr-2 mb-2">
-				<a href={`/tags/${tag}`}>
-					<span class="inline-flex items-center rounded-md  px-2 py-1 text-xs font-medium text-blue-400 hover:text-blue-500 ring-1 ring-inset ring-blue-600/50">
-						{tag}
-					</span>
-				</a>
-			</div>
-		))
+		isLanguageNotSupported && (
+			<span class="inline-flex items-center rounded-md  px-2 py-1 text-xs font-medium text-orange-400 hover:text-orange-500 ring-1 ring-inset ring-orange-600/50">
+				Language Not Supported
+			</span>
+		)
 	}
-</div>
+</li>

@@ -1,0 +1,45 @@
+---
+import { getCollection } from "astro:content";
+import languages from "../../../i18n/languages";
+import Layout from "../../../layouts/Layout.astro";
+import SearchBar from "../../../components/SearchBar";
+import PostList from "../../../components/PostList/PostList.astro";
+import { deconstructSlug, getPostsReplacedByTranslatedPost } from "../../../i18n/utils";
+
+export async function getStaticPaths() {
+	const paths = Object.keys(languages).map((lang) => ({
+		params: { lang },
+	}));
+
+	return paths;
+}
+
+const { lang: pageLang } = Astro.params;
+
+const posts = await getCollection("blog");
+const resultPosts = getPostsReplacedByTranslatedPost(posts, pageLang);
+resultPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const decoratedPosts = resultPosts.map((post) => {
+	const { lang: slugLang, slugWithoutLang } = deconstructSlug(post.slug);
+	return {
+		...post,
+		params: {
+			slug: slugWithoutLang,
+			lang: pageLang,
+			isLanguageNotSupported: slugLang !== pageLang,
+			isNoLangPath: false,
+		},
+	};
+});
+---
+
+<Layout title="GeneX.io Posts" description="GeneX.io Posts" lang={pageLang}>
+	<div class="flex flex-col space-y-4">
+		<h1 class="text-2xl">Posts</h1>
+		<div class="my-0">
+			<SearchBar client:load />
+		</div>
+		<PostList posts={decoratedPosts} />
+	</div>
+</Layout>

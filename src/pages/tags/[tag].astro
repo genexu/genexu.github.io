@@ -1,22 +1,24 @@
 ---
 import { getCollection } from "astro:content";
+import { defaultLanguage } from "../../i18n/languages";
 import Layout from "../../layouts/Layout.astro";
 import SearchBar from "../../components/SearchBar";
 import PostList from "../../components/PostList/PostList.astro";
-import { deconstructSlug } from "../../i18n/utils";
+import { deconstructSlug, getPostsByLang } from "../../i18n/utils";
 
 export async function getStaticPaths() {
 	const allPosts = await getCollection("blog");
 	const uniqueTags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
 
 	return uniqueTags.map((tag) => {
-		const filteredPosts = allPosts
-			.filter((post) => post.data.tags.includes(tag))
-			.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+		const filteredPosts = allPosts.filter((post) => post.data.tags.includes(tag));
+		// not dynamic language, use the default language
+		const resultPosts = getPostsByLang(filteredPosts, defaultLanguage);
+		resultPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 		return {
 			params: { tag },
-			props: { posts: filteredPosts },
+			props: { posts: resultPosts },
 		};
 	});
 }
@@ -25,22 +27,25 @@ const { tag } = Astro.params;
 const { posts } = Astro.props;
 
 const decoratedPosts = posts.map((post) => {
-	const { lang, slugWithoutLang } = deconstructSlug(post.slug);
+	const { slugWithoutLang } = deconstructSlug(post.slug);
 	return {
 		...post,
 		params: {
+			isNolangPath: true,
 			slug: slugWithoutLang,
-			lang: lang,
+			lang: defaultLanguage,
 		},
 	};
 });
 ---
 
-<Layout title={`GeneX.io Posts - ${tag}`} description="">
+<Layout title={`GeneX.io Posts - ${tag}`} description={`GeneX.io Posts - ${tag}`} lang={defaultLanguage}>
 	<div class="flex flex-col space-y-4">
 		<div class="flex items-center space-x-2">
 			<h1 class="text-2xl">Posts</h1>
-			<span class="inline-flex items-center rounded-md px-2 py-1 text-sm font-medium text-blue-400 hover:text-blue-500 ring-1 ring-inset ring-blue-600/50">
+			<span
+				class="inline-flex items-center rounded-md px-2 py-1 text-sm font-medium text-blue-400 hover:text-blue-500 ring-1 ring-inset ring-blue-600/50"
+			>
 				{tag}
 			</span>
 		</div>

@@ -1,14 +1,24 @@
 ---
 import { getCollection } from "astro:content";
-import { defaultLanguage } from "../../i18n/languages";
-import Layout from "../../layouts/Layout.astro";
-import SearchBar from "../../components/SearchBar";
+import languages from "../../../i18n/languages";
+import Layout from "../../../layouts/Layout.astro";
+import SearchBar from "../../../components/SearchBar";
 
-const allPosts = await getCollection("blog");
+export async function getStaticPaths() {
+	const paths = Object.keys(languages).map((lang) => ({
+		params: { lang },
+	}));
+
+	return paths;
+}
+
+const { lang } = Astro.params;
+
+const allPosts = (await getCollection("blog")).sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
 const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
 ---
 
-<Layout title="GeneX.io Tags" description="GeneX.io Tags" lang={defaultLanguage}>
+<Layout title="GeneX.io Tags" description="GeneX.io Tags" lang={lang}>
 	<div class="flex flex-col space-y-4">
 		<h1 class="text-2xl">Tags</h1>
 		<div>
@@ -18,7 +28,7 @@ const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
 			{
 				tags.map((tag) => (
 					<div class="mr-2 mb-2">
-						<a href={`/tags/${tag}`}>
+						<a href={`/${lang}/tags/${tag}`}>
 							<span class="inline-flex items-center rounded-md px-2 py-1 text-sm font-medium text-blue-400 hover:text-blue-500 ring-1 ring-inset ring-blue-600/50">
 								{tag}
 							</span>

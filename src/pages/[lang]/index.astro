@@ -1,0 +1,26 @@
+---
+import { DEFAULT_SITE_TITLE, DEFAULT_SITE_DESCRIPTION } from "../../constants";
+import languages from "../../i18n/languages";
+import Layout from "../../layouts/Layout.astro";
+import PostPanel from "../../components/Panels/PostPanel.astro";
+import SearchPanel from "../../components/Panels/SearchPanel.astro";
+import ProfilePanel from "../../components/Panels/ProfilePanel.astro";
+
+export async function getStaticPaths() {
+	const paths = Object.keys(languages).map((lang) => ({
+		params: { lang },
+	}));
+
+	return paths;
+}
+
+const { lang } = Astro.params;
+---
+
+<Layout title={DEFAULT_SITE_TITLE} description={DEFAULT_SITE_DESCRIPTION} lang={lang}>
+	<div class="grid gap-2 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
+		<PostPanel class="row-span-2 lg:col-span-2" />
+		<SearchPanel class="block" />
+		<ProfilePanel class="block" />
+	</div>
+</Layout>

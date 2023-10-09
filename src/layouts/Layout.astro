@@ -8,11 +8,11 @@ import "../styles/global.css";
 
 interface Props {
 	title: string;
-	description?: string;
-	lang?: string;
+	description: string;
+	lang: string;
 }
 
-const { title, description = "", lang = "zh-tw" } = Astro.props;
+const { title, description, lang } = Astro.props;
 const isFallback = !!Astro.params.fallback;
 ---
 

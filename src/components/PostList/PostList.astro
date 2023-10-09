@@ -10,11 +10,5 @@ const { posts } = Astro.props;
 ---
 
 <ul class="my-0">
-	{
-		posts.map((post) => (
-			<li class="pb-4 border-b border-white dark:border-slate-700 last:border-0">
-				<PostItem post={post} />
-			</li>
-		))
-	}
+	{posts.map((post) => <PostItem post={post} />)}
 </ul>
