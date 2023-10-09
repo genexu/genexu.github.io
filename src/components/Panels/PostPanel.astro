@@ -2,21 +2,27 @@
 import { getCollection } from "astro:content";
 import Panel from "./Panel.astro";
 import PostList from "../PostList/PostList.astro";
-import { deconstructSlug } from "../../i18n/utils";
+import { deconstructSlug, getPostsReplacedByTranslatedPost } from "../../i18n/utils";
+import { defaultLanguage } from "../../i18n/languages";
 
 const { class: className } = Astro.props;
+const { lang: pageLang } = Astro.params;
 
-const posts = (await getCollection("blog"))
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-	.slice(0, 3);
+const useLanguage = pageLang ?? defaultLanguage;
 
-const decoratedPosts = posts.map((post) => {
-	const { lang, slugWithoutLang } = deconstructSlug(post.slug);
+const posts = await getCollection("blog");
+const resultPosts = getPostsReplacedByTranslatedPost(posts, useLanguage);
+resultPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 3);
+
+const decoratedPosts = resultPosts.map((post) => {
+	const { lang: slugLang, slugWithoutLang } = deconstructSlug(post.slug);
 	return {
 		...post,
 		params: {
 			slug: slugWithoutLang,
-			lang: lang,
+			lang: useLanguage,
+			isLanguageNotSupported: slugLang !== useLanguage,
+			isNolangPath: !pageLang,
 		},
 	};
 });
@@ -25,5 +31,9 @@ const decoratedPosts = posts.map((post) => {
 <Panel class:list={[className]}>
 	<h3 class="text-2xl mb-2">Recent Posts</h3>
 	<PostList posts={decoratedPosts} />
-	<a class="text-xs text-blue-400 hover:text-blue-500 hover:dark:text-blue-500" href="/blog">All Posts →</a>
+	<a
+		class="text-xs text-blue-400 hover:text-blue-500 hover:dark:text-blue-500"
+		href={!pageLang ? "/blog" : `/${pageLang}/blog`}
+		>All Posts →
+	</a>
 </Panel>
