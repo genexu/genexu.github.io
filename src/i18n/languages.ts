@@ -1,6 +1,12 @@
 const languages = {
-	en: "English",
-	"zh-tw": "正體中文",
+	en: {
+		name: "English",
+		shortname: "EN",
+	},
+	"zh-tw": {
+		name: "正體中文",
+		shortname: "中",
+	},
 };
 
 export const defaultLanguage = "zh-tw";

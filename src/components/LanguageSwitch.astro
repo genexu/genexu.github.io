@@ -1,0 +1,43 @@
+---
+import { Icon } from "astro-icon";
+import languages, { defaultLanguage } from "../i18n/languages";
+
+const { lang } = Astro.params;
+const pathname = Astro.url.pathname;
+
+const label = (languages[lang] || languages[defaultLanguage]).shortname;
+const currentLanguage = lang ? lang : defaultLanguage;
+const languagekeys = Object.keys(languages);
+
+// Get the next language in the list
+const siwtchTargetlanguage = languagekeys[(languagekeys.indexOf(currentLanguage) + 1) % languagekeys.length];
+
+let switchTargetLocation = "";
+
+if (!lang) {
+	// If on the root page, add the language to the path
+	switchTargetLocation = `${siwtchTargetlanguage}${pathname}`;
+} else {
+	// If on a language page, replace the language in the path
+	const [root, _, ...slug] = pathname.split("/");
+	switchTargetLocation = [root, siwtchTargetlanguage, ...slug].join("/");
+}
+---
+
+<button
+	id="language-switch"
+	class=`
+		px-2 py-1
+		flex items-center space-x-2
+	 	border dark:border-white border-gray-900 rounded-lg
+	 	cursor-pointer
+	`
+>
+	<Icon pack="cil" name="language" width="16" height="16" />
+	<span class="text-xs">{label}</span>
+</button>
+
+<script define:vars={{ switchTargetLocation }}>
+const button = document.getElementById("language-switch");
+button.addEventListener("click", () => (window.location.href = switchTargetLocation));
+</script>
