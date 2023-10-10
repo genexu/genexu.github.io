@@ -16,7 +16,7 @@ let switchTargetLocation = "";
 
 if (!lang) {
 	// If on the root page, add the language to the path
-	switchTargetLocation = `${siwtchTargetlanguage}${pathname}`;
+	switchTargetLocation = `/${siwtchTargetlanguage}${pathname}`;
 } else {
 	// If on a language page, replace the language in the path
 	const [root, _, ...slug] = pathname.split("/");
