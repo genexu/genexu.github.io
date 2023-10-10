@@ -1,13 +1,18 @@
 ---
 import { Icon } from "astro-icon";
+import { defaultLanguage } from "../i18n/languages";
 import ThemeToggle from "../components/ThemeToggle.astro";
+
+const { lang } = Astro.params;
+let home = "/";
+if (lang && lang !== defaultLanguage) home = `/${lang}/`;
 ---
 
 <header class="py-2x">
 	<nav class="container flex mx-auto py-2 px-2 justify-between">
 		<div class="flex-1"></div>
 		<div class="flex w-10 justify-center">
-			<a href="/">
+			<a href={home}>
 				<Icon pack="mdi" name="home-circle-outline" width="28" height="28" />
 			</a>
 		</div>
