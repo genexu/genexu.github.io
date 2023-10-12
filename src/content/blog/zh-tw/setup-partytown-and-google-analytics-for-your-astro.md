@@ -76,7 +76,7 @@ const { id } = Astro.props;
 
 <head>
     <!-- Google Analytics (use Google tag) -->
-    <GoogleAnalytics id="G-EM82W78TKM" />
+    <GoogleAnalytics id="YOUR_GOOGLE_ANALYTICS_ID" />
     ...
 </head>
 ```
