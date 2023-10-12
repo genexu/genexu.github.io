@@ -17,7 +17,15 @@ export default defineConfig({
 				forward: ["dataLayer.push"],
 			},
 		}),
-		sitemap(),
+		sitemap({
+			i18n: {
+				defaultLocale: "zh-tw",
+				locales: {
+					"zh-tw": "zh-TW",
+					en: "en-US",
+				},
+			},
+		}),
 	],
 	markdown: {
 		// https://docs.astro.build/en/guides/markdown-content/#markdown-plugins
