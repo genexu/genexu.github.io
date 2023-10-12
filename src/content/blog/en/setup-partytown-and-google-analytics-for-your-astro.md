@@ -9,6 +9,8 @@ tags: ["Astor", "Partytown", "Google Analytics"]
 
 Partytown is a lazy-loaded library that assists in relocating resource-intensive scripts within a website to be executed in a web worker, preventing main thread blocking, and thereby enhancing application performance.
 
+![](../../../assets/images/partytown-service-worker.png)
+
 ### Install Partytown
 
 ref: <https://partytown.builder.io/astro>

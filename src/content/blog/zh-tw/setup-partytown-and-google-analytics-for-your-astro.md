@@ -9,6 +9,8 @@ tags: ["Astor", "Partytown", "Google Analytics"]
 
 Partytown 是一個 lazy-loaded 的 library，協助你將網站中資源密集的 script relocate 到 web worker 中執行，避免阻塞 main thread，進而提升應用的效能。
 
+![](../../../assets/images/partytown-service-worker.png)
+
 ### 安裝 Partytown
 
 ref: <https://partytown.builder.io/astro>
