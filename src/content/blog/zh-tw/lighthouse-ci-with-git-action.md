@@ -15,7 +15,7 @@ Github App: <https://github.com/apps/lighthouse-ci>
 
 ### 建立 Repository Secret
 
-建立 Repository Environment Secret，名稱為 'LHCI_GITHUB_APP_TOKEN'，將前一步驟取得的 Token 鍵入
+建立 Repository Environment Secret，名稱為 <code>LHCI_GITHUB_APP_TOKEN</code>，將前一步驟取得的 Token 鍵入
 
 ![](../../../assets/images/lighthouse-repo-environment-secret-1.png)![](../../../assets/images/lighthouse-repo-environment-secret-2.png)
 
@@ -23,7 +23,7 @@ Github App: <https://github.com/apps/lighthouse-ci>
 
 於專案目錄下新增 .github/workflows/check-with-lighthouse-ci.yml，此處 Workflow 主要分為兩部分，第一部分為 Build & Cache，第二部分為執行 Lighthouse CI，可依照專案需求調整
 
-ref: <https://github.com/genexu/genexu.github.io/blob/main/.github/workflows/check-with-lighthouse-ci.yml>
+ref: [check-with-lighthouse-ci.yml](https://github.com/genexu/genexu.github.io/blob/main/.github/workflows/check-with-lighthouse-ci.yml)
 
 #### Build & Cache
 
@@ -77,8 +77,8 @@ Build 的部分根據專案的需求而定，不外乎於安裝相依套件、�
 
 #### 設定 lighthouserc.json 檔案
 
--   Mobile: <https://github.com/genexu/genexu.github.io/blob/main/lighthouserc.json>
--   Desktop: <https://github.com/genexu/genexu.github.io/blob/main/lighthouserc-desktop.json>
+-   Mobile: [lighthouserc-mobile.json](https://github.com/genexu/genexu.github.io/blob/main/lighthouserc.json)
+-   Desktop: [lighthouserc-desktop.json](https://github.com/genexu/genexu.github.io/blob/main/lighthouserc-desktop.json)
 
 ```json
 {
