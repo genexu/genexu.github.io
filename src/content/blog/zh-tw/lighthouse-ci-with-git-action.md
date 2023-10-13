@@ -21,7 +21,7 @@ Github App: <https://github.com/apps/lighthouse-ci>
 
 ### 建立 GitHub Action Workflow
 
-於專案目錄下新增 .github/workflows/check-with-lighthouse-ci.yml，此處 Workflow 主要分為兩部分，第一部分為 Build & Cache，第二部分為執行 Lighthouse CI，可依照專案需求調整
+於專案目錄下新增 <code>.github/workflows/check-with-lighthouse-ci.yml</code>，此處 Workflow 主要分為兩部分，第一部分為 Build & Cache，第二部分為執行 Lighthouse CI，可依照專案需求調整
 
 ref: [check-with-lighthouse-ci.yml](https://github.com/genexu/genexu.github.io/blob/main/.github/workflows/check-with-lighthouse-ci.yml)
 
@@ -96,12 +96,10 @@ Build 的部分根據專案的需求而定，不外乎於安裝相依套件、�
 }
 ```
 
-至此就完成了 Lighthouse CI 的設定，接下來就可以將專案推送至 GitHub 並觀察 Workflow 的執行結果
-
 這邊可以根據自身需求調整設定，相關設定可參考官方文件
 ref: <https://github.com/GoogleChrome/lighthouse-ci/blob/main/docs/configuration.md>
 
-
+至此就完成了 Lighthouse CI 的設定，接下來就可以將專案推送至 GitHub 並觀察 Workflow 的執行結果
 
 ### Workflow 執行結果
 
