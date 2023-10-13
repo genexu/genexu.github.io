@@ -41,6 +41,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:fa353087821c41cb63bfa6f034837e3254ac2a6d8d83d0996b517dba252ab609d72e30911e9e704be000d805533218ea335d4a7b67220cc8cd2f2221cd73839a#npm:18.2.0"],\
             ["react-icons", "virtual:fa353087821c41cb63bfa6f034837e3254ac2a6d8d83d0996b517dba252ab609d72e30911e9e704be000d805533218ea335d4a7b67220cc8cd2f2221cd73839a#npm:4.11.0"],\
+            ["rehype-autolink-headings", "npm:7.0.0"],\
+            ["rehype-slug", "npm:6.0.0"],\
             ["remark-breaks", "npm:4.0.0"],\
             ["remark-gfm", "npm:4.0.0"],\
             ["sharp", "npm:0.32.6"],\
@@ -1331,6 +1333,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/unist", "npm:2.0.8"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:3.0.1", {\
+          "packageLocation": "./.yarn/cache/@types-hast-npm-3.0.1-f4f49078ab-b7ae475436.zip/node_modules/@types/hast/",\
+          "packageDependencies": [\
+            ["@types/hast", "npm:3.0.1"],\
+            ["@types/unist", "npm:3.0.0"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["@types/json5", [\
@@ -1475,6 +1485,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-unist-npm-3.0.0-6eebd0c9a3-e9d21a8fb5.zip/node_modules/@types/unist/",\
           "packageDependencies": [\
             ["@types/unist", "npm:3.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@ungap/structured-clone", [\
+        ["npm:1.2.0", {\
+          "packageLocation": "./.yarn/cache/@ungap-structured-clone-npm-1.2.0-648f0b82e0-4f656b7b46.zip/node_modules/@ungap/structured-clone/",\
+          "packageDependencies": [\
+            ["@ungap/structured-clone", "npm:1.2.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -3067,6 +3086,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:fa353087821c41cb63bfa6f034837e3254ac2a6d8d83d0996b517dba252ab609d72e30911e9e704be000d805533218ea335d4a7b67220cc8cd2f2221cd73839a#npm:18.2.0"],\
             ["react-icons", "virtual:fa353087821c41cb63bfa6f034837e3254ac2a6d8d83d0996b517dba252ab609d72e30911e9e704be000d805533218ea335d4a7b67220cc8cd2f2221cd73839a#npm:4.11.0"],\
+            ["rehype-autolink-headings", "npm:7.0.0"],\
+            ["rehype-slug", "npm:6.0.0"],\
             ["remark-breaks", "npm:4.0.0"],\
             ["remark-gfm", "npm:4.0.0"],\
             ["sharp", "npm:0.32.6"],\
@@ -3245,6 +3266,26 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["hast-util-heading-rank", [\
+        ["npm:3.0.0", {\
+          "packageLocation": "./.yarn/cache/hast-util-heading-rank-npm-3.0.0-13dfda4ac8-e5ce4ec9e8.zip/node_modules/hast-util-heading-rank/",\
+          "packageDependencies": [\
+            ["hast-util-heading-rank", "npm:3.0.0"],\
+            ["@types/hast", "npm:3.0.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["hast-util-is-element", [\
+        ["npm:3.0.0", {\
+          "packageLocation": "./.yarn/cache/hast-util-is-element-npm-3.0.0-59c73c7f56-82569a420e.zip/node_modules/hast-util-is-element/",\
+          "packageDependencies": [\
+            ["hast-util-is-element", "npm:3.0.0"],\
+            ["@types/hast", "npm:3.0.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["hast-util-parse-selector", [\
         ["npm:3.1.1", {\
           "packageLocation": "./.yarn/cache/hast-util-parse-selector-npm-3.1.1-5db0acb665-511d373465.zip/node_modules/hast-util-parse-selector/",\
@@ -3306,6 +3347,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["space-separated-tokens", "npm:2.0.2"],\
             ["web-namespaces", "npm:2.0.1"],\
             ["zwitch", "npm:2.0.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["hast-util-to-string", [\
+        ["npm:3.0.0", {\
+          "packageLocation": "./.yarn/cache/hast-util-to-string-npm-3.0.0-a75a0c1e27-64f7f4f2b7.zip/node_modules/hast-util-to-string/",\
+          "packageDependencies": [\
+            ["hast-util-to-string", "npm:3.0.0"],\
+            ["@types/hast", "npm:3.0.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -6009,6 +6060,21 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["rehype-autolink-headings", [\
+        ["npm:7.0.0", {\
+          "packageLocation": "./.yarn/cache/rehype-autolink-headings-npm-7.0.0-3eab6cf756-b7cbbfa066.zip/node_modules/rehype-autolink-headings/",\
+          "packageDependencies": [\
+            ["rehype-autolink-headings", "npm:7.0.0"],\
+            ["@types/hast", "npm:3.0.1"],\
+            ["@ungap/structured-clone", "npm:1.2.0"],\
+            ["hast-util-heading-rank", "npm:3.0.0"],\
+            ["hast-util-is-element", "npm:3.0.0"],\
+            ["unified", "npm:11.0.3"],\
+            ["unist-util-visit", "npm:5.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["rehype-parse", [\
         ["npm:8.0.5", {\
           "packageLocation": "./.yarn/cache/rehype-parse-npm-8.0.5-915f0a8b17-ca41df7ac2.zip/node_modules/rehype-parse/",\
@@ -6030,6 +6096,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/hast", "npm:2.3.6"],\
             ["hast-util-raw", "npm:7.2.3"],\
             ["unified", "npm:10.1.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["rehype-slug", [\
+        ["npm:6.0.0", {\
+          "packageLocation": "./.yarn/cache/rehype-slug-npm-6.0.0-110e571086-0e13ec558e.zip/node_modules/rehype-slug/",\
+          "packageDependencies": [\
+            ["rehype-slug", "npm:6.0.0"],\
+            ["@types/hast", "npm:3.0.1"],\
+            ["github-slugger", "npm:2.0.0"],\
+            ["hast-util-heading-rank", "npm:3.0.0"],\
+            ["hast-util-to-string", "npm:3.0.0"],\
+            ["unist-util-visit", "npm:5.0.0"]\
           ],\
           "linkType": "HARD"\
         }]\

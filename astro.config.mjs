@@ -5,6 +5,8 @@ import partytown from "@astrojs/partytown";
 import sitemap from "@astrojs/sitemap";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 // https://astro.build/config
 export default defineConfig({
@@ -29,8 +31,33 @@ export default defineConfig({
 	],
 	markdown: {
 		// https://docs.astro.build/en/guides/markdown-content/#markdown-plugins
+		// https://docs.astro.build/en/guides/markdown-content/#customizing-a-plugin
 		remarkPlugins: [remarkGfm, remarkBreaks],
-		rehypePlugins: [],
+		rehypePlugins: [
+			rehypeSlug,
+			[
+				rehypeAutolinkHeadings,
+				{
+					behavior: "append",
+					properties: {
+						className: ["anchor"],
+					},
+					content: {
+						type: "element",
+						tagName: "span",
+						// properties: {
+						// 	className: ["icon", "icon-link"],
+						// },
+						children: [
+							{
+								type: "text",
+								value: "#",
+							},
+						],
+					},
+				},
+			],
+		],
 		shikiConfig: {
 			// Choose from Shiki's built-in themes (or add your own)
 			// https://github.com/shikijs/shiki/blob/main/docs/themes.md

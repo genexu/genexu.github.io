@@ -49,3 +49,7 @@
 .no-scroll {
 	overflow: hidden;
 }
+
+.anchor {
+	margin: 0 4px;
+}
