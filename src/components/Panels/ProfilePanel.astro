@@ -7,9 +7,11 @@ const { class: className } = Astro.props;
 
 <Panel class:list={[className]}>
 	<div class="h-full flex flex-col justify-center">
-		<h1 class="text-6xl font-light">GeneX.io</h1>
-		<h1 class="text-6xl text-right font-light">Workspace</h1>
-		<p class="my-4 text-sm text-gray-500">Powered by Astro</p>
+		<div class="gradient-text-container">
+			<h1 class="text-6xl font-light">GeneX.io</h1>
+			<h1 class="text-6xl text-right font-light">Workspace</h1>
+			<p class="my-4 text-sm">Powered by Astro</p>
+		</div>
 		<div class="flex space-x-2">
 			<a href="https://github.com/genexu" target="_blank">
 				<Icon pack="mdi" name="github" width="24" height="24" />
@@ -26,3 +28,33 @@ const { class: className } = Astro.props;
 		</div>
 	</div>
 </Panel>
+
+<style>
+	.gradient-text-container {
+		color: rgba(225, 225, 225, 0.01);
+		background-size: 300% 300%;
+		background-image: linear-gradient(
+			120deg,
+			rgba(239, 68, 68, 1) 0%,
+			rgba(249, 115, 22, 1) 10%,
+			rgba(234, 179, 8, 1) 25%,
+			rgba(16, 185, 129, 1) 40%,
+			rgba(59, 130, 246, 1) 60%,
+			rgba(139, 92, 246, 1) 75%,
+			rgba(236, 72, 153, 1) 90%,
+			rgba(244, 63, 94, 1) 100%
+		);
+		background-clip: text;
+		animation: animate 5s ease-in-out infinite;
+	}
+
+	@keyframes animate {
+		0%,
+		100 {
+			background-position: 0% 50%;
+		}
+		50% {
+			background-position: 100% 50%;
+		}
+	}
+</style>
