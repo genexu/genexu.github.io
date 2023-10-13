@@ -1,6 +1,7 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
 import Layout from "../../../layouts/Layout.astro";
+import FormattedDateTime from "../../../components/PostList/FormattedDateTime.astro";
 
 export async function getStaticPaths() {
 	const posts = await getCollection("blog");
@@ -33,15 +34,7 @@ const { title, description, pubDate, tags } = post.data;
 			<h1 class="text-4xl">{title}</h1>
 			<h2 class="text-base text-gray-400">{description}</h2>
 			<div class="flex space-x-2 py-2 my-4 items-center">
-				<time class="text-sm" datetime={pubDate.toISOString()}>
-					{
-						pubDate.toLocaleDateString(lang, {
-							year: "numeric",
-							month: "short",
-							day: "numeric",
-						})
-					}
-				</time>
+				<FormattedDateTime datetime={pubDate} lang={lang} />
 				<div class="flex my-2 flex-wrap">
 					{
 						tags.map((tag) => (
