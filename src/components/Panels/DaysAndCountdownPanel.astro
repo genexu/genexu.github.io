@@ -1,0 +1,10 @@
+---
+import Panel from "./Panel.astro";
+import DaysAndCountdown from "../DaysAndCountdown";
+
+const { class: className } = Astro.props;
+---
+
+<Panel class:list={[className]}>
+	<DaysAndCountdown client:load />
+</Panel>
