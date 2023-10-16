@@ -1,8 +1,8 @@
 ---
-title: " Lighthouse CI with Git Action (Desktop + Mobile) "
+title: "Lighthouse CI with Git Action (Desktop + Mobile)"
 description: "為網站加上 Lighthouse CI Git Action，檢測使用者體驗、效能、SEO 等指標"
 pubDate: "Oct 12 2023"
-tags: ["Lighthouse", "Git Action"]
+tags: ["Lighthouse", "SEO", "Performance", "Git Action", "CI"]
 ---
 
 ### 安裝 Lighthouse CI GitHub App 並取得 Token
@@ -70,7 +70,7 @@ Build 的部分根據專案的需求而定，不外乎於安裝相依套件、�
 - name: Run Lighthouse CI
   run: |
       lhci autorun
-    # lhci autorun --config=lighthouserc-desktop.json
+  # lhci autorun --config=lighthouserc-desktop.json
   env:
       LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 ```
@@ -114,7 +114,7 @@ ref: <https://github.com/GoogleChrome/lighthouse-ci/blob/main/docs/configuration
   uses: actions/upload-artifact@v3
   with:
       name: lighthouseci-report-mobile
-    # name: lighthouseci-report-desktop
+      # name: lighthouseci-report-desktop
       path: ${{ env.BUILD_PATH }}/.lighthouseci
 ```
 

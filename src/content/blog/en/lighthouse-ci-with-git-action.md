@@ -1,8 +1,8 @@
 ---
-title: " Lighthouse CI with Git Action (Desktop + Mobile) "
+title: "Lighthouse CI with Git Action (Desktop + Mobile)"
 description: "Add Lighthouse CI Git Action to your website to check user experience, performance, SEO, and other metrics"
 pubDate: "Oct 12 2023"
-tags: ["Lighthouse", "Git Action"]
+tags: ["Lighthouse", "SEO", "Performance", "Git Action", "CI"]
 ---
 
 ### Install the Lighthouse CI GitHub App and obtain the token
