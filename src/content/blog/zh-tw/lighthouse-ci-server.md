@@ -22,7 +22,7 @@ docker container run --publish 9001:9001 --mount='source=lhci-data,target=/data'
 
 ### 創建 Lighthouse CI Project
 
-透過 lhci wizard 來設定 Project，並取得 Token。
+透過 <code>lhci wizard</code> 來設定 Project，並取得 Token。
 
 ```bash
 yarn dlx @lhci/cli@0.12.x wizard
