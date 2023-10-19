@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+import Panel from "./Panel.astro";
+import NoteList from "../NoteList/PostList.astro";
+import { deconstructSlug, getPostsReplacedByTranslatedPost } from "../../i18n/utils";
+import { defaultLanguage } from "../../i18n/languages";
+
+const { class: className } = Astro.props;
+const { lang: pageLang } = Astro.params;
+
+const useLanguage = pageLang ?? defaultLanguage;
+
+const posts = await getCollection("notes");
+const resultPosts = getPostsReplacedByTranslatedPost(posts, useLanguage);
+resultPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 3);
+
+const decoratedPosts = resultPosts.map((post) => {
+	const { lang: slugLang, slugWithoutLang } = deconstructSlug(post.slug);
+	return {
+		...post,
+		params: {
+			slug: slugWithoutLang,
+			lang: useLanguage,
+			isLanguageNotSupported: slugLang !== useLanguage,
+			isNolangPath: !pageLang,
+		},
+	};
+});
+---
+
+<Panel class:list={[className]}>
+	<h3 class="text-2xl mb-2">Notes</h3>
+	<NoteList posts={decoratedPosts} />
+	<a
+		class="text-xs text-blue-400 hover:text-blue-500 hover:dark:text-blue-500"
+		href={!pageLang ? "/notes" : `/${pageLang}/notes`}
+		>All Notes →
+	</a>
+</Panel>

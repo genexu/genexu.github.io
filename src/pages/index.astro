@@ -3,6 +3,7 @@ import { DEFAULT_SITE_TITLE, DEFAULT_SITE_DESCRIPTION } from "../constants";
 import { defaultLanguage } from "../i18n/languages";
 import Layout from "../layouts/Layout.astro";
 import PostPanel from "../components/Panels/PostPanel.astro";
+import NotesPanel from "../components/Panels/NotesPanel.astro";
 import SearchPanel from "../components/Panels/SearchPanel.astro";
 import ProfilePanel from "../components/Panels/ProfilePanel.astro";
 import DaysAndCountdownPanel from "../components/Panels/DaysAndCountdownPanel.astro";
@@ -10,9 +11,11 @@ import DaysAndCountdownPanel from "../components/Panels/DaysAndCountdownPanel.as
 
 <Layout title={DEFAULT_SITE_TITLE} description={DEFAULT_SITE_DESCRIPTION} lang={defaultLanguage}>
 	<div class="grid gap-2 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
-		<PostPanel class="row-span-3 lg:col-span-2" />
-		<SearchPanel />
+		<PostPanel class="row-span-1 md:row-span-4 lg:row-span-3 lg:col-span-1" />
+		<SearchPanel class="lg:col-span-2" />
 		<ProfilePanel />
-		<DaysAndCountdownPanel />
+		<DaysAndCountdownPanel class="block lg:hidden" />
+		<NotesPanel class="row-span-1 md:row-span-1 lg:row-span-2 lg:col-span-1" />
+		<DaysAndCountdownPanel class="hidden lg:block" />
 	</div>
 </Layout>

@@ -10,13 +10,13 @@ type TPath = {
 		lang: string;
 		fallback: string;
 	};
-	props: CollectionEntry<"blog">;
+	props: CollectionEntry<"notes">;
 };
 
 export async function getStaticPaths() {
 	// Handle fallbacks to default language for langs without translations
 	const fallbackPaths: TPath[] = [];
-	const posts = await getCollection("blog");
+	const posts = await getCollection("notes");
 	// We can enhance this when we have more languages
 	const postsGroupedByLang = getPostsGroupedByLang(posts);
 
@@ -46,7 +46,7 @@ export async function getStaticPaths() {
 	return fallbackPaths;
 }
 
-type Props = CollectionEntry<"blog">;
+type Props = CollectionEntry<"notes">;
 const { lang } = Astro.params;
 const post = Astro.props;
 const { Content } = await post.render();

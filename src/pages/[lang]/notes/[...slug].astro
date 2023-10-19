@@ -2,51 +2,25 @@
 import { type CollectionEntry, getCollection } from "astro:content";
 import Layout from "../../../layouts/Layout.astro";
 import FormattedDateTime from "../../../components/FormattedDateTime.astro";
-import languages, { defaultLanguage } from "../../../i18n/languages";
-import { getPostsGroupedByLang, deconstructSlug } from "../../../i18n/utils";
-
-type TPath = {
-	params: {
-		lang: string;
-		fallback: string;
-	};
-	props: CollectionEntry<"blog">;
-};
 
 export async function getStaticPaths() {
-	// Handle fallbacks to default language for langs without translations
-	const fallbackPaths: TPath[] = [];
-	const posts = await getCollection("blog");
-	// We can enhance this when we have more languages
-	const postsGroupedByLang = getPostsGroupedByLang(posts);
+	const posts = await getCollection("notes");
+	const paths = posts.map((post) => {
+		const [lang, ...slug] = post.slug.split("/");
 
-	Object.keys(languages).forEach((lang) => {
-		if (lang === defaultLanguage) return;
-
-		// For-each post in the default language, check if there is a post in the current language with the same slug
-		// If there are not, then we need to fallback to the default language
-		postsGroupedByLang[defaultLanguage].forEach((post) => {
-			const { slugWithoutLang } = deconstructSlug(post.slug);
-			const postInLang = postsGroupedByLang[lang].some(
-				(post) => deconstructSlug(post.slug).slugWithoutLang === slugWithoutLang
-			);
-
-			if (!!postInLang) return;
-
-			fallbackPaths.push({
-				params: {
-					lang,
-					fallback: slugWithoutLang,
-				},
-				props: post,
-			});
-		});
+		return {
+			params: {
+				lang: lang,
+				slug: slug.join("/") || undefined,
+			},
+			props: post,
+		};
 	});
 
-	return fallbackPaths;
+	return paths;
 }
+type Props = CollectionEntry<"notes">;
 
-type Props = CollectionEntry<"blog">;
 const { lang } = Astro.params;
 const post = Astro.props;
 const { Content } = await post.render();

@@ -7,7 +7,9 @@ import PostList from "../../components/PostList/PostList.astro";
 import { deconstructSlug, getPostsByLang } from "../../i18n/utils";
 
 export async function getStaticPaths() {
-	const allPosts = await getCollection("blog");
+	const blogPosts = await getCollection("blog");
+	const notePosts = await getCollection("notes");
+	const allPosts = [...blogPosts, ...notePosts];
 	const uniqueTags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
 
 	return uniqueTags.map((tag) => {

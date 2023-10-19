@@ -1,0 +1,35 @@
+---
+import { getCollection } from "astro:content";
+import { defaultLanguage } from "../../i18n/languages";
+import Layout from "../../layouts/Layout.astro";
+import SearchBar from "../../components/SearchBar";
+import NoteList from "../../components/NoteList/PostList.astro";
+import { deconstructSlug, getPostsByLang } from "../../i18n/utils";
+
+const posts = (await getCollection("notes")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const resultPosts = getPostsByLang(posts, defaultLanguage);
+resultPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const decoratedPosts = resultPosts.map((post) => {
+	const { slugWithoutLang } = deconstructSlug(post.slug);
+	return {
+		...post,
+		params: {
+			isNolangPath: true,
+			slug: slugWithoutLang,
+			lang: defaultLanguage,
+		},
+	};
+});
+---
+
+<Layout title="GeneX.io Notes" description="GeneX.io Notes" lang={defaultLanguage}>
+	<div class="flex flex-col space-y-4">
+		<h1 class="text-2xl">Notes</h1>
+		<div class="my-0">
+			<SearchBar client:load />
+		</div>
+		<NoteList posts={decoratedPosts} />
+	</div>
+</Layout>
