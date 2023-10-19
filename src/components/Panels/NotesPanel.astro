@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Panel from "./Panel.astro";
-import NoteList from "../NoteList/PostList.astro";
+import PostList from "../PostList/PostList.astro";
 import { deconstructSlug, getPostsReplacedByTranslatedPost } from "../../i18n/utils";
 import { defaultLanguage } from "../../i18n/languages";
 
@@ -30,7 +30,7 @@ const decoratedPosts = resultPosts.map((post) => {
 
 <Panel class:list={[className]}>
 	<h3 class="text-2xl mb-2">Notes</h3>
-	<NoteList posts={decoratedPosts} />
+	<PostList posts={decoratedPosts} />
 	<a
 		class="text-xs text-blue-400 hover:text-blue-500 hover:dark:text-blue-500"
 		href={!pageLang ? "/notes" : `/${pageLang}/notes`}

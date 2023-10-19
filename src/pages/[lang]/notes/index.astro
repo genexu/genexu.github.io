@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import languages from "../../../i18n/languages";
 import Layout from "../../../layouts/Layout.astro";
 import SearchBar from "../../../components/SearchBar";
-import NoteList from "../../../components/NoteList/PostList.astro";
+import PostList from "../../../components/PostList/PostList.astro";
 import { deconstructSlug, getPostsReplacedByTranslatedPost } from "../../../i18n/utils";
 
 export async function getStaticPaths() {
@@ -40,6 +40,6 @@ const decoratedPosts = resultPosts.map((post) => {
 		<div class="my-0">
 			<SearchBar client:load />
 		</div>
-		<NoteList posts={decoratedPosts} />
+		<PostList posts={decoratedPosts} />
 	</div>
 </Layout>

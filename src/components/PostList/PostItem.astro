@@ -7,14 +7,14 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { data, params } = post;
+const { data, params, collection } = post;
 const { lang, slug, isLanguageNotSupported, isNolangPath } = params;
 const { title, description, tags, pubDate } = data;
 ---
 
 <li class="pb-4 border-b border-white dark:border-slate-700 last:border-0">
 	<FormattedDateTime datetime={pubDate} lang={lang} />
-	<a href={`/${lang}/blog/${slug}`}>
+	<a href={`/${lang}/${collection}/${slug}`}>
 		<h2 class="text-lg underline text-blue-400 hover:text-blue-500">{title}</h2>
 	</a>
 	<p class="text-sm">{description}</p>
