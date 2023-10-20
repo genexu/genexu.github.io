@@ -1,4 +1,5 @@
 ---
+layout: "../../../layouts/PostLayout.astro"
 title: "Setting up Partytown with Google Analytics for Astro"
 description: "Enhancing Astro website performance and analyzing website traffic using Partytown and Google Analytics."
 pubDate: "Oct 7 2023"

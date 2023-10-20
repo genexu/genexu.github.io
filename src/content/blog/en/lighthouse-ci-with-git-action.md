@@ -1,4 +1,5 @@
 ---
+layout: "../../../layouts/PostLayout.astro"
 title: "Lighthouse CI with Git Action (Desktop + Mobile)"
 description: "Add Lighthouse CI Git Action to your website to check user experience, performance, SEO, and other metrics"
 pubDate: "Oct 12 2023"
