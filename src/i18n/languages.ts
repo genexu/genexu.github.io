@@ -9,6 +9,6 @@ const languages = {
 	},
 };
 
-export const defaultLanguage = "zh-tw";
+export const defaultLanguage = "en";
 
 export default languages;
