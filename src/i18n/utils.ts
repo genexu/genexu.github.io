@@ -13,8 +13,8 @@ export function deconstructSlug(slug: string) {
 export function getPostsGroupedByLang(posts: any[]) {
 	// We can enhance this when we have more languages
 	return {
-		[defaultLanguage]: posts.filter((post) => getPageLangFromSlug(post.slug) === "zh-tw"),
-		en: posts.filter((post) => getPageLangFromSlug(post.slug) === "en"),
+		[defaultLanguage]: posts.filter((post) => getPageLangFromSlug(post.slug) === "en"),
+		"zh-tw": posts.filter((post) => getPageLangFromSlug(post.slug) === "zh-tw"),
 	};
 }
 
