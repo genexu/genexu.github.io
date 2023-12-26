@@ -1,4 +1,4 @@
-import { defaultLanguage } from "./languages";
+import { defaultLanguage, secondaryLanguage } from "./languages";
 
 export function getPageLangFromSlug(slug: string) {
 	const lang = slug.split("/")[0];
@@ -28,9 +28,12 @@ export function getPostsByLang(posts: any[], lang: string) {
 export function getPostsReplacedByTranslatedPost(posts: any[], lang: string) {
 	const postsGroupedByLang = getPostsGroupedByLang(posts);
 	const defaultLangPosts = postsGroupedByLang[defaultLanguage];
+	const secondaryLangPosts = postsGroupedByLang[secondaryLanguage];
 	const currentLangPosts = postsGroupedByLang[lang];
 
-	const resultPosts = defaultLangPosts.map((post) => {
+	const basePosts = defaultLangPosts.length > secondaryLangPosts.length ? defaultLangPosts : secondaryLangPosts;
+	
+	const resultPosts = basePosts.map((post) => {
 		const { slugWithoutLang } = deconstructSlug(post.slug);
 		const translatedPost = currentLangPosts.find((post) => {
 			const { slugWithoutLang: currentLangSlugWithoutLang } = deconstructSlug(post.slug);

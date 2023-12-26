@@ -10,5 +10,6 @@ const languages = {
 };
 
 export const defaultLanguage = "en";
+export const secondaryLanguage = "zh-tw";
 
 export default languages;
