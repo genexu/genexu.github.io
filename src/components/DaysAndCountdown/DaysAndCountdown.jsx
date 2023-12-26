@@ -17,11 +17,6 @@ const DaysAndCountdown = () => {
 			},
 			{
 				type: TimerType.Countdown,
-				date: new Date("2023-12-04"),
-				label: "Fly to Japan",
-			},
-			{
-				type: TimerType.Countdown,
 				date: new Date("2024-06-30"),
 				label: new Date("2024-06-30").toLocaleDateString("en", {
 					year: "numeric",
