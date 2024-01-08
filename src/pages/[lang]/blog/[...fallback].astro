@@ -1,7 +1,7 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
 import languages, { defaultLanguage } from "../../../i18n/languages";
-import { getPostsGroupedByLang, deconstructSlug } from "../../../i18n/utils";
+import { deconstructSlug, getPostsReplacedByTranslatedPost } from "../../../i18n/utils";
 
 type TPath = {
 	params: {
@@ -16,20 +16,12 @@ export async function getStaticPaths() {
 	const fallbackPaths: TPath[] = [];
 	const posts = await getCollection("blog");
 	// We can enhance this when we have more languages
-	const postsGroupedByLang = getPostsGroupedByLang(posts);
+	const resultPosts = getPostsReplacedByTranslatedPost(posts, defaultLanguage);
 
 	Object.keys(languages).forEach((lang) => {
-		if (lang === defaultLanguage) return;
-
-		// For-each post in the default language, check if there is a post in the current language with the same slug
-		// If there are not, then we need to fallback to the default language
-		postsGroupedByLang[defaultLanguage].forEach((post) => {
-			const { slugWithoutLang } = deconstructSlug(post.slug);
-			const postInLang = postsGroupedByLang[lang].some(
-				(post) => deconstructSlug(post.slug).slugWithoutLang === slugWithoutLang
-			);
-
-			if (!!postInLang) return;
+		resultPosts.forEach((post) => {
+			const { lang: slugLang, slugWithoutLang } = deconstructSlug(post.slug);
+			if (slugLang === lang) return;
 
 			fallbackPaths.push({
 				params: {
