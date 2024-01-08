@@ -4,21 +4,22 @@ import { defaultLanguage } from "../../i18n/languages";
 import Layout from "../../layouts/Layout.astro";
 import SearchBar from "../../components/SearchBar";
 import PostList from "../../components/PostList/PostList.astro";
-import { deconstructSlug, getPostsByLang } from "../../i18n/utils";
+import { deconstructSlug, getPostsReplacedByTranslatedPost } from "../../i18n/utils";
 
 const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const resultPosts = getPostsByLang(posts, defaultLanguage);
+const resultPosts = getPostsReplacedByTranslatedPost(posts, defaultLanguage);
 resultPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const decoratedPosts = resultPosts.map((post) => {
-	const { slugWithoutLang } = deconstructSlug(post.slug);
+	const { lang: slugLang, slugWithoutLang } = deconstructSlug(post.slug);
 	return {
 		...post,
 		params: {
 			isNolangPath: true,
 			slug: slugWithoutLang,
 			lang: defaultLanguage,
+			isLanguageNotSupported: slugLang !== defaultLanguage,
 		},
 	};
 });
