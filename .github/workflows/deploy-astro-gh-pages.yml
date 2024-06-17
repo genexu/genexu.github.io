@@ -36,6 +36,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: "yarn"
+          cache-dependency-path: ${{ env.BUILD_PATH }}/yarn.lock
 
       - name: Setup Pages
         id: pages
