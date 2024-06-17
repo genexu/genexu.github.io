@@ -29,8 +29,37 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install, build, and upload your site
-        uses: withastro/action@v2
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v3
+
+      - name: Install dependencies
+        working-directory: ${{ env.BUILD_PATH }}
+        run: |
+          yarn config get enableImmutableInstalls
+          yarn config set -H enableImmutableInstalls false
+          yarn install
+
+      - name: Build with Astro
+        working-directory: ${{ env.BUILD_PATH }}
+        run: |
+          yarn build \
+            --site "${{ steps.pages.outputs.origin }}" \
+            --base "${{ steps.pages.outputs.base_path }}"
+          yarn pagefind
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: ${{ env.BUILD_PATH }}/dist
 
   deploy:
     name: Deploy
