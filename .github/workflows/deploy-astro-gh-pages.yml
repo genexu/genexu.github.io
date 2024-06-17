@@ -48,6 +48,7 @@ jobs:
         run: |
           yarn config get enableImmutableInstalls
           yarn config set -H enableImmutableInstalls false
+          yarn set version latest
           yarn install
 
       - name: Build with Astro
