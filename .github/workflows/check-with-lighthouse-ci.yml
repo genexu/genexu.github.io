@@ -23,7 +23,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "20"
+          cache: "yarn"
           cache-dependency-path: ${{ env.BUILD_PATH }}/yarn.lock
+        run: |
+          corepack enable
 
       - name: Install dependencies
         working-directory: ${{ env.BUILD_PATH }}
