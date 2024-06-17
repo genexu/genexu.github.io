@@ -43,7 +43,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ${{ env.BUILD_PATH }}
-        run: yarn install
+        run: yarn install --immutable
 
       - name: Build with Astro
         working-directory: ${{ env.BUILD_PATH }}
