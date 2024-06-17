@@ -62,6 +62,11 @@ jobs:
           path: ${{ env.BUILD_PATH }}/dist
           key: ${{ runner.os }}-${{ github.run_number }}-dest
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
       - name: Install LHCI
         working-directory: ${{ env.BUILD_PATH }}
         run: |
@@ -99,6 +104,11 @@ jobs:
         with:
           path: ${{ env.BUILD_PATH }}/dist
           key: ${{ runner.os }}-${{ github.run_number }}-dest
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
 
       - name: Install LHCI
         working-directory: ${{ env.BUILD_PATH }}
