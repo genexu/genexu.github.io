@@ -34,9 +34,7 @@ jobs:
         with:
           node-version: "20"
           cache: "yarn"
-          cache-dependency-path: ${{ env.BUILD_PATH }}/yarn.lock
-        run: |
-          corepack enable
+          cache-dependency-path: ${{ env.BUILD_PATH }}/yarn.lock        
 
       - name: Setup Pages
         id: pages
@@ -44,7 +42,9 @@ jobs:
 
       - name: Install dependencies
         working-directory: ${{ env.BUILD_PATH }}
-        run: yarn install
+        run: |
+          corepack enable \
+          yarn install
 
       - name: Build with Astro
         working-directory: ${{ env.BUILD_PATH }}
