@@ -65,6 +65,9 @@ jobs:
       - name: Install LHCI
         working-directory: ${{ env.BUILD_PATH }}
         run: |
+          yarn config get enableImmutableInstalls
+          yarn config set -H enableImmutableInstalls false
+          yarn set version 4.3.0
           yarn global add @lhci/cli@0.12.x
 
       - name: Run Lighthouse CI
@@ -100,6 +103,9 @@ jobs:
       - name: Install LHCI
         working-directory: ${{ env.BUILD_PATH }}
         run: |
+          yarn config get enableImmutableInstalls
+          yarn config set -H enableImmutableInstalls false
+          yarn set version 4.3.0
           yarn global add @lhci/cli@0.12.x
           
       - name: Run Lighthouse CI
