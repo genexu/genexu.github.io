@@ -11,15 +11,15 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/partytown": "^2.0.0",
-    "@astrojs/react": "^3.0.2",
-    "@astrojs/rss": "^3.0.0",
-    "@astrojs/sitemap": "^3.0.0",
-    "@astrojs/tailwind": "^5.0.0",
+    "@astrojs/partytown": "2.1.1",
+    "@astrojs/react": "3.6.0",
+    "@astrojs/rss": "4.0.6",
+    "@astrojs/sitemap": "3.1.6",
+    "@astrojs/tailwind": "5.1.0",
     "@tailwindcss/typography": "^0.5.10",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
-    "astro": "^3.2.2",
+    "astro": "4.10.3",
     "astro-icon": "^0.8.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
@@ -31,5 +31,6 @@
     "sharp": "^0.32.6",
     "tailwindcss": "^3.0.24",
     "vite": "^4.4.9"
-  }
+  },
+  "packageManager": "yarn@3.8.2+sha512.8cf1a37cdbccd13909ba9299dcb8e772292e76155aeeff14fd0a2488f74852c5345e4a2ca81c86a662d727c6d576f6e5b752b4b0958e8433e2c9869a748daaec"
 }
