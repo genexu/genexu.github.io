@@ -37,7 +37,6 @@ jobs:
         with:
           node-version: "20"
           cache: "yarn"
-          cache-dependency-path: ${{ env.BUILD_PATH }}/yarn.lock
 
       - name: Setup Pages
         id: pages
@@ -48,7 +47,7 @@ jobs:
         run: |
           yarn config get enableImmutableInstalls
           yarn config set -H enableImmutableInstalls false
-          yarn set version latest
+          yarn set version 4.3.0
           yarn install
 
       - name: Build with Astro
