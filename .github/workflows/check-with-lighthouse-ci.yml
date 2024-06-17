@@ -1,6 +1,8 @@
 name: Check with Lighthouse CI
 
-on: [push]
+# This workflow is triggered manually
+on:
+  workflow_dispatch:   
 
 env:
   BUILD_PATH: "."
@@ -23,7 +25,7 @@ jobs:
         run: corepack enable
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: "20"
 
@@ -32,13 +34,16 @@ jobs:
         run: |
           yarn config get enableImmutableInstalls
           yarn config set -H enableImmutableInstalls false
+          yarn set version 4.3.0
           yarn install
         
       - name: Build with Astro
         working-directory: ${{ env.BUILD_PATH }}
-        run: |
-          yarn build
-          yarn pagefind
+        run: yarn build
+
+      - name: Setup pagefind
+        working-directory: ${{ env.BUILD_PATH }}
+        run: yarn pagefind
           
   lighthouseci-mobile:
     name: Lighthouse CI Mobile
