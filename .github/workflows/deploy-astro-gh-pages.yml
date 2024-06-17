@@ -52,11 +52,13 @@ jobs:
 
       - name: Build with Astro
         working-directory: ${{ env.BUILD_PATH }}
-        run: |
-          yarn build \
-            --site "${{ steps.pages.outputs.origin }}" \
-            --base "${{ steps.pages.outputs.base_path }}"
-          yarn pagefind
+        run: yarn build \
+          --site "${{ steps.pages.outputs.origin }}" \
+          --base "${{ steps.pages.outputs.base_path }}"
+
+      - name: Setup pagefind
+        working-directory: ${{ env.BUILD_PATH }}
+        run: yarn pagefind
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
