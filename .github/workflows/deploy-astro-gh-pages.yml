@@ -29,6 +29,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
@@ -42,9 +45,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ${{ env.BUILD_PATH }}
-        run: |
-          corepack enable \
-          yarn install
+        run: yarn install
 
       - name: Build with Astro
         working-directory: ${{ env.BUILD_PATH }}
