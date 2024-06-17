@@ -70,17 +70,16 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install LHCI
+      - name: Setup yarn version
         working-directory: ${{ env.BUILD_PATH }}
         run: |
           yarn config get enableImmutableInstalls
           yarn config set -H enableImmutableInstalls false
           yarn set version 4.3.0
-          yarn global add @lhci/cli@0.12.x
 
       - name: Run Lighthouse CI
         run: |
-          lhci autorun
+          yarn dlx @lhci/cli@0.13.x autorun
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
@@ -116,17 +115,16 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install LHCI
+      - name: Setup yarn version
         working-directory: ${{ env.BUILD_PATH }}
         run: |
           yarn config get enableImmutableInstalls
           yarn config set -H enableImmutableInstalls false
           yarn set version 4.3.0
-          yarn global add @lhci/cli@0.12.x
           
       - name: Run Lighthouse CI
         run: |
-          lhci autorun --config=lighthouserc-desktop.json
+          yarn dlx @lhci/cli@0.13.x autorun --config=lighthouserc-desktop.json
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
