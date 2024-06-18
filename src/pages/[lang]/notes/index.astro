@@ -4,7 +4,7 @@ import languages from "../../../i18n/languages";
 import Layout from "../../../layouts/Layout.astro";
 import SearchBar from "../../../components/SearchBar";
 import PostList from "../../../components/PostList/PostList.astro";
-import { deconstructSlug, getPostsReplacedByTranslatedPost } from "../../../i18n/utils";
+import { deconstructSlug, getLangFromUrl, getPostsByLang } from "../../../i18n/utils";
 
 export async function getStaticPaths() {
 	const paths = Object.keys(languages).map((lang) => ({
@@ -14,27 +14,25 @@ export async function getStaticPaths() {
 	return paths;
 }
 
-const { lang: pageLang } = Astro.params;
+const lang = getLangFromUrl(Astro.url);
 
 const posts = await getCollection("notes");
-const resultPosts = getPostsReplacedByTranslatedPost(posts, pageLang);
-resultPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const postsByLang = getPostsByLang(posts, lang);
+postsByLang.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const decoratedPosts = resultPosts.map((post) => {
-	const { lang: slugLang, slugWithoutLang } = deconstructSlug(post.slug);
+const decoratedPosts = postsByLang.map((post) => {
+	const { slugWithoutLang } = deconstructSlug(post.slug);
 	return {
 		...post,
 		params: {
 			slug: slugWithoutLang,
-			lang: pageLang,
-			isLanguageNotSupported: slugLang !== pageLang,
-			isNoLangPath: false,
+			lang,
 		},
 	};
 });
 ---
 
-<Layout title="GeneX.io Notes" description="GeneX.io Notes" lang={pageLang}>
+<Layout title="GeneX.io Notes" description="GeneX.io Notes">
 	<div class="flex flex-col space-y-4">
 		<h1 class="text-2xl">Notes</h1>
 		<div class="my-0">

@@ -4,7 +4,7 @@ import languages from "../../../i18n/languages";
 import Layout from "../../../layouts/Layout.astro";
 import SearchBar from "../../../components/SearchBar";
 import PostList from "../../../components/PostList/PostList.astro";
-import { deconstructSlug, getPostsReplacedByTranslatedPost } from "../../../i18n/utils";
+import { deconstructSlug, getLangFromUrl, getPostsByLang } from "../../../i18n/utils";
 
 export async function getStaticPaths() {
 	const blogPosts = await getCollection("blog");
@@ -15,12 +15,11 @@ export async function getStaticPaths() {
 	const paths = Object.keys(languages).map((lang) => {
 		return uniqueTags.map((tag) => {
 			const tagFilteredPosts = allPosts.filter((post) => post.data.tags.includes(tag));
-			const resultPosts = getPostsReplacedByTranslatedPost(tagFilteredPosts, lang)
-			resultPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+			tagFilteredPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 			return {
 				params: { lang, tag },
-				props: { posts: resultPosts },
+				props: { posts: tagFilteredPosts },
 			};
 		});
 	});
@@ -29,24 +28,25 @@ export async function getStaticPaths() {
 	return flattenedPaths;
 }
 
-const { tag, lang: pageLang } = Astro.params;
+const { tag } = Astro.params;
 const { posts } = Astro.props;
 
-const decoratedPosts = posts.map((post) => {
-	const { lang: slugLang, slugWithoutLang } = deconstructSlug(post.slug);
+const lang = getLangFromUrl(Astro.url);
+const postsByLang = getPostsByLang(posts, lang);
+
+const decoratedPosts = postsByLang.map((post) => {
+	const { slugWithoutLang } = deconstructSlug(post.slug);
 	return {
 		...post,
 		params: {
 			slug: slugWithoutLang,
-			lang: pageLang,
-			isLanguageNotSupported: slugLang !== pageLang,
-			isNoLangPath: false,
+			lang: lang,
 		},
 	};
 });
 ---
 
-<Layout title={`GeneX.io Posts - ${tag}`} description={`GeneX.io Posts - ${tag}`} lang={pageLang}>
+<Layout title={`GeneX.io Posts - ${tag}`} description={`GeneX.io Posts - ${tag}`}>
 	<div class="flex flex-col space-y-4">
 		<div class="flex items-center space-x-2">
 			<h1 class="text-2xl">Posts</h1>

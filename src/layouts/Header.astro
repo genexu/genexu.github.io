@@ -3,8 +3,9 @@ import { Icon } from "astro-icon";
 import { defaultLanguage } from "../i18n/languages";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import LanguageSwitch from "../components/LanguageSwitch.astro";
+import { getLangFromUrl } from "../i18n/utils";
 
-const { lang } = Astro.params;
+const lang = getLangFromUrl(Astro.url);
 let home = "/";
 if (lang && lang !== defaultLanguage) home = `/${lang}/`;
 ---

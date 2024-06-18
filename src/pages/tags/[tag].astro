@@ -33,7 +33,6 @@ const decoratedPosts = posts.map((post) => {
 	return {
 		...post,
 		params: {
-			isNolangPath: true,
 			slug: slugWithoutLang,
 			lang: defaultLanguage,
 		},
@@ -41,7 +40,7 @@ const decoratedPosts = posts.map((post) => {
 });
 ---
 
-<Layout title={`GeneX.io Posts - ${tag}`} description={`GeneX.io Posts - ${tag}`} lang={defaultLanguage}>
+<Layout title={`GeneX.io Posts - ${tag}`} description={`GeneX.io Posts - ${tag}`}>
 	<div class="flex flex-col space-y-4">
 		<div class="flex items-center space-x-2">
 			<h1 class="text-2xl">Posts</h1>

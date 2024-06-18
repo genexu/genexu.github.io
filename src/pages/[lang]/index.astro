@@ -16,10 +16,9 @@ export async function getStaticPaths() {
 	return paths;
 }
 
-const { lang } = Astro.params;
 ---
 
-<Layout title={DEFAULT_SITE_TITLE} description={DEFAULT_SITE_DESCRIPTION} lang={lang}>
+<Layout title={DEFAULT_SITE_TITLE} description={DEFAULT_SITE_DESCRIPTION}>
 	<div class="grid gap-2 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
 		<PostPanel class="row-span-1 md:row-span-4 lg:row-span-3 lg:col-span-1" />
 		<SearchPanel class="lg:col-span-2" />

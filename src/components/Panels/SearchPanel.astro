@@ -2,15 +2,16 @@
 import { getCollection } from "astro:content";
 import SearchBar from "../SearchBar";
 import Panel from "./Panel.astro";
+import { getLangFromUrl, getPostsByLang } from "../../i18n/utils";
 
 const { class: className } = Astro.props;
-
-const { lang } = Astro.params;
+const lang = getLangFromUrl(Astro.url);
 
 const blogPosts = await getCollection("blog");
 const notePosts = await getCollection("notes");
 const allPosts = [...blogPosts, ...notePosts].sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
+const postsByLang = getPostsByLang(allPosts, lang);
+const tags = [...new Set(postsByLang.map((post) => post.data.tags).flat())];
 ---
 
 <Panel class:list={[className]}>
@@ -31,7 +32,7 @@ const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
 		</div>
 		<a
 			class="text-xs text-blue-400 hover:text-blue-500 hover:dark:text-blue-500"
-			href={!lang ? "/tags" : `/${lang}/tags`}
+			href={`/${lang}/tags`}
 		>
 			All Tags →
 		</a>

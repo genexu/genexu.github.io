@@ -1,16 +1,19 @@
 ---
 import { getCollection } from "astro:content";
-import { defaultLanguage } from "../../i18n/languages";
 import Layout from "../../layouts/Layout.astro";
 import SearchBar from "../../components/SearchBar";
+import { getLangFromUrl, getPostsByLang } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
 
 const blogPosts = await getCollection("blog");
 const notePosts = await getCollection("notes");
 const allPosts = [...blogPosts, ...notePosts].sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
+const postsByLang = getPostsByLang(allPosts, lang);
+const tags = [...new Set(postsByLang.map((post) => post.data.tags).flat())];
 ---
 
-<Layout title="GeneX.io Tags" description="GeneX.io Tags" lang={defaultLanguage}>
+<Layout title="GeneX.io Tags" description="GeneX.io Tags">
 	<div class="flex flex-col space-y-4">
 		<h1 class="text-2xl">Tags</h1>
 		<div>

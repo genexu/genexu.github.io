@@ -8,7 +8,7 @@ interface Props {
 
 const { post } = Astro.props;
 const { data, params, collection } = post;
-const { lang, slug, isLanguageNotSupported, isNolangPath } = params;
+const { lang, slug } = params;
 const { title, description, tags, pubDate } = data;
 ---
 
@@ -22,7 +22,7 @@ const { title, description, tags, pubDate } = data;
 		{
 			tags.map((tag) => (
 				<div class="mr-2 mb-2">
-					<a href={isNolangPath ? `/tags/${tag}` : `/${lang}/tags/${tag}`}>
+					<a href={`/${lang}/tags/${tag}`}>
 						<span class="inline-flex items-center rounded-md  px-2 py-1 text-xs font-medium text-blue-400 hover:text-blue-500 ring-1 ring-inset ring-blue-600/50">
 							{tag}
 						</span>
@@ -31,11 +31,4 @@ const { title, description, tags, pubDate } = data;
 			))
 		}
 	</div>
-	{
-		isLanguageNotSupported && (
-			<span class="inline-flex items-center rounded-md my-1 px-2 py-1 text-xs font-medium text-orange-400 hover:text-orange-500 ring-1 ring-inset ring-orange-600/50">
-				Language not supported yet
-			</span>
-		)
-	}
 </li>

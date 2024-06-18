@@ -21,7 +21,7 @@ export default defineConfig({
 		}),
 		sitemap({
 			i18n: {
-				defaultLocale: "zh-tw",
+				defaultLocale: "en",
 				locales: {
 					"zh-tw": "zh-TW",
 					en: "en-US",
@@ -68,6 +68,13 @@ export default defineConfig({
 			langs: [],
 			// Enable word wrap to prevent horizontal scrolling
 			wrap: false,
+		},
+	},
+	i18n: {
+		defaultLocale: "en",
+		locales: ["en", "zh-tw"],
+		fallback: {
+			"zh-tw": "en",
 		},
 	},
 	vite: {
