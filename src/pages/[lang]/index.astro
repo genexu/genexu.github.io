@@ -6,7 +6,7 @@ import PostPanel from "../../components/Panels/PostPanel.astro";
 import NotesPanel from "../../components/Panels/NotesPanel.astro";
 import SearchPanel from "../../components/Panels/SearchPanel.astro";
 import ProfilePanel from "../../components/Panels/ProfilePanel.astro";
-import DaysAndCountdownPanel from "../../components/Panels/DaysAndCountdownPanel.astro";
+import Footer from "../../layouts/Footer.astro";
 
 export async function getStaticPaths() {
 	const paths = Object.keys(languages).map((lang) => ({
@@ -15,16 +15,18 @@ export async function getStaticPaths() {
 
 	return paths;
 }
-
 ---
 
 <Layout title={DEFAULT_SITE_TITLE} description={DEFAULT_SITE_DESCRIPTION}>
-	<div class="grid gap-2 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
-		<PostPanel class="row-span-1 md:row-span-4 lg:row-span-3 lg:col-span-1" />
-		<SearchPanel class="lg:col-span-2" />
-		<ProfilePanel />
-		<DaysAndCountdownPanel class="block lg:hidden" />
-		<NotesPanel class="row-span-1 md:row-span-1 lg:row-span-2 lg:col-span-1" />
-		<DaysAndCountdownPanel class="hidden lg:block" />
+	<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+		<div class="flex flex-col col-span-1 gap-4">
+			<SearchPanel />
+			<ProfilePanel />
+			<Footer />
+		</div>
+		<div class="flex flex-col col-span-1 md:col-span-2 gap-4">
+			<PostPanel />
+			<NotesPanel />
+		</div>
 	</div>
 </Layout>

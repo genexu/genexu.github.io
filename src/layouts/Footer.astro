@@ -1,5 +1,45 @@
+---
+import GradientAnimateGithubIcon from "../components/Icons/GradientAnimateGithubIcon.astro";
+import GradientAnimateLinkedinIcon from "../components/Icons/GradientAnimateLinkedinIcon.astro";
+import GradientAnimateEmailIcon from "../components/Icons/GradientAnimateEmailIcon.astro";
+import GradientAnimateRSSIcon from "../components/Icons/GradientAnimateRSSIcon.astro";
+---
+
 <footer class="m-4">
-	<span class="block text-sm text-center text-gray-500 dark:text-gray-400"
-		>© 2023 All Rights Reserved. Built with <span class="px-1">❤️</span> by <a href="https://github.com/genexu" class="hover:underline">Gene Xu</a>.</span
-	>
+	<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0">
+		<defs>
+			<linearGradient id="largeGradient">
+				<stop offset="0%" stop-color="#ef4444"></stop>
+				<stop offset="10%" stop-color="#f97316"></stop>
+				<stop offset="25%" stop-color="#eab308"></stop>
+				<stop offset="40%" stop-color="#10b981"></stop>
+				<stop offset="60%" stop-color="#3b82f6"></stop>
+				<stop offset="75%" stop-color="#8b5cf6"></stop>
+				<stop offset="90%" stop-color="#ec4899"></stop>
+				<stop offset="100%" stop-color="#f43f5e"></stop>
+			</linearGradient>
+		</defs>
+	</svg>
+	<p class="block text-sm text-center text-gray-500 dark:text-gray-400">
+		© 2024 All Rights Reserved. Powered by Astro.
+	</p>
+	<p class="block text-sm text-center text-gray-500 dark:text-gray-400">
+		Built with <span class="px-1">❤️</span> by <a href="https://github.com/genexu" class="hover:underline"
+			>Gene Xu</a
+		>
+	</p>
+	<div class="flex space-x-4 m-4 justify-center">
+		<a href="https://github.com/genexu" target="_blank">
+			<GradientAnimateGithubIcon />
+		</a>
+		<a href="https://www.linkedin.com/in/gene-xu-05ab99139" target="_blank">
+			<GradientAnimateLinkedinIcon />
+		</a>
+		<a href="mailto: genexu1117.dev@gmail.com">
+			<GradientAnimateEmailIcon />
+		</a>
+		<a href="/rss.xml" target="_blank">
+			<GradientAnimateRSSIcon />
+		</a>
+	</div>
 </footer>
