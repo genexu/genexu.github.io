@@ -163,6 +163,23 @@ https://typescript-eslint.io/packages/parser
 
 ```
 
+### Add Type Checking Script to package.json
+
+Follow the Vite official documentation:
+https://vitejs.dev/guide/features#typescript
+
+> Vite does not perform transpilation and does <strong>NOT</strong> perform type checking. It assumes type checking is taken care of by your IDE and build process.
+
+So, let's add a type-check script to the package.json file.
+
+```json
+"scripts": {
+  "type-check": "tsc --noEmit --project tsconfig.app.json"
+}
+```
+
+Note: Use [vite-plugin-checker](https://github.com/fi3ework/vite-plugin-checker) if you prefer having type errors directly reported in the browser.
+
 ### Summary
 It's a good practice to migrate your React Vite project to support TypeScript with ESLint for better code quality and maintainability. By following the steps above, you can ensure your project is well-structured and easy to maintain in the long run.
 
