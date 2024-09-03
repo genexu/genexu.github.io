@@ -1,23 +1,23 @@
 ---
 layout: "../../../layouts/PostLayout.astro"
-title: "Migrate React Vite Project to Support TypeScript with ESLint"
-description: "Migrate your React Vite project to support TypeScript with ESLint for better code quality and maintainability."
+title: "將 React Vite 專案遷移以支援 TypeScript 與 ESLint"
+description: "將您的 React Vite 專案遷移至支援 TypeScript 與 ESLint，以提升程式碼品質和可維護性。"
 pubDate: "Aug 29 2024"
 tags: ["React", "Vite", "TypeScript", "ESLint"]
 ---
 
-### Install TypeScript
+### 安裝 TypeScript
 
 ```bash
 ~$ yarn add -D typescript @types/react @types/react-dom
 ```
-### Move vite.config.js to vite.config.ts
+### 將 vite.config.js 修改為 vite.config.ts
 
 ```bash
 ~$ mv vite.config.js vite.config.ts
 ```
 
-### Follow Vite TypeScript guide
+### 遵循 Vite TypeScript 指南進行設定
 https://vitejs.dev/guide/features.html#typescript
 
 >Some configuration fields under compilerOptions in tsconfig.json require special attention.
@@ -31,9 +31,9 @@ https://vitejs.dev/guide/features.html#typescript
 /// <reference types="vite/client" />
 ```
 
-### Setup tsconfig configuration
+### 設定 tsconfig 配置
 
-For more information, visit
+如果需要進一步資訊，請參閱
 https://www.typescriptlang.org/tsconfig
 
 <h5 a><strong>tsconfig.json</strong></h5>
@@ -119,7 +119,7 @@ https://www.typescriptlang.org/tsconfig
 }
 ```
 
-### Install TypeScript ESLint packages
+### 安裝 TypeScript ESLint 套件
 https://typescript-eslint.io/packages/eslint-plugin
 https://typescript-eslint.io/packages/parser
 
@@ -127,7 +127,7 @@ https://typescript-eslint.io/packages/parser
 ~$ yarn add -D eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
 ```
 
-### Setup ESLint configuration
+### 設定 ESLint 配置
 
 <h5 a><strong>.eslintrc</strong></h5>
 
@@ -163,14 +163,14 @@ https://typescript-eslint.io/packages/parser
 
 ```
 
-### Add Type Checking Script to package.json
+### 將型別檢查腳本新增至 package.json
 
 Follow the Vite official documentation:
 https://vitejs.dev/guide/features#typescript
 
 > Vite does not perform transpilation and does <strong>NOT</strong> perform type checking. It assumes type checking is taken care of by your IDE and build process.
 
-So, let's add a type-check script to the package.json file.
+所以，讓我們在 package.json 檔案中新增一個 type-check 腳本。
 
 ```json
 "scripts": {
@@ -181,7 +181,7 @@ So, let's add a type-check script to the package.json file.
 Note: Use [vite-plugin-checker](https://github.com/fi3ework/vite-plugin-checker) if you prefer having type errors directly reported in the browser.
 
 ### Summary
-It's a good practice to migrate your React Vite project to support TypeScript with ESLint for better code quality and maintainability. By following the steps above, you can ensure your project is well-structured and easy to maintain in the long run.
+這是一個很好的實踐，將您的 React Vite 專案遷移以支援 TypeScript 與 ESLint，以提升程式碼品質和可維護性。通過上述步驟，您可以確保您的專案結構良好且易於長期維護。
 
-And finally, enjoy coding with TypeScript and ESLint!
+最後，享受使用 TypeScript 和 ESLint 進行編碼！
 
