@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import languages from "../../../i18n/languages";
 import Layout from "../../../layouts/Layout.astro";
 import SearchBar from "../../../components/SearchBar";
-import PostList from "../../../components/PostList/PostList.astro";
+import BlogCard from "../../../components/BlogCard.astro";
 import { deconstructSlug, getLangFromUrl, getPostsByLang } from "../../../i18n/utils";
 
 export async function getStaticPaths() {
@@ -30,14 +30,48 @@ const decoratedPosts = postsByLang.map((post) => {
 		},
 	};
 });
+
+const content = {
+	en: {
+		title: "Notes",
+		description: "Quick thoughts, learnings, and technical notes",
+		searchPlaceholder: "Search notes...",
+	},
+	"zh-tw": {
+		title: "筆記",
+		description: "快速想法、學習心得和技術筆記",
+		searchPlaceholder: "搜尋筆記...",
+	},
+};
+
+const t = content[lang] || content.en;
 ---
 
-<Layout title="GeneX.io Notes" description="GeneX.io Notes">
-	<div class="flex flex-col space-y-4">
-		<h1 class="text-2xl">Notes</h1>
-		<div class="my-0">
+<Layout title={t.title} description={t.description}>
+	<div class="py-8 md:py-12 space-y-8">
+		<header class="max-w-3xl space-y-4">
+			<h1 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white tracking-tight">
+				{t.title}
+			</h1>
+			<p class="text-lg text-slate-600 dark:text-slate-300">
+				{t.description}
+			</p>
+		</header>
+
+		<div class="max-w-3xl">
 			<SearchBar client:load />
 		</div>
-		<PostList posts={decoratedPosts} />
+
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+			{decoratedPosts.map((post) => (
+				<BlogCard post={post} />
+			))}
+		</div>
+
+		{decoratedPosts.length === 0 && (
+			<div class="text-center py-12">
+				<p class="text-slate-500 dark:text-slate-400">No notes found</p>
+			</div>
+		)}
 	</div>
 </Layout>

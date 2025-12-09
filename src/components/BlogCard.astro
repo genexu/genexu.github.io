@@ -1,0 +1,70 @@
+---
+import FormattedDateTime from "./FormattedDateTime.astro";
+import type { Post } from "./PostList/types";
+
+interface Props {
+	post: Post;
+	featured?: boolean;
+}
+
+const { post, featured = false } = Astro.props;
+const { data, params, collection } = post;
+const { lang, slug } = params;
+const { title, description, tags, pubDate } = data;
+---
+
+<article
+	class:list={[
+		"group relative bg-white dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-accent-500 dark:hover:border-accent-500 transition-all duration-300 overflow-hidden",
+		"hover:shadow-xl hover:shadow-accent-500/10 dark:hover:shadow-accent-500/20",
+		featured ? "md:col-span-2" : ""
+	]}
+>
+	<a href={`/${lang}/${collection}/${slug}`} class="block p-6 md:p-8">
+		<div class="space-y-4">
+			<div class="flex items-start justify-between gap-4">
+				<div class="flex-1 space-y-3">
+					<div class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+						<FormattedDateTime datetime={pubDate} lang={lang} />
+						<span class="text-slate-300 dark:text-slate-600">•</span>
+						<span>{tags.length > 0 ? tags[0] : collection}</span>
+					</div>
+
+					<h2 class:list={[
+						"font-bold text-slate-900 dark:text-white group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors duration-300",
+						featured ? "text-2xl md:text-3xl" : "text-xl md:text-2xl"
+					]}>
+						{title}
+					</h2>
+
+					<p class="text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed">
+						{description}
+					</p>
+				</div>
+
+				<div class="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+					<svg class="w-6 h-6 text-accent-600 dark:text-accent-400 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+					</svg>
+				</div>
+			</div>
+
+			{tags.length > 0 && (
+				<div class="flex flex-wrap gap-2 pt-2">
+					{tags.slice(0, 3).map((tag) => (
+						<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-accent-50 dark:bg-accent-900/30 text-accent-700 dark:text-accent-300 border border-accent-200 dark:border-accent-700">
+							{tag}
+						</span>
+					))}
+					{tags.length > 3 && (
+						<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium text-slate-500 dark:text-slate-400">
+							+{tags.length - 3} more
+						</span>
+					)}
+				</div>
+			)}
+		</div>
+	</a>
+
+	<div class="absolute inset-0 bg-gradient-to-r from-accent-500/0 via-accent-500/5 to-accent-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+</article>

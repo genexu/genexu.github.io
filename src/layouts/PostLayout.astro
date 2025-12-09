@@ -10,6 +10,24 @@ const lang = getLangFromUrl(Astro.url);
 
 const { title, description, pubDate, tags } = frontmatter;
 const datetime = new Date(pubDate);
+
+const pathname = Astro.url.pathname;
+const collection = pathname.includes('/blog/') ? 'blog' : pathname.includes('/notes/') ? 'notes' : '';
+
+const breadcrumbs = {
+	en: {
+		home: 'Home',
+		blog: 'Blog',
+		notes: 'Notes',
+	},
+	'zh-tw': {
+		home: '首頁',
+		blog: '文章',
+		notes: '筆記',
+	},
+};
+
+const t = breadcrumbs[lang] || breadcrumbs.en;
 ---
 
 <!doctype html>
@@ -17,36 +35,88 @@ const datetime = new Date(pubDate);
 	<head>
 		<Head title={title} description={description} />
 	</head>
-	<body class="min-h-screen text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-900">
+	<body class="min-h-screen text-slate-700 dark:text-slate-200 bg-gradient-to-br from-slate-50 via-white to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
 		<Header />
-		<main class="container mx-auto px-2">
-			<div class="flex flex-col justify-center items-center" data-pagefind-body>
-				<div class="w-full max-w-3xl">
-					<h1 class="text-4xl">{title}</h1>
-					<h2 class="text-base text-gray-400">{description}</h2>
-					<div class="flex space-x-2 py-2 my-4 items-center">
-						<FormattedDateTime datetime={datetime} lang={lang} />
-						<div class="flex my-2 flex-wrap">
-							{
-								tags.map((tag) => (
-									<div class="mr-2 mb-2">
-										<a href={`/${lang}/tags/${tag}`}>
-											<span class="inline-flex items-center rounded-md px-2 py-1 text-sm font-medium text-blue-400 hover:text-blue-500 ring-1 ring-inset ring-blue-600/50">
-												{tag}
-											</span>
-										</a>
-									</div>
-								))
-							}
-						</div>
+		<main class="container mx-auto px-4 md:px-6 lg:px-8">
+			<article class="max-w-4xl mx-auto py-8 md:py-12" data-pagefind-body>
+				<nav class="flex items-center space-x-2 text-sm text-slate-500 dark:text-slate-400 mb-8">
+					<a href={`/${lang}`} class="hover:text-accent-600 dark:hover:text-accent-400 transition-colors">
+						{t.home}
+					</a>
+					<span>/</span>
+					{collection && (
+						<>
+							<a href={`/${lang}/${collection}`} class="hover:text-accent-600 dark:hover:text-accent-400 transition-colors">
+								{t[collection]}
+							</a>
+							<span>/</span>
+						</>
+					)}
+					<span class="text-slate-700 dark:text-slate-300 truncate">{title}</span>
+				</nav>
+
+				<header class="mb-12 space-y-6 pb-8 border-b border-slate-200 dark:border-slate-800">
+					<div class="space-y-4">
+						<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
+							{title}
+						</h1>
+						<p class="text-xl text-slate-600 dark:text-slate-300 leading-relaxed">
+							{description}
+						</p>
 					</div>
-				</div>
-				<article
-					class="prose w-full max-w-3xl prose-slate dark:prose-invert prose-img:rounded-xl prose-headings:underline prose-a:text-blue-400"
+
+					<div class="flex flex-wrap items-center gap-4 text-sm">
+						<div class="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+							<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+							</svg>
+							<FormattedDateTime datetime={datetime} lang={lang} />
+						</div>
+
+						{tags.length > 0 && (
+							<div class="flex flex-wrap gap-2">
+								{tags.map((tag) => (
+									<a href={`/${lang}/tags/${tag}`} class="group">
+										<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-accent-50 dark:bg-accent-900/30 text-accent-700 dark:text-accent-300 border border-accent-200 dark:border-accent-700 hover:bg-accent-100 dark:hover:bg-accent-900/50 transition-colors">
+											#{tag}
+										</span>
+									</a>
+								))}
+							</div>
+						)}
+					</div>
+				</header>
+
+				<div
+					class="prose prose-lg prose-slate dark:prose-invert max-w-none
+					prose-headings:font-bold prose-headings:tracking-tight
+					prose-h1:text-4xl prose-h2:text-3xl prose-h3:text-2xl
+					prose-p:leading-relaxed prose-p:text-slate-700 dark:prose-p:text-slate-300
+					prose-a:text-accent-600 dark:prose-a:text-accent-400 prose-a:no-underline prose-a:font-medium hover:prose-a:underline
+					prose-strong:text-slate-900 dark:prose-strong:text-white prose-strong:font-semibold
+					prose-code:text-accent-700 dark:prose-code:text-accent-300 prose-code:font-mono prose-code:text-sm
+					prose-pre:bg-slate-900 dark:prose-pre:bg-slate-950 prose-pre:border prose-pre:border-slate-700
+					prose-img:rounded-xl prose-img:shadow-lg
+					prose-blockquote:border-l-4 prose-blockquote:border-accent-500 prose-blockquote:bg-slate-50 dark:prose-blockquote:bg-slate-800/50 prose-blockquote:py-1 prose-blockquote:px-4
+					prose-ul:list-disc prose-ol:list-decimal
+					prose-li:text-slate-700 dark:prose-li:text-slate-300
+					prose-hr:border-slate-200 dark:prose-hr:border-slate-800"
 				>
 					<slot />
-				</article>
-			</div>
+				</div>
+
+				<div class="mt-16 pt-8 border-t border-slate-200 dark:border-slate-800">
+					<a
+						href={`/${lang}/${collection}`}
+						class="inline-flex items-center gap-2 text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 font-medium group"
+					>
+						<svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"></path>
+						</svg>
+						{t[collection] ? `Back to ${t[collection]}` : 'Back'}
+					</a>
+				</div>
+			</article>
 		</main>
 		<Footer />
 	</body>

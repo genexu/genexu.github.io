@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, lazy } from "react";
+import { useState, useRef, useEffect } from "react";
 import SearchInput from "./SearchInput";
 import Overlay from "./Overlay";
 import Container from "./Container";
@@ -58,8 +58,8 @@ const SearchBar = () => {
 	return (
 		<div>
 			<SearchInput
-				className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:outline-none"
-				placeholder="Search Posts"
+				className="block w-full px-4 py-3 pl-12 text-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-accent-500 dark:focus:ring-accent-400 focus:border-transparent transition-all duration-200 hover:border-slate-300 dark:hover:border-slate-600 cursor-pointer"
+				placeholder="Search posts..."
 				onClick={handleTriggerSearch}
 				readOnly
 			/>
@@ -68,9 +68,9 @@ const SearchBar = () => {
 					<Container onClick={handleClickOnContainer}>
 						<SearchInput
 							ref={inputRef}
-							className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-md bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+							className="block w-full px-4 py-4 pl-12 text-base bg-white dark:bg-slate-800 border-2 border-accent-500 dark:border-accent-400 rounded-xl text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-accent-500 dark:focus:ring-accent-400 transition-all duration-200 shadow-lg"
 							required
-							placeholder="Search Posts"
+							placeholder="Search posts..."
 							onChange={handleInputSearchValue}
 						/>
 						<ResultItemList items={resultItems} />

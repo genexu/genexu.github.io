@@ -1,12 +1,13 @@
 ---
+import { getCollection } from "astro:content";
 import { DEFAULT_SITE_TITLE, DEFAULT_SITE_DESCRIPTION } from "../../constants";
 import languages from "../../i18n/languages";
+import { defaultLanguage } from "../../i18n/languages";
 import Layout from "../../layouts/Layout.astro";
-import PostPanel from "../../components/Panels/PostPanel.astro";
-import NotesPanel from "../../components/Panels/NotesPanel.astro";
-import SearchPanel from "../../components/Panels/SearchPanel.astro";
-import ProfilePanel from "../../components/Panels/ProfilePanel.astro";
+import Hero from "../../components/Hero.astro";
+import BlogCard from "../../components/BlogCard.astro";
 import Footer from "../../layouts/Footer.astro";
+import { deconstructSlug, getPostsByLang } from "../../i18n/utils";
 
 export async function getStaticPaths() {
 	const paths = Object.keys(languages).map((lang) => ({
@@ -15,18 +16,121 @@ export async function getStaticPaths() {
 
 	return paths;
 }
+
+const { lang: pageLang } = Astro.params;
+const useLanguage = pageLang ?? defaultLanguage;
+
+const allPosts = await getCollection("blog");
+const allNotes = await getCollection("notes");
+
+const posts = getPostsByLang(allPosts, useLanguage);
+const notes = getPostsByLang(allNotes, useLanguage);
+
+const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const sortedNotes = notes.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const featuredPost = sortedPosts[0];
+const recentPosts = sortedPosts.slice(1, 7);
+const recentNotes = sortedNotes.slice(0, 3);
+
+const decoratePost = (post) => {
+	const { lang: slugLang, slugWithoutLang } = deconstructSlug(post.slug);
+	return {
+		...post,
+		params: {
+			slug: slugWithoutLang,
+			lang: useLanguage,
+			isLanguageNotSupported: slugLang !== useLanguage,
+			isNolangPath: !pageLang,
+		},
+	};
+};
+
+const content = {
+	en: {
+		featured: "Featured Post",
+		recentPosts: "Recent Posts",
+		recentNotes: "Recent Notes",
+		viewAllPosts: "View All Posts",
+		viewAllNotes: "View All Notes",
+	},
+	"zh-tw": {
+		featured: "精選文章",
+		recentPosts: "最新文章",
+		recentNotes: "最新筆記",
+		viewAllPosts: "查看所有文章",
+		viewAllNotes: "查看所有筆記",
+	},
+};
+
+const t = content[useLanguage] || content.en;
 ---
 
 <Layout title={DEFAULT_SITE_TITLE} description={DEFAULT_SITE_DESCRIPTION}>
-	<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-		<div class="flex flex-col col-span-1 gap-4">
-			<SearchPanel />
-			<ProfilePanel />
-			<Footer />
-		</div>
-		<div class="flex flex-col col-span-1 md:col-span-2 gap-4">
-			<PostPanel />
-			<NotesPanel />
-		</div>
+	<div class="-mx-2">
+		<Hero />
 	</div>
+
+	<div class="py-16 md:py-24 space-y-16 md:space-y-24">
+		{featuredPost && (
+			<section class="space-y-6">
+				<div class="flex items-center justify-between">
+					<h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
+						{t.featured}
+					</h2>
+				</div>
+				<BlogCard post={decoratePost(featuredPost)} featured={true} />
+			</section>
+		)}
+
+		{recentPosts.length > 0 && (
+			<section class="space-y-6">
+				<div class="flex items-center justify-between">
+					<h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
+						{t.recentPosts}
+					</h2>
+					<a
+						href={`/${useLanguage}/blog`}
+						class="text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 font-medium flex items-center gap-2 group"
+					>
+						{t.viewAllPosts}
+						<svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+						</svg>
+					</a>
+				</div>
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+					{recentPosts.map((post) => (
+						<BlogCard post={decoratePost(post)} />
+					))}
+				</div>
+			</section>
+		)}
+
+		{recentNotes.length > 0 && (
+			<section class="space-y-6">
+				<div class="flex items-center justify-between">
+					<h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
+						{t.recentNotes}
+					</h2>
+					<a
+						href={`/${useLanguage}/notes`}
+						class="text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 font-medium flex items-center gap-2 group"
+					>
+						{t.viewAllNotes}
+						<svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+						</svg>
+					</a>
+				</div>
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+					{recentNotes.map((note) => (
+						<BlogCard post={decoratePost(note)} />
+					))}
+				</div>
+			</section>
+		)}
+	</div>
+
+	<Footer />
 </Layout>

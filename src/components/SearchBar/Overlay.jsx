@@ -1,5 +1,5 @@
 const Overlay = ({ children, ...rest }) => (
-    <div className="w-screen h-screen absolute left-0 top-0 backdrop-brightness-50" {...rest}>
+    <div className="fixed inset-0 z-50 bg-slate-900/80 dark:bg-slate-950/90 backdrop-blur-sm animate-fade-in" {...rest}>
         {children}
     </div>
 )
