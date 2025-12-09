@@ -1,87 +1,26 @@
----
-import GradientAnimateGithubIcon from "../components/Icons/GradientAnimateGithubIcon.astro";
-import GradientAnimateLinkedinIcon from "../components/Icons/GradientAnimateLinkedinIcon.astro";
-import GradientAnimateEmailIcon from "../components/Icons/GradientAnimateEmailIcon.astro";
-import GradientAnimateRSSIcon from "../components/Icons/GradientAnimateRSSIcon.astro";
----
-
 <footer class="mt-24 border-t border-slate-200 dark:border-slate-800">
-	<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0">
-		<defs>
-			<linearGradient id="largeGradient">
-				<stop offset="0%" stop-color="#ef4444"></stop>
-				<stop offset="10%" stop-color="#f97316"></stop>
-				<stop offset="25%" stop-color="#eab308"></stop>
-				<stop offset="40%" stop-color="#10b981"></stop>
-				<stop offset="60%" stop-color="#3b82f6"></stop>
-				<stop offset="75%" stop-color="#8b5cf6"></stop>
-				<stop offset="90%" stop-color="#ec4899"></stop>
-				<stop offset="100%" stop-color="#f43f5e"></stop>
-			</linearGradient>
-		</defs>
-	</svg>
-
 	<div class="container mx-auto px-4 py-12">
-		<div class="flex flex-col items-center space-y-6">
-			<div class="flex space-x-6">
+		<div class="text-center space-y-2">
+			<p class="text-sm text-slate-600 dark:text-slate-400">
+				Built with <span class="text-red-500">❤️</span> by
 				<a
 					href="https://github.com/genexu"
+					class="text-accent-600 dark:text-accent-400 hover:underline font-medium"
+				>
+					Gene Xu
+				</a>
+			</p>
+			<p class="text-xs text-slate-500 dark:text-slate-500">
+				© {new Date().getFullYear()} GeneX.io. Powered by
+				<a
+					href="https://astro.build"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="transform hover:scale-110 transition-transform duration-200"
-					aria-label="GitHub"
+					class="text-accent-600 dark:text-accent-400 hover:underline"
 				>
-					<GradientAnimateGithubIcon width={28} height={28} />
+					Astro
 				</a>
-				<a
-					href="https://www.linkedin.com/in/genexu/"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="transform hover:scale-110 transition-transform duration-200"
-					aria-label="LinkedIn"
-				>
-					<GradientAnimateLinkedinIcon width={28} height={28} />
-				</a>
-				<a
-					href="mailto:contact@genex.io"
-					class="transform hover:scale-110 transition-transform duration-200"
-					aria-label="Email"
-				>
-					<GradientAnimateEmailIcon width={28} height={28} />
-				</a>
-				<a
-					href="/rss.xml"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="transform hover:scale-110 transition-transform duration-200"
-					aria-label="RSS Feed"
-				>
-					<GradientAnimateRSSIcon width={28} height={28} />
-				</a>
-			</div>
-
-			<div class="text-center space-y-2">
-				<p class="text-sm text-slate-600 dark:text-slate-400">
-					Built with <span class="text-red-500">❤️</span> by
-					<a
-						href="https://github.com/genexu"
-						class="text-accent-600 dark:text-accent-400 hover:underline font-medium"
-					>
-						Gene Xu
-					</a>
-				</p>
-				<p class="text-xs text-slate-500 dark:text-slate-500">
-					© {new Date().getFullYear()} GeneX.io. Powered by
-					<a
-						href="https://astro.build"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="text-accent-600 dark:text-accent-400 hover:underline"
-					>
-						Astro
-					</a>
-				</p>
-			</div>
+			</p>
 		</div>
 	</div>
 </footer>

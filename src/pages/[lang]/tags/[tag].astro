@@ -1,9 +1,8 @@
 ---
 import { getCollection } from "astro:content";
 import languages from "../../../i18n/languages";
-import Layout from "../../../layouts/Layout.astro";
-import SearchBar from "../../../components/SearchBar";
-import PostList from "../../../components/PostList/PostList.astro";
+import ListingLayout from "../../../layouts/ListingLayout.astro";
+import BlogCard from "../../../components/BlogCard.astro";
 import { deconstructSlug, getLangFromUrl, getPostsByLang } from "../../../i18n/utils";
 
 export async function getStaticPaths() {
@@ -44,21 +43,23 @@ const decoratedPosts = postsByLang.map((post) => {
 		},
 	};
 });
+
+const content = {
+	en: {
+		title: "Posts",
+	},
+	"zh-tw": {
+		title: "文章",
+	},
+};
+
+const t = content[lang] || content.en;
 ---
 
-<Layout title={`GeneX.io Posts - ${tag}`} description={`GeneX.io Posts - ${tag}`}>
-	<div class="flex flex-col space-y-4">
-		<div class="flex items-center space-x-2">
-			<h1 class="text-2xl">Posts</h1>
-			<span
-				class="inline-flex items-center rounded-md px-2 py-1 text-sm font-medium text-blue-400 hover:text-blue-500 ring-1 ring-inset ring-blue-600/50"
-			>
-				{tag}
-			</span>
-		</div>
-		<div class="my-0">
-			<SearchBar client:load />
-		</div>
-		<PostList posts={decoratedPosts} />
+<ListingLayout title={t.title} tag={tag}>
+	<div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+		{decoratedPosts.map((post) => (
+			<BlogCard post={post} />
+		))}
 	</div>
-</Layout>
+</ListingLayout>

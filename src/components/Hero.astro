@@ -1,93 +1,29 @@
 ---
 import { getLangFromUrl } from "../i18n/utils";
-import GradientAnimateGithubIcon from "./Icons/GradientAnimateGithubIcon.astro";
-import GradientAnimateLinkedinIcon from "./Icons/GradientAnimateLinkedinIcon.astro";
-import GradientAnimateEmailIcon from "./Icons/GradientAnimateEmailIcon.astro";
-import GradientAnimateRSSIcon from "./Icons/GradientAnimateRSSIcon.astro";
 
 const lang = getLangFromUrl(Astro.url);
 
 const content = {
 	en: {
-		greeting: "Hi, I'm GeneX",
-		tagline: "Software Engineer & Tech Enthusiast",
-		description: "Welcome to my digital garden where I share insights on web development, software engineering, and technology.",
-		cta: "Explore My Posts",
+		greeting: "GeneX",
+		tagline: "Thoughts on software engineering and technology",
 	},
 	"zh-tw": {
-		greeting: "嗨，我是 GeneX",
-		tagline: "軟體工程師 & 技術愛好者",
-		description: "歡迎來到我的數位花園，在這裡分享網頁開發、軟體工程和技術的見解。",
-		cta: "探索文章",
+		greeting: "GeneX",
+		tagline: "關於軟體工程與技術的思考",
 	},
 };
 
 const t = content[lang] || content.en;
 ---
 
-<section class="relative overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-slate-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
-	<div class="absolute inset-0 bg-grid-pattern opacity-5"></div>
-
-	<div class="relative container mx-auto px-4 py-24 md:py-32 lg:py-40">
-		<div class="max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
-			<div class="space-y-4">
-				<h1 class="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 dark:text-white">
-					{t.greeting}
-				</h1>
-				<p class="text-xl md:text-2xl text-accent-600 dark:text-accent-400 font-medium">
-					{t.tagline}
-				</p>
-			</div>
-
-			<p class="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
-				{t.description}
-			</p>
-
-			<div class="flex justify-center gap-6 pt-4">
-				<a href="https://github.com/genexu" target="_blank" rel="noopener noreferrer" class="social-link">
-					<GradientAnimateGithubIcon width={32} height={32} />
-				</a>
-				<a href="https://www.linkedin.com/in/genexu/" target="_blank" rel="noopener noreferrer" class="social-link">
-					<GradientAnimateLinkedinIcon width={32} height={32} />
-				</a>
-				<a href="mailto:contact@genex.io" class="social-link">
-					<GradientAnimateEmailIcon width={32} height={32} />
-				</a>
-				<a href={`/${lang}/rss.xml`} class="social-link">
-					<GradientAnimateRSSIcon width={32} height={32} />
-				</a>
-			</div>
-
-			<div class="pt-8">
-				<a
-					href={`/${lang}/blog`}
-					class="inline-flex items-center gap-2 px-8 py-4 bg-accent-600 hover:bg-accent-700 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
-				>
-					{t.cta}
-					<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-					</svg>
-				</a>
-			</div>
-		</div>
+<section class="py-16 md:py-24">
+	<div class="max-w-3xl mx-auto text-center space-y-3">
+		<h1 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white tracking-tight">
+			{t.greeting}
+		</h1>
+		<p class="text-lg text-slate-600 dark:text-slate-400">
+			{t.tagline}
+		</p>
 	</div>
-
-	<div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-transparent"></div>
 </section>
-
-<style>
-	.bg-grid-pattern {
-		background-image:
-			linear-gradient(to right, currentColor 1px, transparent 1px),
-			linear-gradient(to bottom, currentColor 1px, transparent 1px);
-		background-size: 40px 40px;
-	}
-
-	.social-link {
-		transition: transform 0.2s ease-in-out;
-	}
-
-	.social-link:hover {
-		transform: translateY(-4px);
-	}
-</style>

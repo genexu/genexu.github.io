@@ -1,6 +1,7 @@
 ---
 import Head from "./Head.astro";
 import Header from "./Header.astro";
+import Footer from "../layouts/Footer.astro";
 import { getLangFromUrl } from "../i18n/utils";
 
 import "../styles/global.css";
@@ -21,8 +22,9 @@ const lang = getLangFromUrl(Astro.url);
 	</head>
 	<body class="min-h-screen text-slate-700 dark:text-slate-200 bg-gradient-to-br from-slate-50 via-white to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
 		<Header />
-		<main class="container mx-auto px-4 md:px-6 lg:px-8">
+		<main class="container mx-auto px-4 md:px-6 lg:px-8 pt-12 md:pt-16">
 			<slot />
 		</main>
+	  <Footer />
 	</body>
 </html>

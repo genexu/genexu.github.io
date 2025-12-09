@@ -3,6 +3,7 @@ import { defaultLanguage } from "../i18n/languages";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import LanguageSwitch from "../components/LanguageSwitch.astro";
 import { getLangFromUrl } from "../i18n/utils";
+import { Icon } from "astro-icon";
 
 const lang = getLangFromUrl(Astro.url);
 let home = "/";
@@ -12,17 +13,22 @@ const navItems = {
 	en: [
 		{ href: `/${lang}/blog`, label: "Blog" },
 		{ href: `/${lang}/notes`, label: "Notes" },
-		{ href: `/${lang}/tags`, label: "Tags" },
 	],
 	"zh-tw": [
 		{ href: `/${lang}/blog`, label: "文章" },
 		{ href: `/${lang}/notes`, label: "筆記" },
-		{ href: `/${lang}/tags`, label: "標籤" },
 	],
 };
 
 const nav = navItems[lang] || navItems.en;
 const currentPath = Astro.url.pathname;
+
+const socialLinks = [
+	{ href: "https://github.com/genexu", icon: "mdi:github", label: "GitHub" },
+	{ href: "https://www.linkedin.com/in/gene-xu-05ab99139/", icon: "mdi:linkedin", label: "LinkedIn" },
+	{ href: "mailto:genexu1117.dev@gmail.com", icon: "mdi:email", label: "Email" },
+	{ href: `/rss.xml`, icon: "mdi:rss", label: "RSS" },
+];
 ---
 
 <header class="sticky top-0 z-50 w-full backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border-b border-slate-200/50 dark:border-slate-700/50 transition-all duration-300">
@@ -53,7 +59,21 @@ const currentPath = Astro.url.pathname;
 				))}
 			</div>
 
-			<div class="flex items-center space-x-3">
+			<div class="flex items-center gap-2">
+				<div class="hidden md:flex items-center gap-1 mr-2">
+					{socialLinks.map((link) => (
+						<a
+							href={link.href}
+							target={link.href.startsWith('http') ? '_blank' : undefined}
+							rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+							class="p-2 text-slate-600 dark:text-slate-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+							aria-label={link.label}
+						>
+							<Icon name={link.icon} width={20} height={20} />
+						</a>
+					))}
+				</div>
+				<div class="w-px h-6 bg-slate-300 dark:bg-slate-700 hidden md:block"></div>
 				<LanguageSwitch />
 				<ThemeToggle size={32} />
 			</div>

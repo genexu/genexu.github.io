@@ -3,9 +3,7 @@ import { getCollection } from "astro:content";
 import { DEFAULT_SITE_TITLE, DEFAULT_SITE_DESCRIPTION } from "../constants";
 import { defaultLanguage } from "../i18n/languages";
 import Layout from "../layouts/Layout.astro";
-import Hero from "../components/Hero.astro";
 import BlogCard from "../components/BlogCard.astro";
-import Footer from "../layouts/Footer.astro";
 import { deconstructSlug, getPostsByLang } from "../i18n/utils";
 
 const useLanguage = defaultLanguage;
@@ -19,8 +17,7 @@ const notes = getPostsByLang(allNotes, useLanguage);
 const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const sortedNotes = notes.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const featuredPost = sortedPosts[0];
-const recentPosts = sortedPosts.slice(1, 7);
+const recentPosts = sortedPosts.slice(0, 6);
 const recentNotes = sortedNotes.slice(0, 3);
 
 const decoratePost = (post) => {
@@ -38,26 +35,11 @@ const decoratePost = (post) => {
 ---
 
 <Layout title={DEFAULT_SITE_TITLE} description={DEFAULT_SITE_DESCRIPTION}>
-	<div class="-mx-4 md:-mx-6 lg:-mx-8">
-		<Hero />
-	</div>
-
-	<div class="py-16 md:py-24 space-y-16 md:space-y-24">
-		{featuredPost && (
-			<section class="space-y-6">
-				<div class="flex items-center justify-between">
-					<h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
-						Featured Post
-					</h2>
-				</div>
-				<BlogCard post={decoratePost(featuredPost)} featured={true} />
-			</section>
-		)}
-
+	<div class="space-y-12 md:space-y-16">
 		{recentPosts.length > 0 && (
-			<section class="space-y-6">
+			<section class="space-y-4">
 				<div class="flex items-center justify-between">
-					<h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
+					<h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
 						Recent Posts
 					</h2>
 					<a
@@ -70,7 +52,7 @@ const decoratePost = (post) => {
 						</svg>
 					</a>
 				</div>
-				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 					{recentPosts.map((post) => (
 						<BlogCard post={decoratePost(post)} />
 					))}
@@ -79,9 +61,9 @@ const decoratePost = (post) => {
 		)}
 
 		{recentNotes.length > 0 && (
-			<section class="space-y-6">
+			<section class="space-y-4">
 				<div class="flex items-center justify-between">
-					<h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
+					<h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
 						Recent Notes
 					</h2>
 					<a
@@ -94,7 +76,7 @@ const decoratePost = (post) => {
 						</svg>
 					</a>
 				</div>
-				<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 					{recentNotes.map((note) => (
 						<BlogCard post={decoratePost(note)} />
 					))}
@@ -102,6 +84,4 @@ const decoratePost = (post) => {
 			</section>
 		)}
 	</div>
-
-	<Footer />
 </Layout>
