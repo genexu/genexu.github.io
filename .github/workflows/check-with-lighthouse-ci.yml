@@ -21,29 +21,28 @@ jobs:
           path: ${{ env.BUILD_PATH }}/dist
           key: ${{ runner.os }}-${{ github.run_number }}-dest
 
-      - name: Enable Corepack
-        run: corepack enable
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: "pnpm"
 
       - name: Install dependencies
         working-directory: ${{ env.BUILD_PATH }}
-        run: |
-          yarn config get enableImmutableInstalls
-          yarn config set -H enableImmutableInstalls false
-          yarn set version 4.3.0
-          yarn install
-        
+        run: pnpm install --frozen-lockfile
+
       - name: Build with Astro
         working-directory: ${{ env.BUILD_PATH }}
-        run: yarn build
+        run: pnpm build
 
       - name: Setup pagefind
         working-directory: ${{ env.BUILD_PATH }}
-        run: yarn pagefind
+        run: pnpm pagefind
           
   lighthouseci-mobile:
     name: Lighthouse CI Mobile
