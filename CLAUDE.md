@@ -151,6 +151,35 @@ Custom theme extensions in `tailwind.config.cjs`:
 
 Implemented using Tailwind's class-based dark mode. Toggle component in `src/components/ThemeToggle.astro`.
 
+### Tailwind v4 Best Practices
+
+This project uses **Tailwind CSS v4** with CSS-first configuration.
+
+**Component Strategy:**
+1. ✅ Use utility classes directly in Astro/React components (preferred)
+2. ✅ Use `@utility` directive for custom reusable utilities (replaces v3's `@layer utilities`)
+3. ✅ Leverage CSS variables for dynamic values
+4. ❌ Avoid `<style>` blocks in component files
+5. ❌ Don't use props to dynamically construct classes - use complete class names
+
+**Custom Utilities (v4 syntax):**
+```css
+/* Simple utility */
+@utility btn {
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+
+/* Functional utility with arguments */
+@utility tab-* {
+  tab-size: --value(--tab-size-*);
+}
+```
+
+**State-Based Styling:**
+- Use `group` + `group-hover:` for parent state
+- Use `peer` + `peer-checked:` for sibling state
+
 ## Build & Deployment
 
 ### GitHub Actions Workflows

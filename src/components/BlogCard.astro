@@ -1,7 +1,14 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
 import FormattedDateTime from "./FormattedDateTime.astro";
-import type { Post } from "./PostList/types";
+import type { CollectionEntry } from "astro:content";
+
+type Post = CollectionEntry<"blog" | "notes"> & {
+	params: {
+		lang: string;
+		slug: string;
+	};
+};
 
 interface Props {
 	post: Post;
