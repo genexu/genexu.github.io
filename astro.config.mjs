@@ -3,6 +3,7 @@ import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
 import partytown from "@astrojs/partytown";
 import sitemap from "@astrojs/sitemap";
+import icon from "astro-icon";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
 import rehypeSlug from "rehype-slug";
@@ -28,6 +29,7 @@ export default defineConfig({
 				},
 			},
 		}),
+		icon(),
 	],
 	markdown: {
 		// https://docs.astro.build/en/guides/markdown-content/#markdown-plugins

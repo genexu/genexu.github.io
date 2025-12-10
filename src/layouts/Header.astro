@@ -2,7 +2,7 @@
 import { getRelativeLocaleUrl } from "astro:i18n";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import LanguageSwitch from "../components/LanguageSwitch.astro";
-import { Icon } from "astro-icon";
+import { Icon } from "astro-icon/components";
 
 const lang = Astro.currentLocale;
 const home = getRelativeLocaleUrl(lang, '');

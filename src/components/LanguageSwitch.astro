@@ -1,5 +1,5 @@
 ---
-import { Icon } from "astro-icon";
+import { Icon } from "astro-icon/components";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import languages, { defaultLanguage } from "../i18n/languages";
 
@@ -33,7 +33,7 @@ const switchTargetLocation = getRelativeLocaleUrl(switchTargetLanguage, pathWith
 	 	cursor-pointer
 	`
 >
-	<Icon pack="cil" name="language" width="16" height="16" />
+	<Icon name="cil:language" width="16" height="16" />
 	<span class="text-xs">{label}</span>
 </button>
 
