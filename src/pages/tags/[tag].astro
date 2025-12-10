@@ -1,6 +1,5 @@
 ---
 import { getCollection } from "astro:content";
-import { defaultLanguage } from "../../i18n/languages";
 import ListingLayout from "../../layouts/ListingLayout.astro";
 import BlogCard from "../../components/BlogCard.astro";
 import { deconstructSlug, getPostsByLang } from "../../i18n/utils";
@@ -13,13 +12,11 @@ export async function getStaticPaths() {
 
 	return uniqueTags.map((tag) => {
 		const filteredPosts = allPosts.filter((post) => post.data.tags.includes(tag));
-		// not dynamic language, use the default language
-		const resultPosts = getPostsByLang(filteredPosts, defaultLanguage);
-		resultPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+		filteredPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 		return {
 			params: { tag },
-			props: { posts: resultPosts },
+			props: { posts: filteredPosts },
 		};
 	});
 }
@@ -27,20 +24,30 @@ export async function getStaticPaths() {
 const { tag } = Astro.params;
 const { posts } = Astro.props;
 
-const decoratedPosts = posts.map((post) => {
+const lang = Astro.currentLocale;
+const postsByLang = getPostsByLang(posts, lang);
+
+const decoratedPosts = postsByLang.map((post) => {
 	const { slugWithoutLang } = deconstructSlug(post.slug);
 	return {
 		...post,
 		params: {
 			slug: slugWithoutLang,
-			lang: defaultLanguage,
+			lang,
 		},
 	};
 });
 
-const t = {
-	title: "Posts",
+const content = {
+	en: {
+		title: "Posts",
+	},
+	"zh-tw": {
+		title: "文章",
+	},
 };
+
+const t = content[lang] || content.en;
 ---
 
 <ListingLayout title={t.title} tag={tag}>

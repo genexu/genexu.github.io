@@ -76,6 +76,10 @@ export default defineConfig({
 		fallback: {
 			"zh-tw": "en",
 		},
+		routing: {
+			prefixDefaultLocale: false,
+			fallbackType: "rewrite",
+		},
 	},
 	vite: {
 		ssr: {

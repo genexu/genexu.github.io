@@ -1,5 +1,4 @@
 ---
-layout: "../../../layouts/PostLayout.astro"
 title: "CSS Unit, Size, Spacing and Box Model"
 description: "CSS units, size, spacing, borders, text, line height and properties related to size and spatial relationships"
 pubDate: "Oct 19 2023"

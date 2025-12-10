@@ -1,5 +1,4 @@
 ---
-layout: "../../../layouts/PostLayout.astro"
 title: "建立 Lighthouse CI Server 持續優化網站應用"
 description: "建立可追蹤、比較 SEO、效能等指標的 Lighthouse CI Server，持續優化你的網站應用"
 pubDate: "Oct 16 2023"

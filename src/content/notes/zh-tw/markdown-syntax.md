@@ -1,5 +1,4 @@
 ---
-layout: "../../../layouts/PostLayout.astro"
 title: "Markdown Syntax"
 description: "紀錄 Markdown 語法，呈現與測試 Markdown Plugin 效果"
 pubDate: "Oct 3 2023"

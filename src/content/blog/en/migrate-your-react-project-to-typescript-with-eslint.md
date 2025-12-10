@@ -1,5 +1,4 @@
 ---
-layout: "../../../layouts/PostLayout.astro"
 title: "Migrate React Vite Project to Support TypeScript with ESLint"
 description: "Migrate your React Vite project to support TypeScript with ESLint for better code quality and maintainability."
 pubDate: "Aug 29 2024"

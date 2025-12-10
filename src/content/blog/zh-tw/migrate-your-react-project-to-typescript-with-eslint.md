@@ -1,5 +1,4 @@
 ---
-layout: "../../../layouts/PostLayout.astro"
 title: "將 React Vite 專案遷移以支援 TypeScript 與 ESLint"
 description: "將您的 React Vite 專案遷移至支援 TypeScript 與 ESLint，以提升程式碼品質和可維護性。"
 pubDate: "Aug 29 2024"

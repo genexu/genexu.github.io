@@ -1,5 +1,4 @@
 ---
-layout: "../../../layouts/PostLayout.astro"
 title: "為 Astro 設置 Partytown 與 Google Analytics"
 description: "使用 Partytown 與 Google Analytics 來提升 Astro 網站的效能與分析網站流量"
 pubDate: "Oct 7 2023"

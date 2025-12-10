@@ -2,7 +2,6 @@
 import Head from "./Head.astro";
 import Header from "./Header.astro";
 import Footer from "../layouts/Footer.astro";
-import { getLangFromUrl } from "../i18n/utils";
 
 import "../styles/global.css";
 
@@ -12,7 +11,7 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
-const lang = getLangFromUrl(Astro.url);
+const lang = Astro.currentLocale;
 ---
 
 <!doctype html>

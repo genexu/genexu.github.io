@@ -3,10 +3,10 @@ import Head from "./Head.astro";
 import Header from "./Header.astro";
 import Footer from "./Footer.astro";
 import FormattedDateTime from "../components/FormattedDateTime.astro";
-import { getLangFromUrl } from "../i18n/utils";
+import { getRelativeLocaleUrl } from "astro:i18n";
 
 const { frontmatter } = Astro.props;
-const lang = getLangFromUrl(Astro.url);
+const lang = Astro.currentLocale;
 
 const { title, description, pubDate, tags } = frontmatter;
 const datetime = new Date(pubDate);
@@ -40,13 +40,13 @@ const t = breadcrumbs[lang] || breadcrumbs.en;
 		<main class="container mx-auto px-4 md:px-6 lg:px-8">
 			<article class="max-w-4xl mx-auto py-8 md:py-12" data-pagefind-body>
 				<nav class="flex items-center space-x-2 text-sm text-slate-500 dark:text-slate-400 mb-8">
-					<a href={`/${lang}`} class="hover:text-accent-600 dark:hover:text-accent-400 transition-colors">
+					<a href={getRelativeLocaleUrl(lang, '')} class="hover:text-accent-600 dark:hover:text-accent-400 transition-colors">
 						{t.home}
 					</a>
 					<span>/</span>
 					{collection && (
 						<>
-							<a href={`/${lang}/${collection}`} class="hover:text-accent-600 dark:hover:text-accent-400 transition-colors">
+							<a href={getRelativeLocaleUrl(lang, collection)} class="hover:text-accent-600 dark:hover:text-accent-400 transition-colors">
 								{t[collection]}
 							</a>
 							<span>/</span>
@@ -76,7 +76,7 @@ const t = breadcrumbs[lang] || breadcrumbs.en;
 						{tags.length > 0 && (
 							<div class="flex flex-wrap gap-2">
 								{tags.map((tag) => (
-									<a href={`/${lang}/tags/${tag}`} class="group">
+									<a href={getRelativeLocaleUrl(lang, `tags/${tag}`)} class="group">
 										<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-accent-50 dark:bg-accent-900/30 text-accent-700 dark:text-accent-300 border border-accent-200 dark:border-accent-700 hover:bg-accent-100 dark:hover:bg-accent-900/50 transition-colors">
 											#{tag}
 										</span>
@@ -107,7 +107,7 @@ const t = breadcrumbs[lang] || breadcrumbs.en;
 
 				<div class="mt-16 pt-8 border-t border-slate-200 dark:border-slate-800">
 					<a
-						href={`/${lang}/${collection}`}
+						href={getRelativeLocaleUrl(lang, collection)}
 						class="inline-flex items-center gap-2 text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 font-medium group"
 					>
 						<svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">

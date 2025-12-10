@@ -1,18 +1,18 @@
 ---
 import { getCollection } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
 import { DEFAULT_SITE_TITLE, DEFAULT_SITE_DESCRIPTION } from "../constants";
-import { defaultLanguage } from "../i18n/languages";
 import Layout from "../layouts/Layout.astro";
 import BlogCard from "../components/BlogCard.astro";
 import { deconstructSlug, getPostsByLang } from "../i18n/utils";
 
-const useLanguage = defaultLanguage;
+const lang = Astro.currentLocale;
 
 const allPosts = await getCollection("blog");
 const allNotes = await getCollection("notes");
 
-const posts = getPostsByLang(allPosts, useLanguage);
-const notes = getPostsByLang(allNotes, useLanguage);
+const posts = getPostsByLang(allPosts, lang);
+const notes = getPostsByLang(allNotes, lang);
 
 const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const sortedNotes = notes.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
@@ -26,12 +26,28 @@ const decoratePost = (post) => {
 		...post,
 		params: {
 			slug: slugWithoutLang,
-			lang: useLanguage,
-			isLanguageNotSupported: slugLang !== useLanguage,
-			isNolangPath: true,
+			lang,
+			isLanguageNotSupported: slugLang !== lang,
 		},
 	};
 };
+
+const content = {
+	en: {
+		recentPosts: "Recent Posts",
+		viewAllPosts: "View All Posts",
+		recentNotes: "Recent Notes",
+		viewAllNotes: "View All Notes",
+	},
+	"zh-tw": {
+		recentPosts: "最新文章",
+		viewAllPosts: "查看所有文章",
+		recentNotes: "最新筆記",
+		viewAllNotes: "查看所有筆記",
+	},
+};
+
+const t = content[lang] || content.en;
 ---
 
 <Layout title={DEFAULT_SITE_TITLE} description={DEFAULT_SITE_DESCRIPTION}>
@@ -40,13 +56,13 @@ const decoratePost = (post) => {
 			<section class="space-y-4">
 				<div class="flex items-center justify-between">
 					<h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
-						Recent Posts
+						{t.recentPosts}
 					</h2>
 					<a
-						href={`/${useLanguage}/blog`}
+						href={getRelativeLocaleUrl(lang, 'blog')}
 						class="text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 font-medium flex items-center gap-2 group"
 					>
-						View All Posts
+						{t.viewAllPosts}
 						<svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
 						</svg>
@@ -64,13 +80,13 @@ const decoratePost = (post) => {
 			<section class="space-y-4">
 				<div class="flex items-center justify-between">
 					<h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
-						Recent Notes
+						{t.recentNotes}
 					</h2>
 					<a
-						href={`/${useLanguage}/notes`}
+						href={getRelativeLocaleUrl(lang, 'notes')}
 						class="text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 font-medium flex items-center gap-2 group"
 					>
-						View All Notes
+						{t.viewAllNotes}
 						<svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
 						</svg>

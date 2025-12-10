@@ -1,5 +1,4 @@
 ---
-layout: "../../../layouts/PostLayout.astro"
 title: "Astro + GitHub Pages + Git Action = Quickly Set Up and Automate Your Personal Website Deployment"
 description: "Build and deploy your own personal website fast using Astro, GitHub Pages, and Git Action."
 pubDate: "Oct 4 2023"

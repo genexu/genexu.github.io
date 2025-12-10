@@ -11,7 +11,6 @@ export function deconstructSlug(slug: string) {
 }
 
 export function getPostsGroupedByLang(posts: any[]) {
-	// We can enhance this when we have more languages
 	return {
 		en: posts.filter((post) => getPageLangFromSlug(post.slug) === "en"),
 		"zh-tw": posts.filter((post) => getPageLangFromSlug(post.slug) === "zh-tw"),
@@ -23,6 +22,8 @@ export function getPostsByLang(posts: any[], lang: string) {
 	return postsGroupedByLang[lang];
 }
 
+// Deprecated: Use Astro.currentLocale instead
+// This function is kept for backward compatibility
 export function getLangFromUrl(url: URL) {
 	const [, lang] = url.pathname.split("/");
 	if (lang in languages) return lang;

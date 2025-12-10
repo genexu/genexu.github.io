@@ -1,27 +1,27 @@
 ---
 import { Icon } from "astro-icon";
+import { getRelativeLocaleUrl } from "astro:i18n";
 import languages, { defaultLanguage } from "../i18n/languages";
 
-const { lang } = Astro.params;
+const currentLanguage = Astro.currentLocale || defaultLanguage;
 const pathname = Astro.url.pathname;
 
-const label = (languages[lang] || languages[defaultLanguage]).shortname;
-const currentLanguage = lang ? lang : defaultLanguage;
+const label = (languages[currentLanguage] || languages[defaultLanguage]).shortname;
 const languagekeys = Object.keys(languages);
 
 // Get the next language in the list
-const siwtchTargetlanguage = languagekeys[(languagekeys.indexOf(currentLanguage) + 1) % languagekeys.length];
+const switchTargetLanguage = languagekeys[(languagekeys.indexOf(currentLanguage) + 1) % languagekeys.length];
 
-let switchTargetLocation = "";
+// Extract the path without the locale prefix
+// For /blog/post -> blog/post (no prefix for default locale)
+// For /zh-tw/notes/note -> notes/note
+const pathParts = pathname.split('/').filter(Boolean);
+const firstPart = pathParts[0];
+const isLocaleInPath = languagekeys.includes(firstPart);
+const pathWithoutLocale = isLocaleInPath ? pathParts.slice(1).join('/') : pathParts.join('/');
 
-if (!lang) {
-	// If on the root page, add the language to the path
-	switchTargetLocation = `/${siwtchTargetlanguage}${pathname}`;
-} else {
-	// If on a language page, replace the language in the path
-	const [root, _, ...slug] = pathname.split("/");
-	switchTargetLocation = [root, siwtchTargetlanguage, ...slug].join("/");
-}
+// Generate the switch target URL using Astro's i18n helper
+const switchTargetLocation = getRelativeLocaleUrl(switchTargetLanguage, pathWithoutLocale);
 ---
 
 <button

@@ -1,26 +1,29 @@
 ---
-import { defaultLanguage } from "../i18n/languages";
+import { getRelativeLocaleUrl } from "astro:i18n";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import LanguageSwitch from "../components/LanguageSwitch.astro";
-import { getLangFromUrl } from "../i18n/utils";
 import { Icon } from "astro-icon";
 
-const lang = getLangFromUrl(Astro.url);
-let home = "/";
-if (lang && lang !== defaultLanguage) home = `/${lang}/`;
+const lang = Astro.currentLocale;
+const home = getRelativeLocaleUrl(lang, '');
 
 const navItems = {
 	en: [
-		{ href: `/${lang}/blog`, label: "Blog" },
-		{ href: `/${lang}/notes`, label: "Notes" },
+		{ path: "blog", label: "Blog" },
+		{ path: "notes", label: "Notes" },
 	],
 	"zh-tw": [
-		{ href: `/${lang}/blog`, label: "文章" },
-		{ href: `/${lang}/notes`, label: "筆記" },
+		{ path: "blog", label: "文章" },
+		{ path: "notes", label: "筆記" },
 	],
 };
 
-const nav = navItems[lang] || navItems.en;
+const navConfig = navItems[lang] || navItems.en;
+const nav = navConfig.map(item => ({
+	href: getRelativeLocaleUrl(lang, item.path),
+	label: item.label
+}));
+
 const currentPath = Astro.url.pathname;
 
 const socialLinks = [

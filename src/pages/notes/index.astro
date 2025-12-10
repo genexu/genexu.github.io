@@ -1,12 +1,13 @@
 ---
 import { getCollection } from "astro:content";
-import { defaultLanguage } from "../../i18n/languages";
 import ListingLayout from "../../layouts/ListingLayout.astro";
 import BlogCard from "../../components/BlogCard.astro";
 import { deconstructSlug, getPostsByLang } from "../../i18n/utils";
 
-const posts = (await getCollection("notes")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-const postsByLang = getPostsByLang(posts, defaultLanguage);
+const lang = Astro.currentLocale;
+
+const posts = await getCollection("notes");
+const postsByLang = getPostsByLang(posts, lang);
 postsByLang.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const decoratedPosts = postsByLang.map((post) => {
@@ -15,14 +16,21 @@ const decoratedPosts = postsByLang.map((post) => {
 		...post,
 		params: {
 			slug: slugWithoutLang,
-			lang: defaultLanguage,
+			lang,
 		},
 	};
 });
 
-const t = {
-	title: "Notes",
+const content = {
+	en: {
+		title: "Notes",
+	},
+	"zh-tw": {
+		title: "筆記",
+	},
 };
+
+const t = content[lang] || content.en;
 ---
 
 <ListingLayout title={t.title}>

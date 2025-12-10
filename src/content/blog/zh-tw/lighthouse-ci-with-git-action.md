@@ -1,5 +1,4 @@
 ---
-layout: "../../../layouts/PostLayout.astro"
 title: "Lighthouse CI with Git Action (Desktop + Mobile)"
 description: "為網站加上 Lighthouse CI Git Action，檢測使用者體驗、效能、SEO 等指標"
 pubDate: "Oct 12 2023"

@@ -1,5 +1,4 @@
 ---
-layout: "../../../layouts/PostLayout.astro"
 title: "Setting Up a Lighthouse CI Server for Continuous Website Application Optimization"
 description: "Create a Lighthouse CI Server that can track and compare SEO, performance, and other metrics, enabling the continuous optimization of your website applications."
 pubDate: "Oct 16 2023"
