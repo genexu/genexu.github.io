@@ -2,7 +2,7 @@
 title: "CSS Unit, Size, Spacing and Box Model"
 description: "CSS units, size, spacing, borders, text, line height and properties related to size and spatial relationships"
 pubDate: "Oct 19 2023"
-tags: ["CSS", "Size", "Unit", "Spacing", "Box Model", "Line Height"]
+tags: ["CSS", "Size", "Unit", "Spacing", "BoxModel", "LineHeight"]
 ---
 
 ### Absolute units

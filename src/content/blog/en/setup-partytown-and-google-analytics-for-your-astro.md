@@ -2,7 +2,7 @@
 title: "Setting up Partytown with Google Analytics for Astro"
 description: "Enhancing Astro website performance and analyzing website traffic using Partytown and Google Analytics."
 pubDate: "Oct 7 2023"
-tags: ["Astor", "Partytown", "Google Analytics"]
+tags: ["Astor", "Partytown", "GoogleAnalytics"]
 ---
 
 ### What is Partytown

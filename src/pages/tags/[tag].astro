@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import ListingLayout from "../../layouts/ListingLayout.astro";
-import BlogCard from "../../components/BlogCard.astro";
+import PostCard from "../../components/PostCard.astro";
 import { deconstructSlug, getPostsByLang } from "../../i18n/utils";
 
 export async function getStaticPaths() {
@@ -53,7 +53,7 @@ const t = content[lang] || content.en;
 <ListingLayout title={t.title} tag={tag}>
 	<div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
 		{decoratedPosts.map((post) => (
-			<BlogCard post={post} />
+			<PostCard post={post} />
 		))}
 	</div>
 </ListingLayout>

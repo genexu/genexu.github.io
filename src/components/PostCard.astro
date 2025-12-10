@@ -17,7 +17,7 @@ interface Props {
 const { post } = Astro.props;
 const { data, params, collection } = post;
 const { lang, slug } = params;
-const { title, description, tags, pubDate } = data;
+const { title, description, tags, pubDate, cover } = data;
 
 const postUrl = getRelativeLocaleUrl(lang, `${collection}/${slug}`);
 ---
@@ -25,6 +25,17 @@ const postUrl = getRelativeLocaleUrl(lang, `${collection}/${slug}`);
 <article
 	class="group relative bg-white dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-accent-500 dark:hover:border-accent-500 transition-all duration-300 overflow-hidden hover:shadow-xl hover:shadow-accent-500/10 dark:hover:shadow-accent-500/20"
 >
+	{cover && (
+		<a href={postUrl} class="block">
+			<div class="aspect-video w-full overflow-hidden bg-slate-100 dark:bg-slate-900">
+				<img
+					src={cover}
+					alt={title}
+					class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+				/>
+			</div>
+		</a>
+	)}
 	<div class="p-5 md:p-6 space-y-3">
 		<a href={postUrl} class="block">
 			<div class="flex items-start justify-between gap-4">

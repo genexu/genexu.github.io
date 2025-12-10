@@ -2,7 +2,7 @@
 title: "Lighthouse CI with Git Action (Desktop + Mobile)"
 description: "為網站加上 Lighthouse CI Git Action，檢測使用者體驗、效能、SEO 等指標"
 pubDate: "Oct 12 2023"
-tags: ["Lighthouse", "SEO", "Performance", "Git Action", "CI"]
+tags: ["Lighthouse", "SEO", "Performance", "GitAction", "CI"]
 ---
 
 ### 安裝 Lighthouse CI GitHub App 並取得 Token
