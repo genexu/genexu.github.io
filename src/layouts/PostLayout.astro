@@ -5,6 +5,8 @@ import Footer from "./Footer.astro";
 import FormattedDateTime from "../components/FormattedDateTime.astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
 
+import "../styles/global.css";
+
 const { frontmatter } = Astro.props;
 const lang = Astro.currentLocale;
 
