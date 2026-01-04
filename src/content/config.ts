@@ -21,4 +21,14 @@ const notes = defineCollection({
 	}),
 });
 
-export const collections = { blog, notes };
+const life = defineCollection({
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+		pubDate: z.coerce.date(),
+		updatedDate: z.coerce.date().optional(),
+		tags: z.array(z.string()).optional(),
+	}),
+});
+
+export const collections = { blog, notes, life };
