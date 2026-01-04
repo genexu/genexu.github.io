@@ -10,10 +10,12 @@ const home = getRelativeLocaleUrl(lang, '');
 const navItems = {
 	en: [
 		{ path: "blog", label: "Blog" },
+		{ path: "life", label: "Life" },
 		{ path: "notes", label: "Notes" },
 	],
 	"zh-tw": [
 		{ path: "blog", label: "文章" },
+		{ path: "life", label: "生活" },
 		{ path: "notes", label: "筆記" },
 	],
 };
@@ -24,7 +26,25 @@ const nav = navConfig.map(item => ({
 	label: item.label
 }));
 
-const currentPath = Astro.url.pathname;
+// Normalize path by removing trailing slash for consistent matching
+const normalizePath = (path: string) => path.endsWith('/') && path !== '/' ? path.slice(0, -1) : path;
+
+// Build the full current path with locale prefix for non-default locales
+// This is needed because fallbackType: "rewrite" strips the locale from pathname
+const buildCurrentPath = () => {
+	const pathname = Astro.url.pathname;
+	// For default locale (en), path doesn't have prefix
+	if (lang === 'en') {
+		return normalizePath(pathname);
+	}
+	// For other locales, if pathname doesn't start with locale, prepend it
+	if (!pathname.startsWith(`/${lang}/`)) {
+		return normalizePath(`/${lang}${pathname}`);
+	}
+	return normalizePath(pathname);
+};
+
+const currentPath = buildCurrentPath();
 
 const socialLinks = [
 	{ href: "https://github.com/genexu", icon: "mdi:github", label: "GitHub" },
@@ -47,19 +67,23 @@ const socialLinks = [
 			</a>
 
 			<div class="hidden md:flex items-center space-x-1">
-				{nav.map((item) => (
-					<a
-						href={item.href}
-						class:list={[
-							"px-4 py-2 rounded-lg font-medium transition-all duration-200",
-							currentPath.startsWith(item.href)
-								? "bg-accent-100 dark:bg-accent-900/30 text-accent-700 dark:text-accent-300"
-								: "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
-						]}
-					>
-						{item.label}
-					</a>
-				))}
+				{nav.map((item) => {
+					const normalizedHref = normalizePath(item.href);
+					const isActive = currentPath === normalizedHref || currentPath.startsWith(normalizedHref + '/');
+					return (
+						<a
+							href={item.href}
+							class:list={[
+								"px-4 py-2 rounded-lg font-medium transition-all duration-200",
+								isActive
+									? "bg-accent-100 dark:bg-accent-900/30 text-accent-700 dark:text-accent-300"
+									: "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+							]}
+						>
+							{item.label}
+						</a>
+					);
+				})}
 			</div>
 
 			<div class="flex items-center gap-2">
