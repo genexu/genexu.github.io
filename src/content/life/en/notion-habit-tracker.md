@@ -10,7 +10,11 @@ tags: ["Notion", "HabitTracker"]
 Inspired by the book Atomic Habits, I've been building my own Habit Tracker for quite some time now. Beyond the well-known compound effect of habits, this article aims to share the insights I've gained along the way and the Habit Tracker I built using Notion.
 
 ### Establishing Habits
-Before building a Habit Tracker, the first step is to define the habits you want to develop. These habits can be anything—daily exercise, reading, meditation, or learning new skills. Many articles already cover how to establish habits, so I won't elaborate here. Instead, I'd like to share another insight I've experienced:
+Before building a Habit Tracker, the first step is to define the habits you want to develop. These habits can be anything—daily exercise, reading, meditation, or learning new skills. Many articles already cover how to establish habits, so I won't elaborate here. Instead, I'd like to share a few insights I've experienced:
+
+> Start with simple ones
+
+Include some simpler habits, such as drinking a glass of water when you wake up, organizing your email, or like soldiers who always make their beds in the morning. These habits don't require much time or energy but can bring positive impacts. When you complete these simple habits, you'll feel a sense of achievement, which motivates you to tackle more challenging habits.
 
 > Don't treat yourself as a superhuman
 
