@@ -4,24 +4,29 @@ import { getRelativeLocaleUrl } from "astro:i18n";
 import { DEFAULT_SITE_TITLE, DEFAULT_SITE_DESCRIPTION } from "../constants";
 import Layout from "../layouts/Layout.astro";
 import PostCard from "../components/PostCard.astro";
+import ReadingCarousel from "../components/ReadingCarousel.astro";
 import { deconstructSlug, getPostsByLang } from "../i18n/utils";
 
 const lang = Astro.currentLocale;
 
 const allPosts = await getCollection("blog");
 const allLife = await getCollection("life");
+const allReading = await getCollection("reading");
 const allNotes = await getCollection("notes");
 
 const posts = getPostsByLang(allPosts, lang);
 const life = getPostsByLang(allLife, lang);
+const reading = getPostsByLang(allReading, lang);
 const notes = getPostsByLang(allNotes, lang);
 
 const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const sortedLife = life.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const sortedReading = reading.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const sortedNotes = notes.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const recentPosts = sortedPosts.slice(0, 6);
 const recentLife = sortedLife.slice(0, 6);
+const recentReading = sortedReading.slice(0, 6);
 const recentNotes = sortedNotes.slice(0, 3);
 
 const decoratePost = (post) => {
@@ -42,6 +47,8 @@ const content = {
 		viewAllPosts: "View All Posts",
 		recentLife: "Recent Life",
 		viewAllLife: "View All Life",
+		recentReading: "Recent Reading",
+		viewAllReading: "View All Reading",
 		recentNotes: "Recent Notes",
 		viewAllNotes: "View All Notes",
 	},
@@ -50,6 +57,8 @@ const content = {
 		viewAllPosts: "查看所有文章",
 		recentLife: "最新生活",
 		viewAllLife: "查看所有生活",
+		recentReading: "最新閱讀",
+		viewAllReading: "查看所有閱讀",
 		recentNotes: "最新筆記",
 		viewAllNotes: "查看所有筆記",
 	},
@@ -59,77 +68,101 @@ const t = content[lang] || content.en;
 ---
 
 <Layout title={DEFAULT_SITE_TITLE} description={DEFAULT_SITE_DESCRIPTION}>
-	<div class="space-y-12 md:space-y-16">
-		{recentPosts.length > 0 && (
-			<section class="space-y-4">
-				<div class="flex items-center justify-between">
-					<h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
-						{t.recentPosts}
+	<div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,3fr)] gap-8 lg:gap-12">
+		<!-- Left Column: Reading Reflections (25%) -->
+		<aside class="space-y-4">
+			{recentReading.length > 0 && (
+				<div class="space-y-4">
+					<h2 class="text-xl font-bold text-slate-900 dark:text-white">
+						{t.recentReading}
 					</h2>
+					<ReadingCarousel posts={recentReading.map((post) => decoratePost(post))} />
 					<a
-						href={getRelativeLocaleUrl(lang, 'blog')}
-						class="text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 font-medium flex items-center gap-2 group"
+						href={getRelativeLocaleUrl(lang, 'reading')}
+						class="text-sm text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 font-medium flex items-center justify-center gap-2 group py-2 px-4 rounded-lg border border-accent-200 dark:border-accent-800 hover:bg-accent-50 dark:hover:bg-accent-900/20 transition-colors"
 					>
-						{t.viewAllPosts}
-						<svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						{t.viewAllReading}
+						<svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
 						</svg>
 					</a>
 				</div>
-				<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-					{recentPosts.map((post) => (
-						<PostCard post={decoratePost(post)} />
-					))}
-				</div>
-			</section>
-		)}
+			)}
+		</aside>
 
-		{recentLife.length > 0 && (
-			<section class="space-y-4">
-				<div class="flex items-center justify-between">
-					<h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
-						{t.recentLife}
-					</h2>
-					<a
-						href={getRelativeLocaleUrl(lang, 'life')}
-						class="text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 font-medium flex items-center gap-2 group"
-					>
-						{t.viewAllLife}
-						<svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-						</svg>
-					</a>
-				</div>
-				<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-					{recentLife.map((post) => (
-						<PostCard post={decoratePost(post)} />
-					))}
-				</div>
-			</section>
-		)}
+		<!-- Right Column: Blog, Life, Notes (75%) -->
+		<main class="space-y-12 md:space-y-16">
+			{recentPosts.length > 0 && (
+				<section class="space-y-4">
+					<div class="flex items-center justify-between">
+						<h2 class="text-xl font-bold text-slate-900 dark:text-white">
+							{t.recentPosts}
+						</h2>
+						<a
+							href={getRelativeLocaleUrl(lang, 'blog')}
+							class="text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 font-medium flex items-center gap-2 group"
+						>
+							{t.viewAllPosts}
+							<svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+							</svg>
+						</a>
+					</div>
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+						{recentPosts.map((post) => (
+							<PostCard post={decoratePost(post)} />
+						))}
+					</div>
+				</section>
+			)}
 
-		{recentNotes.length > 0 && (
-			<section class="space-y-4">
-				<div class="flex items-center justify-between">
-					<h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
-						{t.recentNotes}
-					</h2>
-					<a
-						href={getRelativeLocaleUrl(lang, 'notes')}
-						class="text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 font-medium flex items-center gap-2 group"
-					>
-						{t.viewAllNotes}
-						<svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-						</svg>
-					</a>
-				</div>
-				<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-					{recentNotes.map((note) => (
-						<PostCard post={decoratePost(note)} />
-					))}
-				</div>
-			</section>
-		)}
+			{recentLife.length > 0 && (
+				<section class="space-y-4">
+					<div class="flex items-center justify-between">
+						<h2 class="text-xl font-bold text-slate-900 dark:text-white">
+							{t.recentLife}
+						</h2>
+						<a
+							href={getRelativeLocaleUrl(lang, 'life')}
+							class="text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 font-medium flex items-center gap-2 group"
+						>
+							{t.viewAllLife}
+							<svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+							</svg>
+						</a>
+					</div>
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+						{recentLife.map((post) => (
+							<PostCard post={decoratePost(post)} />
+						))}
+					</div>
+				</section>
+			)}
+
+			{recentNotes.length > 0 && (
+				<section class="space-y-4">
+					<div class="flex items-center justify-between">
+						<h2 class="text-xl font-bold text-slate-900 dark:text-white">
+							{t.recentNotes}
+						</h2>
+						<a
+							href={getRelativeLocaleUrl(lang, 'notes')}
+							class="text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 font-medium flex items-center gap-2 group"
+						>
+							{t.viewAllNotes}
+							<svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+							</svg>
+						</a>
+					</div>
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+						{recentNotes.map((note) => (
+							<PostCard post={decoratePost(note)} />
+						))}
+					</div>
+				</section>
+			)}
+		</main>
 	</div>
 </Layout>

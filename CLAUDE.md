@@ -44,15 +44,29 @@ pnpm astro [command]
 
 ### Content Collections
 
-Two content collections defined in `src/content/config.ts`:
+Four content collections defined in `src/content/config.ts`:
 
 1. **blog** - Blog posts in `src/content/blog/`
-2. **notes** - Notes in `src/content/notes/`
+2. **life** - Life posts in `src/content/life/`
+3. **reading** - Reading reflections in `src/content/reading/`
+4. **notes** - Notes in `src/content/notes/`
 
-Both collections use the same schema:
+**Standard collections** (blog, life, notes) use the same schema:
 - `title` (string, required)
 - `description` (string, required)
 - `pubDate` (date, required)
+- `updatedDate` (date, optional)
+- `tags` (string array, optional)
+- `cover` (string, optional) - for blog posts
+
+**Reading collection** has additional book-specific fields:
+- `title` (string, required) - Reflection title
+- `description` (string, required) - Brief summary
+- `bookTitle` (string, required) - Book title
+- `bookAuthor` (string, required) - Author name
+- `rating` (number 1-5, required) - Book rating
+- `cover` (string, optional) - Book cover image path
+- `pubDate` (date, required) - Reflection publish date
 - `updatedDate` (date, optional)
 - `tags` (string array, optional)
 
@@ -63,6 +77,12 @@ src/content/
 ├── blog/
 │   ├── en/           # English blog posts
 │   └── zh-tw/        # Traditional Chinese blog posts
+├── life/
+│   ├── en/           # English life posts
+│   └── zh-tw/        # Traditional Chinese life posts
+├── reading/
+│   ├── en/           # English reading reflections
+│   └── zh-tw/        # Traditional Chinese reading reflections
 └── notes/
     ├── en/           # English notes
     └── zh-tw/        # Traditional Chinese notes
@@ -95,18 +115,22 @@ Configured in:
 
 ```
 pages/
-├── index.astro           # Root redirects to /en
-├── [lang]/              # Dynamic locale routes
-│   ├── blog/
-│   │   ├── index.astro     # Blog listing
-│   │   └── [...slug].astro # Individual blog posts
-│   ├── notes/
-│   │   ├── index.astro     # Notes listing
-│   │   └── [...slug].astro # Individual notes
-│   ├── tags/
-│   │   └── [tag]/
-│   │       └── [...page].astro  # Tag-based filtering
-│   └── index.astro       # Home page for locale
+├── index.astro           # Home page with recent posts from all collections
+├── blog/
+│   ├── index.astro         # Blog listing
+│   └── [...slug].astro     # Individual blog posts
+├── life/
+│   ├── index.astro         # Life posts listing
+│   └── [...slug].astro     # Individual life posts
+├── reading/
+│   ├── index.astro         # Reading reflections listing
+│   └── [...slug].astro     # Individual reading reflections
+├── notes/
+│   ├── index.astro         # Notes listing
+│   └── [...slug].astro     # Individual notes
+├── tags/
+│   └── [tag]/
+│       └── [...page].astro  # Tag-based filtering
 └── rss.xml.js           # RSS feed generation
 ```
 
@@ -135,6 +159,8 @@ Dashboard-style panel components in `src/components/Panels/`:
 - `FormattedDateTime.astro` - Date formatting with i18n
 - `LanguageSwitch.astro` - Language toggle
 - `ThemeToggle.astro` - Dark/light mode toggle
+- `PostCard.astro` - Card component for blog, life, and notes posts
+- `ReadingCard.astro` - Specialized card component for reading reflections with book metadata (cover, author, rating)
 - `PostList/` - Blog/notes listing components
 - `Icons/` - Gradient animated social icons (GitHub, LinkedIn, Email, RSS)
 

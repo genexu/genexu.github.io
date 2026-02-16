@@ -1,0 +1,193 @@
+---
+import ReadingCard from "./ReadingCard.astro";
+import type { CollectionEntry } from "astro:content";
+
+type ReadingPost = CollectionEntry<"reading"> & {
+	params: {
+		lang: string;
+		slug: string;
+	};
+};
+
+interface Props {
+	posts: ReadingPost[];
+	id?: string;
+}
+
+const { posts, id = "reading-carousel" } = Astro.props;
+---
+
+<div class="reading-carousel-container relative group">
+	<!-- Navigation Buttons -->
+	{posts.length > 1 && (
+		<>
+			<button
+				data-carousel-prev={id}
+				class="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-slate-800 shadow-md rounded-full p-2 hover:bg-slate-50 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed -translate-x-1/2 transition-colors duration-300"
+				aria-label="Previous"
+			>
+				<svg class="w-4 h-4 text-slate-700 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+				</svg>
+			</button>
+			<button
+				data-carousel-next={id}
+				class="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-slate-800 shadow-md rounded-full p-2 hover:bg-slate-50 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed translate-x-1/2 transition-colors duration-300"
+				aria-label="Next"
+			>
+				<svg class="w-4 h-4 text-slate-700 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+				</svg>
+			</button>
+		</>
+	)}
+
+	<!-- Carousel Container -->
+	<div
+		id={id}
+		class="reading-carousel flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-hide pb-4"
+	>
+		{posts.map((post) => (
+			<div class="snap-start shrink-0 w-full">
+				<ReadingCard post={post} />
+			</div>
+		))}
+	</div>
+
+	<!-- Scroll Indicators (Dots) -->
+	{posts.length > 1 && (
+		<div class="flex justify-center gap-2 mt-4">
+			{posts.map((_, index) => (
+				<button
+					data-carousel-dot={id}
+					data-index={index}
+					class="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-600 transition-all duration-300 hover:bg-accent-500 dark:hover:bg-accent-400"
+					aria-label={`Go to slide ${index + 1}`}
+				></button>
+			))}
+		</div>
+	)}
+</div>
+
+<style>
+	.scrollbar-hide {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+	.scrollbar-hide::-webkit-scrollbar {
+		display: none;
+	}
+
+
+	[data-carousel-dot].active {
+		background-color: var(--color-accent-600);
+		width: 2rem;
+	}
+
+	.dark [data-carousel-dot].active {
+		background-color: var(--color-accent-400);
+	}
+</style>
+
+<script>
+	function initCarousel(carouselId: string) {
+		const carousel = document.getElementById(carouselId);
+		const prevButton = document.querySelector(`[data-carousel-prev="${carouselId}"]`);
+		const nextButton = document.querySelector(`[data-carousel-next="${carouselId}"]`);
+		const dots = document.querySelectorAll(`[data-carousel-dot="${carouselId}"]`);
+
+		if (!carousel) return;
+
+		let currentIndex = 0;
+
+		function updateDots() {
+			dots.forEach((dot, index) => {
+				if (index === currentIndex) {
+					dot.classList.add('active');
+				} else {
+					dot.classList.remove('active');
+				}
+			});
+		}
+
+		function updateButtons() {
+			if (prevButton && nextButton) {
+				(prevButton as HTMLButtonElement).disabled = currentIndex === 0;
+				(nextButton as HTMLButtonElement).disabled = currentIndex === dots.length - 1;
+			}
+		}
+
+		function scrollToIndex(index: number) {
+			const items = carousel.querySelectorAll('.snap-start');
+			if (items[index]) {
+				items[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+				currentIndex = index;
+				updateDots();
+				updateButtons();
+			}
+		}
+
+		// Previous button
+		prevButton?.addEventListener('click', () => {
+			if (currentIndex > 0) {
+				scrollToIndex(currentIndex - 1);
+			}
+		});
+
+		// Next button
+		nextButton?.addEventListener('click', () => {
+			if (currentIndex < dots.length - 1) {
+				scrollToIndex(currentIndex + 1);
+			}
+		});
+
+		// Dot navigation
+		dots.forEach((dot, index) => {
+			dot.addEventListener('click', () => {
+				scrollToIndex(index);
+			});
+		});
+
+		// Update on scroll (detect which item is in view)
+		let scrollTimeout: number;
+		carousel.addEventListener('scroll', () => {
+			clearTimeout(scrollTimeout);
+			scrollTimeout = window.setTimeout(() => {
+				const items = carousel.querySelectorAll('.snap-start');
+				const scrollLeft = carousel.scrollLeft;
+				const containerWidth = carousel.offsetWidth;
+
+				items.forEach((item, index) => {
+					const rect = item.getBoundingClientRect();
+					const carouselRect = carousel.getBoundingClientRect();
+
+					if (rect.left >= carouselRect.left && rect.left < carouselRect.left + containerWidth / 2) {
+						currentIndex = index;
+						updateDots();
+						updateButtons();
+					}
+				});
+			}, 100);
+		});
+
+		// Initialize
+		updateDots();
+		updateButtons();
+	}
+
+	// Initialize all carousels on the page
+	document.addEventListener('DOMContentLoaded', () => {
+		const carousels = document.querySelectorAll('.reading-carousel');
+		carousels.forEach((carousel) => {
+			initCarousel(carousel.id);
+		});
+	});
+
+	// Re-initialize on view transitions (Astro)
+	document.addEventListener('astro:page-load', () => {
+		const carousels = document.querySelectorAll('.reading-carousel');
+		carousels.forEach((carousel) => {
+			initCarousel(carousel.id);
+		});
+	});
+</script>

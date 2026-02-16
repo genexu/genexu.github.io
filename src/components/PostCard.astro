@@ -3,7 +3,7 @@ import { getRelativeLocaleUrl } from "astro:i18n";
 import FormattedDateTime from "./FormattedDateTime.astro";
 import type { CollectionEntry } from "astro:content";
 
-type Post = CollectionEntry<"blog" | "notes"> & {
+type Post = CollectionEntry<"blog" | "notes" | "life"> & {
 	params: {
 		lang: string;
 		slug: string;
@@ -46,11 +46,11 @@ const postUrl = getRelativeLocaleUrl(lang, `${collection}/${slug}`);
 						<span>{tags.length > 0 ? tags[0] : collection}</span>
 					</div>
 
-					<h2 class="font-bold text-lg md:text-xl text-slate-900 dark:text-white group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors duration-300">
+					<h2 class="font-bold text-base text-slate-900 dark:text-white group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors duration-300">
 						{title}
 					</h2>
 
-					<p class="text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed">
+					<p class="text-sm text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed">
 						{description}
 					</p>
 				</div>

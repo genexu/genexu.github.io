@@ -31,4 +31,18 @@ const life = defineCollection({
 	}),
 });
 
-export const collections = { blog, notes, life };
+const reading = defineCollection({
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+		bookTitle: z.string(),
+		bookAuthor: z.string(),
+		rating: z.number().min(1).max(5),
+		cover: z.string().optional(),
+		pubDate: z.coerce.date(),
+		updatedDate: z.coerce.date().optional(),
+		tags: z.array(z.string()).optional(),
+	}),
+});
+
+export const collections = { blog, notes, life, reading };
