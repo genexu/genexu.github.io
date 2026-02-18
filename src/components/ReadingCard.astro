@@ -17,7 +17,7 @@ interface Props {
 const { post } = Astro.props;
 const { data, params, collection } = post;
 const { lang, slug } = params;
-const { title, description, bookTitle, bookAuthor, rating, cover, tags, pubDate } = data;
+const { title, description, author, rating, cover, tags, pubDate } = data;
 
 const postUrl = getRelativeLocaleUrl(lang, `${collection}/${slug}`);
 
@@ -33,7 +33,7 @@ const stars = Array.from({ length: 5 }, (_, i) => i < rating);
 			{cover ? (
 				<img
 					src={cover}
-					alt={`Cover of ${bookTitle}`}
+					alt={`Cover of ${title}`}
 					class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
 				/>
 			) : (
@@ -49,10 +49,10 @@ const stars = Array.from({ length: 5 }, (_, i) => i < rating);
 				<!-- Book Title & Author -->
 				<div class="space-y-0.5">
 					<h3 class="font-bold text-base text-white line-clamp-2 leading-tight">
-						{bookTitle}
+						{title}
 					</h3>
 					<p class="text-sm text-white/90 line-clamp-1">
-						{bookAuthor}
+						{author}
 					</p>
 				</div>
 

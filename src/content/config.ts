@@ -35,8 +35,7 @@ const reading = defineCollection({
 	schema: z.object({
 		title: z.string(),
 		description: z.string(),
-		bookTitle: z.string(),
-		bookAuthor: z.string(),
+		author: z.string(),
 		rating: z.number().min(1).max(5),
 		cover: z.string().optional(),
 		pubDate: z.coerce.date(),
