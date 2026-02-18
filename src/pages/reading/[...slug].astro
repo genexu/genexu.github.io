@@ -1,6 +1,6 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
-import PostLayout from "../../layouts/PostLayout.astro";
+import ReadingLayout from "../../layouts/ReadingLayout.astro";
 
 export async function getStaticPaths() {
 	const posts = await getCollection("reading");
@@ -34,6 +34,6 @@ if (!post) {
 const { Content } = await post.render();
 ---
 
-<PostLayout frontmatter={post.data}>
+<ReadingLayout frontmatter={post.data}>
 	<Content />
-</PostLayout>
+</ReadingLayout>

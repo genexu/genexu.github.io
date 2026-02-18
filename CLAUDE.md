@@ -88,15 +88,52 @@ src/content/
     └── zh-tw/        # Traditional Chinese notes
 ```
 
-Each markdown file must include a frontmatter section with layout specified:
+Each markdown file must include a frontmatter section. **Note:** The `layout` field is NOT supported in content collections - layouts are applied in the route files instead.
+
+**For blog, life, and notes posts:**
 ```yaml
 ---
-layout: "../../../layouts/PostLayout.astro"
 title: "Post Title"
 description: "Post description"
 pubDate: "Aug 29 2024"
 tags: ["React", "TypeScript"]
 ---
+```
+
+**For reading reflections:**
+```yaml
+---
+title: "Book Title"
+description: "Reflection description"
+author: "Author Name"
+rating: 4.5
+cover: "/images/book-covers/book.jpg"
+pubDate: "Feb 18 2026"
+tags: ["Genre", "Theme"]
+---
+```
+
+### Layout Application
+
+Layouts are applied in the dynamic route files (`[...slug].astro`), not in frontmatter:
+
+- `src/pages/blog/[...slug].astro` - Uses `PostLayout`
+- `src/pages/life/[...slug].astro` - Uses `PostLayout`
+- `src/pages/notes/[...slug].astro` - Uses `PostLayout`
+- `src/pages/reading/[...slug].astro` - Uses `ReadingLayout`
+
+Example route pattern:
+```astro
+---
+import { getCollection } from "astro:content";
+import ReadingLayout from "../../layouts/ReadingLayout.astro";
+
+const post = // ... fetch post logic
+const { Content } = await post.render();
+---
+<ReadingLayout frontmatter={post.data}>
+  <Content />
+</ReadingLayout>
 ```
 
 ## Internationalization (i18n)
@@ -138,7 +175,8 @@ pages/
 
 ### Layouts
 - `Layout.astro` - Base layout with HTML structure
-- `PostLayout.astro` - Wrapper for blog/note content
+- `PostLayout.astro` - Wrapper for blog, life, and notes content
+- `ReadingLayout.astro` - Specialized layout for reading reflections with book metadata showcase (cover, author, rating)
 - `Head.astro` - SEO metadata and meta tags
 - `Header.astro` - Site navigation
 - `Footer.astro` - Site footer
@@ -283,9 +321,168 @@ Extends Astro's strict TypeScript config with React JSX support:
 ### Adding New Content
 
 1. Create markdown file in appropriate content collection directory (`src/content/blog/[lang]/` or `src/content/notes/[lang]/`)
-2. Include required frontmatter with layout path
+2. Include required frontmatter (NO layout field - layouts are applied in route files)
 3. Use appropriate language code in directory structure
 4. Content automatically appears in listings via Astro Content Collections API
+
+### Creating Reading Reflections
+
+Reading reflections require special handling due to book-specific metadata and images. Follow this workflow:
+
+#### 1. Prepare Images
+
+**Book Cover:**
+- Save to: `public/images/book-covers/{book-slug}.jpg`
+- Recommended size: 2:3 aspect ratio (e.g., 210x315px or similar)
+
+**Content Images (quotes, diagrams, etc.):**
+- Create folder: `public/images/reading/{book-slug}/`
+- Use descriptive names: `quote-1.jpg`, `persistence.jpg`, `culture.jpg`, etc.
+- Keep organized by topic or section
+
+#### 2. Create Markdown File
+
+**File Location:**
+- `src/content/reading/zh-tw/{book-slug}.md` (for Traditional Chinese)
+- `src/content/reading/en/{book-slug}.md` (for English)
+
+**Frontmatter Template:**
+```yaml
+---
+title: "Book Title"
+description: "Brief reflection summary"
+author: "Author Name"
+rating: 4.5
+cover: "/images/book-covers/{book-slug}.jpg"
+pubDate: "Feb 18 2026"
+tags: ["Genre", "Theme", "Topic"]
+---
+```
+
+**Note:**
+- Use **book title** as the `title` field (not "My thoughts on..." or reflection title)
+- The `author` field is for the book's author, not the reflection author
+
+#### 3. Content Structure
+
+Organize content with these standard sections:
+
+```markdown
+## 核心內容概述
+
+### 故事簡介
+Brief story/content summary
+
+## 精彩亮點分享
+
+### 一段打動你的文字
+**IMPORTANT:** Extract actual text from quote images as blockquotes:
+
+> Actual quote from the book
+
+**Quote Attribution Rules:**
+- Do NOT add book title attribution (e.g., "—— 《Book Title》") for quotes from the book being reviewed
+- The context already makes it clear the quote is from the book
+- ONLY include attribution for quotes from OTHER sources (e.g., "—— 《Other Book》", "—— Author Name")
+
+Do NOT embed images of text - use blockquote markdown instead.
+
+### 有趣或意想不到的部分
+Interesting or unexpected parts
+
+### 主要啟發或價值
+Key insights or values
+
+[Images/diagrams can go here if they illustrate concepts]
+
+## 個人感受與實踐
+
+### 這本書對我的影響
+How the book affected you
+
+### 實際應用
+Practical applications
+
+## 延伸思考
+
+### 引發思考的問題
+Thought-provoking questions
+
+## Recommendations and Summary
+
+**Suitable Readers:**
+
+Who should read this book
+
+**Summary:**
+
+Final summary
+
+**Note on Rating:**
+- The rating (e.g., 4.5/5) is ONLY displayed in the frontmatter metadata, NOT in the markdown content
+- DO NOT include explicit rating lines like "Rating: ★★★★☆ (4/5)" in the content body
+- If source material (e.g., Confluence) has rating description text explaining the rating, merge it into the **Summary** section
+- Example: "The multiple perspectives and story convergence were excellent" should be integrated into the summary narrative, not listed separately as a rating explanation
+```
+
+#### 4. Handle Images and Media
+
+**Text Quotes:**
+- Extract text from images and format as blockquotes
+- DO NOT embed images that only contain text
+- Use this format:
+  ```markdown
+  > Quote text here
+  >
+  > —— 《Book Title》
+  ```
+
+**Concept Diagrams/Illustrations:**
+- Keep as images when they illustrate concepts visually
+- Use descriptive alt text:
+  ```markdown
+  ![Description of diagram](/images/reading/{book-slug}/diagram-name.jpg)
+  ```
+
+**YouTube Videos:**
+- Embed when relevant (e.g., related music, author talks)
+- Use responsive iframe wrapper:
+  ```html
+  <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; margin: 2rem 0;">
+    <iframe
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 0.75rem;"
+      src="https://www.youtube.com/embed/{VIDEO_ID}"
+      title="Video title"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+  </div>
+  ```
+
+#### 5. Importing from Confluence
+
+When importing reading reflections from Confluence:
+
+1. **Fetch content** using Atlassian MCP with `contentFormat: "markdown"`
+2. **Check for images** in ADF format to see how many images exist
+3. **Download images** from Confluence to `/Users/gene_xu/Downloads`
+4. **Organize images:**
+   - Book cover → `public/images/book-covers/{book-slug}.jpg`
+   - Other images → `public/images/reading/{book-slug}/`
+5. **Extract text from quote images** - do not embed them as images
+6. **Keep visual diagrams** as images with proper paths
+
+#### 6. Verification Checklist
+
+Before committing:
+- [ ] Book cover exists at `/images/book-covers/{book-slug}.jpg`
+- [ ] All content images organized in `/images/reading/{book-slug}/`
+- [ ] Text quotes extracted as blockquotes (not image embeds)
+- [ ] All image paths use absolute paths starting with `/images/`
+- [ ] Frontmatter includes all required fields (title, author, rating, etc.)
+- [ ] NO `layout` field in frontmatter
+- [ ] File saved in correct language directory (`zh-tw/` or `en/`)
 
 ### Adding New Components
 
@@ -311,7 +508,7 @@ Extends Astro's strict TypeScript config with React JSX support:
 
 1. **pnpm Lockfile**: Always commit `pnpm-lock.yaml`. CI uses `--frozen-lockfile` to ensure reproducible builds.
 2. **Search Index**: Always run `pnpm pagefind` after `pnpm build` before deploying manually.
-3. **Layout Paths**: Content frontmatter layout paths are relative (e.g., `../../../layouts/PostLayout.astro`).
+3. **Content Collection Layouts**: The `layout` frontmatter field is NOT supported in content collections (Astro 5). Layouts are applied in the route files (`[...slug].astro`) by wrapping the `<Content />` component. Do not add `layout` to markdown frontmatter.
 4. **React Icons**: Configured as non-external for SSR - don't change this Vite config.
 5. **Language Routing**: All pages under `[lang]/` - root `/` should redirect to default locale.
 6. **Dark Mode**: Uses class-based strategy, not media query - ensure class toggling works properly.
