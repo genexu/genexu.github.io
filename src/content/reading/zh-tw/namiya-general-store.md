@@ -4,7 +4,7 @@ description: "一本無須謀殺、不用警探、甚至連惡人都沒有的推
 author: "東野圭吾"
 rating: 4.5
 cover: "/images/book-covers/namiya-general-store.jpg"
-pubDate: "Jan 31 2026"
+pubDate: "Apr 15 2025"
 tags: ["文學小說", "推理", "時空", "治癒", "日本"]
 ---
 

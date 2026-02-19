@@ -4,7 +4,7 @@ description: "風起之時，鬼魅纏身——關於逃離與回歸、記憶與
 author: "陳思宏"
 rating: 4
 cover: "/images/book-covers/ghost-town.jpg"
-pubDate: "Feb 08 2025"
+pubDate: "Feb 18 2025"
 tags: ["文學小說", "台灣文學", "家族", "記憶", "認同"]
 ---
 

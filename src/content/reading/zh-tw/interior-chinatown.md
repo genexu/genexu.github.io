@@ -4,7 +4,7 @@ description: "在角色扮演中尋找自我——關於身份認同、社會期
 author: "游朝凱"
 rating: 3.5
 cover: "/images/book-covers/interior-chinatown.jpg"
-pubDate: "Aug 30 2025"
+pubDate: "Mar 26 2025"
 tags: ["文學小說", "身份認同", "家庭", "角色扮演"]
 ---
 

@@ -4,7 +4,7 @@ description: "一家神秘心理醫院，用貓咪作為特效藥，治癒人們
 author: "石田祥"
 rating: 4
 cover: "/images/book-covers/cat-prescription.jpg"
-pubDate: "Aug 30 2025"
+pubDate: "Apr 12 2025"
 tags: ["文學小說", "治癒", "貓咪", "心理", "日本"]
 ---
 
