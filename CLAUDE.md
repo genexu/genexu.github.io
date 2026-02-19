@@ -59,11 +59,10 @@ Four content collections defined in `src/content/config.ts`:
 - `tags` (string array, optional)
 - `cover` (string, optional) - for blog posts
 
-**Reading collection** has additional book-specific fields:
-- `title` (string, required) - Reflection title
-- `description` (string, required) - Brief summary
-- `bookTitle` (string, required) - Book title
-- `bookAuthor` (string, required) - Author name
+**Reading collection** has book-specific fields:
+- `title` (string, required) - Book title
+- `description` (string, required) - Brief summary of the reflection
+- `author` (string, required) - Book author name
 - `rating` (number 1-5, required) - Book rating
 - `cover` (string, optional) - Book cover image path
 - `pubDate` (date, required) - Reflection publish date
