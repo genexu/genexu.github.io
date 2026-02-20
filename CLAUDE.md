@@ -364,65 +364,67 @@ tags: ["Genre", "Theme", "Topic"]
 
 #### 3. Content Structure
 
-Organize content with these standard sections:
+**Standard Reading Reflection Structure:**
+
+All reading reflections follow this consistent heading hierarchy:
 
 ```markdown
-## 核心內容概述
+## Core Content Overview (核心內容概述)
 
-### 故事簡介
-Brief story/content summary
+### Story Summary (故事簡介)
+Brief story/content summary for fiction books
 
-## 精彩亮點分享
+[For non-fiction books, replace with concept-based subsections instead of 故事簡介]
 
-### 一段打動你的文字
-**IMPORTANT:** Extract actual text from quote images as blockquotes:
+## Highlights (精彩亮點分享)
 
-> Actual quote from the book
+### Touching Quotes (一段打動你的文字)
+Extract actual text from quote images as blockquotes
+
+### Interesting or Unexpected Parts (有趣或意想不到的部分)
+Surprising elements or unexpected insights
+
+### Key Insights or Values (主要啟發或價值) [OPTIONAL]
+Main takeaways - can be omitted if not applicable
+
+## Personal Reflection & Practice (個人感受與實踐)
+
+### Impact on Me (這本書對我的影響)
+How the book affected you
+
+### Practical Application (實際應用)
+Real-world applications or actions taken
+
+## Extended Thinking (延伸思考)
+
+### Thought-Provoking Questions (引發思考的問題)
+Questions for readers to reflect on
+
+## Recommendations & Summary (推薦與總結)
+
+**Suitable Readers (適合的讀者):**
+Target audience
+
+**Summary (總結):**
+Final thoughts
+```
+
+**Heading Hierarchy Rules:**
+- All main sections use `##` (H2)
+- All subsections use `###` (H3)
+- **NEVER use `####` (H4)** for standard sections
+- Non-fiction books can use concept-based H3 subsections under "Core Content Overview" instead of "Story Summary"
 
 **Quote Attribution Rules:**
 - Do NOT add book title attribution (e.g., "—— 《Book Title》") for quotes from the book being reviewed
 - The context already makes it clear the quote is from the book
 - ONLY include attribution for quotes from OTHER sources (e.g., "—— 《Other Book》", "—— Author Name")
+- Do NOT embed images of text - use blockquote markdown instead
 
-Do NOT embed images of text - use blockquote markdown instead.
-
-### 有趣或意想不到的部分
-Interesting or unexpected parts
-
-### 主要啟發或價值
-Key insights or values
-
-[Images/diagrams can go here if they illustrate concepts]
-
-## 個人感受與實踐
-
-### 這本書對我的影響
-How the book affected you
-
-### 實際應用
-Practical applications
-
-## 延伸思考
-
-### 引發思考的問題
-Thought-provoking questions
-
-## Recommendations and Summary
-
-**Suitable Readers:**
-
-Who should read this book
-
-**Summary:**
-
-Final summary
-
-**Note on Rating:**
-- The rating (e.g., 4.5/5) is ONLY displayed in the frontmatter metadata, NOT in the markdown content
+**Rating Display:**
+- The rating (e.g., 4.5/5) is ONLY in frontmatter metadata, NOT in markdown content
 - DO NOT include explicit rating lines like "Rating: ★★★★☆ (4/5)" in the content body
-- If source material (e.g., Confluence) has rating description text explaining the rating, merge it into the **Summary** section
-- Example: "The multiple perspectives and story convergence were excellent" should be integrated into the summary narrative, not listed separately as a rating explanation
-```
+- If source material has rating explanation text, merge it into the Summary section
 
 #### 4. Handle Images and Media
 
@@ -502,6 +504,13 @@ Before committing:
 - Must run `pnpm pagefind` after building to generate search index
 - SearchPanel component integrates with Pagefind
 - Search data generated in `dist/pagefind/` directory
+
+### Git Commit Guidelines
+
+- **Language**: All commit messages MUST be in English only
+- Follow conventional commit format: `type: description`
+- Common types: `feat`, `fix`, `docs`, `refactor`, `chore`, `style`
+- Keep commit messages concise and descriptive
 
 ## Common Gotchas
 
