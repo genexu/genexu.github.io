@@ -40,13 +40,19 @@ The therapeutic journeys in the book span years. The deeper the pain, the more t
 
 ### Key Insights or Values
 
+**Laura** — the author's very first professional patient. At age nine, she was abandoned by her father in a cabin in the woods and left to care for her younger siblings alone. Her father eventually returned but was an alcoholic, a criminal, and verbally abusive. Laura's habit of making excuses for him deeply affected her relationships with men and her ability to cope with stress.
+
 > I reminded her that she came from a dysfunctional family, and that normal behavior would feel clumsy and stiff. But if she persisted, over time it would feel more natural. Second, I told her that whenever she felt angry, she should remember that anger is a defense, not a feeling, and she should analyze what emotion the anger was masking.
 
 This argument also reminded me of the perspectives in "Nonviolent Communication."
 
-> As children, we must learn specific tasks that are time-sensitive in developmental psychology. These tasks all have so-called "open windows" that gradually close. If a child misses the developmental window for a certain stage, catching up later can be extremely difficult.
+**Peter** — a Chinese Canadian man referred by his urologist for unexplained impotence. As a young child, his mother locked him in an attic for extended periods while she worked, and she was consistently verbally abusive. He never learned emotional attachment, leaving him unable to form intimate relationships as an adult.
 
 The book describes a child confined during the most critical period of childhood. When we notice certain psychological states in ourselves, perhaps we can look back to examine what was missing during childhood. And when we become parents, we should keep these windows in mind to ensure children receive proper development.
+
+> As children, we must learn specific tasks that are time-sensitive in developmental psychology. These tasks all have so-called "open windows" that gradually close. If a child misses the developmental window for a certain stage, catching up later can be extremely difficult.
+
+**Danny** — a Cree Indigenous man who showed no grief after his wife and daughter died in a car accident. He grew up in a loving family but was forcibly placed in a residential school, where he was forbidden from speaking Cree and sexually abused by priests. He shut down all emotions to survive.
 
 > In the social jungle of human existence, there is no feeling of being alive without a sense of identity.
 >
@@ -63,6 +69,8 @@ These passages tell the story of an Indigenous person who suffered major childho
 This deeply conveys how essential identity is to a person.
 
 Moreover, when facing pain, temporarily sealing it away may serve as self-protection, but we also need to release it bit by bit, rather than letting it accumulate until it explodes — finding a comfortable balance between sealing and releasing.
+
+**Alana** — a 35-year-old law firm employee who suffered extreme abuse from her father in all forms throughout her life. She sacrificed herself to protect her younger sister. The extreme trauma led her to develop dissociative identity disorder (DID) as a psychological fortress to protect her psyche.
 
 > "When I was eight, I finally learned how to make sounds for him, to make myself wet. I hated myself for doing it and I hated him, but I saved my sister. He made me do it until I, as he said, 'smelled like a fish.' So fish makes me nauseous."
 >
@@ -87,6 +95,8 @@ This story represents, for me, that even in the deepest darkness, life can still
 > Patients with weak egos who have been consistently neglected often don't know how to ask for help when facing a crisis. They don't believe they deserve that extra attention, so their despair hides below the radar.
 
 Perhaps some people and some things are hidden in corners we cannot see. When we become aware, remember to extend a helping hand without hesitation.
+
+**Madeline** — a successful antique dealer in New York who developed an acute fear of flying that was crippling her business. Gildiner had retired but was persuaded to return by Madeline's father. Deeper exploration revealed Madeline had long endured her mother's verbal abuse and emotional neglect — her mother told her daily she was a "monster," yet she was none of those things.
 
 > My mistake was thinking I didn't need help. The advantage of being an experienced therapist is that you've seen everything and gained wisdom; the disadvantage is that this can breed complacency.
 >
