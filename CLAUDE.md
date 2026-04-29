@@ -409,6 +409,11 @@ Target audience
 Final thoughts
 ```
 
+**Template Flexibility:**
+- The standard structure is a **guideline, not mandatory** — sections can be omitted if not applicable
+- Do not force-fill sections just for structural completeness; content quality matters more
+- Only flag structural issues that affect readability or violate heading hierarchy rules
+
 **Heading Hierarchy Rules:**
 - All main sections use `##` (H2)
 - All subsections use `###` (H3)
