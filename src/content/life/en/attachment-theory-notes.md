@@ -271,12 +271,14 @@ Draft your own *secure* (not avoidant) Miranda rights — a brief description of
 
 ### Reminders During a Conflict
 
-The book lists six points; four are excerpted below:
+When conflict arises, try to remember these six points:
 
 - A single conflict doesn't break a whole relationship.
-- Express your fears. Don't let fear drive your actions. If you fear rejection, say so.
+- Express your fears! Don't let fear drive your actions. If you fear rejection, say so.
 - Don't assume your partner's bad mood is about you — usually it isn't.
 - Trust that your partner wants to care for you, wants to respond to you. Don't doubt — just express your needs.
+- Don't expect your partner to know what you're thinking. If you don't tell them, of course they won't know!
+- Don't guess at your partner's meaning. If in doubt, just ask.
 
 Also:
 
