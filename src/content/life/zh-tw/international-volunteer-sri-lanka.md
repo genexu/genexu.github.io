@@ -34,63 +34,33 @@ tags: []
 
 在沒有燈光與冷氣的教室中，仍能看見孩子們專注的眼神，與對於學習的渴望，或許我們真正所需要的並不多。
 
-
-![](../../../assets/images/international-volunteer-sri-lanka-3.jpg)
-![](../../../assets/images/international-volunteer-sri-lanka-5.jpg)
+![](../../../assets/images/international-volunteer-sri-lanka-3.jpg)![](../../../assets/images/international-volunteer-sri-lanka-5.jpg)
 
 
 我們協助整修遊戲區、粉刷牆面、教具並整理校園環境，與孩子們互動，並分發文具與物資，再簡單不過的遊戲，最平凡的事物，對於他們而言卻是最珍貴的禮物，校長還特意前來向我們致謝，但我心中所想卻是「他願意在這樣的環境中堅持教育的信念，該說的感謝與敬意，應該是我們才對」。
 
 不論何種方式，我們都在用自己的方式，去為這世界帶來一點點的改變，或許微不足道，或許有用亦或是徒勞，也不一定會隨之見效，但如同種子被種下，只要有一顆，在某時、某地、某人的心中萌芽，這世界就又多一座大樹能為後人遮蔭。
 
-![](../../../assets/images/international-volunteer-sri-lanka-17.jpg)
-![](../../../assets/images/international-volunteer-sri-lanka-9.jpg)
+![](../../../assets/images/international-volunteer-sri-lanka-17.jpg)![](../../../assets/images/international-volunteer-sri-lanka-9.jpg)
 
 平房搭建的病院與醫療所，和其共構的幼兒園，所謂的急診室，也不過是用隔板隔開的檢傷分類站與幾張簡單的病床，所謂的診間也不過是用布簾遮蔽的空間，被雜草與亂石包圍的建物，在眾人合力之下緩緩重見天日，為本就艱困的醫療環境增添一項可使用的空間。
 
-
-![](../../../assets/images/international-volunteer-sri-lanka-18.jpg)
-
-![](../../../assets/images/international-volunteer-sri-lanka-2.jpg)
-
-![](../../../assets/images/international-volunteer-sri-lanka-19.jpg)
-
--
+![](../../../assets/images/international-volunteer-sri-lanka-18.jpg)![](../../../assets/images/international-volunteer-sri-lanka-2.jpg)![](../../../assets/images/international-volunteer-sri-lanka-19.jpg)
 
 寶石加工參觀 TBD
 
-![](../../../assets/images/international-volunteer-sri-lanka-20.jpg)
-![](../../../assets/images/international-volunteer-sri-lanka-22.jpg)
-![](../../../assets/images/international-volunteer-sri-lanka-24.jpg)
-![](../../../assets/images/international-volunteer-sri-lanka-21.jpg)
-
-
--
+![](../../../assets/images/international-volunteer-sri-lanka-20.jpg)![](../../../assets/images/international-volunteer-sri-lanka-22.jpg)![](../../../assets/images/international-volunteer-sri-lanka-24.jpg)![](../../../assets/images/international-volunteer-sri-lanka-21.jpg)
 
 宗教與文化 TBD
 
-![](../../../assets/images/international-volunteer-sri-lanka-6.jpg)
-![](../../../assets/images/international-volunteer-sri-lanka-13.jpg)
-![](../../../assets/images/international-volunteer-sri-lanka-14.jpg)
+![](../../../assets/images/international-volunteer-sri-lanka-6.jpg)![](../../../assets/images/international-volunteer-sri-lanka-13.jpg)![](../../../assets/images/international-volunteer-sri-lanka-14.jpg)
 
--
 
 旅遊行程 TBD
 
-![](../../../assets/images/international-volunteer-sri-lanka-25.jpg)
-![](../../../assets/images/international-volunteer-sri-lanka-26.jpg)
-![](../../../assets/images/international-volunteer-sri-lanka-27.jpg)
-![](../../../assets/images/international-volunteer-sri-lanka-28.jpg)
-
-
-![](../../../assets/images/international-volunteer-sri-lanka-10.jpg)
-![](../../../assets/images/international-volunteer-sri-lanka-11.jpg)
-
--
+![](../../../assets/images/international-volunteer-sri-lanka-25.jpg)![](../../../assets/images/international-volunteer-sri-lanka-26.jpg)![](../../../assets/images/international-volunteer-sri-lanka-27.jpg)![](../../../assets/images/international-volunteer-sri-lanka-28.jpg)![](../../../assets/images/international-volunteer-sri-lanka-10.jpg)![](../../../assets/images/international-volunteer-sri-lanka-11.jpg)
 
 結語 TBD
 
-![](../../../assets/images/international-volunteer-sri-lanka-12.jpg)
-![](../../../assets/images/international-volunteer-sri-lanka-15.jpg)
-![](../../../assets/images/international-volunteer-sri-lanka-4.jpg)
+![](../../../assets/images/international-volunteer-sri-lanka-12.jpg)![](../../../assets/images/international-volunteer-sri-lanka-15.jpg)![](../../../assets/images/international-volunteer-sri-lanka-4.jpg)
 
