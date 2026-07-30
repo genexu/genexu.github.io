@@ -11,7 +11,7 @@ const postsByLang = getPostsByLang(posts, lang);
 postsByLang.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const decoratedPosts = postsByLang.map((post) => {
-	const { slugWithoutLang } = deconstructSlug(post.slug);
+	const { slugWithoutLang } = deconstructSlug(post.id);
 	return {
 		...post,
 		params: {

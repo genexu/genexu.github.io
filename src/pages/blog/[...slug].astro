@@ -1,5 +1,5 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry, getCollection, render } from "astro:content";
 import PostLayout from "../../layouts/PostLayout.astro";
 
 export async function getStaticPaths() {
@@ -7,7 +7,7 @@ export async function getStaticPaths() {
 	// Get unique slugs (without language prefix)
 	const uniqueSlugs = new Set(
 		posts.map((post) => {
-			const [, ...slug] = post.slug.split("/");
+			const [, ...slug] = post.id.split("/");
 			return slug.join("/") || undefined;
 		})
 	);
@@ -23,7 +23,7 @@ const slug = Astro.params.slug;
 // Fetch the post matching current locale and slug
 const posts = await getCollection("blog");
 const post = posts.find((p) => {
-	const [lang, ...postSlug] = p.slug.split("/");
+	const [lang, ...postSlug] = p.id.split("/");
 	return lang === currentLocale && postSlug.join("/") === slug;
 });
 
@@ -31,7 +31,7 @@ if (!post) {
 	return Astro.redirect("/404");
 }
 
-const { Content } = await post.render();
+const { Content } = await render(post);
 ---
 
 <PostLayout frontmatter={post.data}>

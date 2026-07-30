@@ -30,7 +30,7 @@ const recentReading = sortedReading.slice(0, 6);
 const recentNotes = sortedNotes.slice(0, 3);
 
 const decoratePost = (post) => {
-	const { lang: slugLang, slugWithoutLang } = deconstructSlug(post.slug);
+	const { lang: slugLang, slugWithoutLang } = deconstructSlug(post.id);
 	return {
 		...post,
 		params: {
