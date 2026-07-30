@@ -74,7 +74,9 @@ tags: ["斯里蘭卡", "國際志工", "旅行", "自我成長"]
 
 ![](../../../assets/images/international-volunteer-sri-lanka-25.jpg)![](../../../assets/images/international-volunteer-sri-lanka-26.jpg)![](../../../assets/images/international-volunteer-sri-lanka-27.jpg)![](../../../assets/images/international-volunteer-sri-lanka-28.jpg)![](../../../assets/images/international-volunteer-sri-lanka-10.jpg)![](../../../assets/images/international-volunteer-sri-lanka-11.jpg)
 
-結語 TBD
+回程的飛機上，望著窗外的雲海，意識到這趟旅程帶回來的並不只是照片與紀念品，而是那些眼神、那些相遇，與一份重新對世界溫柔以待的心。也彷彿在這片遼闊的印度洋上，悄悄卸下了一些一直背負著的包袱。
+
+出發時想著能為這片土地帶來什麼，回來後才發現，被種下種子的其實是自己。年初許下的「沉澱」，或許就是這樣 —— 在某個平靜的時刻回頭一望，看見自己已慢慢長成了另一種模樣。
 
 ![](../../../assets/images/international-volunteer-sri-lanka-12.jpg)![](../../../assets/images/international-volunteer-sri-lanka-15.jpg)![](../../../assets/images/international-volunteer-sri-lanka-4.jpg)
 
