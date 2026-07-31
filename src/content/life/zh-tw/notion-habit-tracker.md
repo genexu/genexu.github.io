@@ -4,7 +4,7 @@ layout: "../../../layouts/PostLayout.astro"
 title: "我的習慣養成實踐"
 description: "從過度規劃到務實執行，我在習慣追蹤中學到的事。"
 pubDate: "Jan 05 2026"
-tags: ["Notion", "HabitTracker"]
+tags: ["Notion", "Habit Tracker"]
 ---
 
 ### 前言

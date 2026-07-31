@@ -3,7 +3,7 @@ layout: "../../../layouts/PostLayout.astro"
 title: "My Habit Building Practice"
 description: "From over-planning to pragmatic execution: lessons learned from habit tracking."
 pubDate: "Jan 05 2026"
-tags: ["Notion", "HabitTracker"]
+tags: ["Notion", "Habit Tracker"]
 ---
 
 ### Introduction
