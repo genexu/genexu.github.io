@@ -4,6 +4,7 @@ import Header from "./Header.astro";
 import Footer from "./Footer.astro";
 import FormattedDateTime from "../components/FormattedDateTime.astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
+import { slugifyTag } from "../i18n/utils";
 
 import "../styles/global.css";
 
@@ -169,7 +170,7 @@ const t = breadcrumbs[lang] || breadcrumbs.en;
 								{tags && tags.length > 0 && (
 									<div class="flex flex-wrap gap-2">
 										{tags.map((tag) => (
-											<a href={getRelativeLocaleUrl(lang, `tags/${tag}`)} class="group">
+											<a href={getRelativeLocaleUrl(lang, `tags/${slugifyTag(tag)}`)} class="group">
 												<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-accent-50 dark:bg-accent-900/30 text-accent-700 dark:text-accent-300 border border-accent-200 dark:border-accent-700 hover:bg-accent-100 dark:hover:bg-accent-900/50 transition-colors">
 													#{tag}
 												</span>

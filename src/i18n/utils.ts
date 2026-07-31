@@ -13,6 +13,10 @@ export function deconstructSlug(slug: string) {
 	return { lang, slugWithoutLang: rest.join("/") };
 }
 
+export function slugifyTag(tag: string) {
+	return tag.replace(/\s+/g, "-");
+}
+
 function getPostsGroupedByLang(posts: PostEntry[]) {
 	return {
 		en: posts.filter((post) => getPageLangFromSlug(post.id) === "en"),

@@ -1,28 +1,44 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import ListingLayout from "../../layouts/ListingLayout.astro";
 import PostCard from "../../components/PostCard.astro";
-import { deconstructSlug, getPostsByLang } from "../../i18n/utils";
+import ReadingCard from "../../components/ReadingCard.astro";
+import { deconstructSlug, getPostsByLang, slugifyTag } from "../../i18n/utils";
+
+type TaggablePost = CollectionEntry<"blog" | "notes" | "life" | "reading">;
 
 export async function getStaticPaths() {
-	const blogPosts = await getCollection("blog");
-	const notePosts = await getCollection("notes");
-	const allPosts = [...blogPosts, ...notePosts];
-	const uniqueTags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
+	const [blog, notes, life, reading] = await Promise.all([
+		getCollection("blog"),
+		getCollection("notes"),
+		getCollection("life"),
+		getCollection("reading"),
+	]);
+	const allPosts: TaggablePost[] = [...blog, ...notes, ...life, ...reading];
 
-	return uniqueTags.map((tag) => {
-		const filteredPosts = allPosts.filter((post) => post.data.tags.includes(tag));
-		filteredPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+	// Group posts by slugified tag; keep original text for display.
+	const bySlug = new Map<string, { display: string; posts: TaggablePost[] }>();
+	for (const post of allPosts) {
+		for (const tag of post.data.tags ?? []) {
+			const slug = slugifyTag(tag);
+			const entry = bySlug.get(slug) ?? { display: tag, posts: [] };
+			entry.posts.push(post);
+			bySlug.set(slug, entry);
+		}
+	}
 
+	return Array.from(bySlug.entries()).map(([slug, { display, posts }]) => {
+		const sorted = [...posts].sort(
+			(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+		);
 		return {
-			params: { tag },
-			props: { posts: filteredPosts },
+			params: { tag: slug },
+			props: { displayTag: display, posts: sorted },
 		};
 	});
 }
 
-const { tag } = Astro.params;
-const { posts } = Astro.props;
+const { posts, displayTag } = Astro.props;
 
 const lang = Astro.currentLocale;
 const postsByLang = getPostsByLang(posts, lang);
@@ -50,10 +66,12 @@ const content = {
 const t = content[lang] || content.en;
 ---
 
-<ListingLayout title={t.title} tag={tag}>
+<ListingLayout title={t.title} tag={displayTag}>
 	<div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
 		{decoratedPosts.map((post) => (
-			<PostCard post={post} />
+			post.collection === "reading"
+				? <ReadingCard post={post} />
+				: <PostCard post={post} />
 		))}
 	</div>
 </ListingLayout>
