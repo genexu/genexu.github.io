@@ -2,12 +2,13 @@
 import { getCollection } from "astro:content";
 import ListingLayout from "../../layouts/ListingLayout.astro";
 import PostCard from "../../components/PostCard.astro";
-import { deconstructSlug, getPostsByLang } from "../../i18n/utils";
+import { deconstructSlug } from "../../i18n/utils";
 
 const lang = Astro.currentLocale;
 
-const posts = await getCollection("blog");
-const postsByLang = getPostsByLang(posts, lang);
+const postsByLang = await getCollection("blog", ({ id }) =>
+	id.startsWith(`${lang}/`)
+);
 postsByLang.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const decoratedPosts = postsByLang.map((post) => {

@@ -1,4 +1,7 @@
+import type { CollectionEntry } from "astro:content";
 import languages, { defaultLanguage } from "./languages";
+
+type PostEntry = CollectionEntry<"blog" | "notes" | "life" | "reading">;
 
 function getPageLangFromSlug(slug: string) {
 	const lang = slug.split("/")[0];
@@ -10,14 +13,14 @@ export function deconstructSlug(slug: string) {
 	return { lang, slugWithoutLang: rest.join("/") };
 }
 
-function getPostsGroupedByLang(posts: any[]) {
+function getPostsGroupedByLang(posts: PostEntry[]) {
 	return {
 		en: posts.filter((post) => getPageLangFromSlug(post.id) === "en"),
 		"zh-tw": posts.filter((post) => getPageLangFromSlug(post.id) === "zh-tw"),
 	};
 }
 
-export function getPostsByLang(posts: any[], lang: string) {
+export function getPostsByLang(posts: PostEntry[], lang: string) {
 	const postsGroupedByLang = getPostsGroupedByLang(posts);
-	return postsGroupedByLang[lang];
+	return postsGroupedByLang[lang as keyof ReturnType<typeof getPostsGroupedByLang>];
 }
