@@ -109,6 +109,28 @@
   opacity: 0.9;
 }
 
+/* ---------------------------------------------------------------------------
+   Hanko seal — 判子 / enso 円相
+   Asymmetric border-radius so the ring is never a perfect circle, plus a
+   whisper of rotation so it reads stamped by hand. The child letter is
+   counter-rotated to stay upright — the stamp is crooked, not the character.
+   --------------------------------------------------------------------------- */
+@utility hanko-seal {
+  border-radius: 48% 52% 51% 49% / 49% 51% 52% 48%;
+  transform: rotate(-3deg);
+  transition: transform 200ms ease-out;
+}
+.hanko-seal > * {
+  transform: rotate(3deg);
+}
+.group:hover .hanko-seal {
+  transform: rotate(-1deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .hanko-seal,
+  .group:hover .hanko-seal { transition: none; }
+}
+
 /* Reduced motion: seam stays put, but that was already the case; kept
    here as a marker so future animation additions respect the preference. */
 @media (prefers-reduced-motion: reduce) {
@@ -267,4 +289,193 @@ body.no-scroll { overflow: hidden; }
   color: var(--wabi-ink);
   border-bottom: 2px solid var(--wabi-rust);
   padding: 0 0.05em;
+}
+
+/* ---------------------------------------------------------------------------
+   Paper grain — 枯高
+   feTurbulence fiber laid over content as a fixed overlay. Opacity is low
+   enough (~5%) that grain reads as paper texture and stays invisible on top
+   of text. pointer-events: none so it never intercepts clicks.
+   --------------------------------------------------------------------------- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity: 0.28;
+  mix-blend-mode: multiply;
+}
+.dark body::before {
+  opacity: 0.32;
+  mix-blend-mode: screen;
+}
+@media (prefers-reduced-transparency: reduce) {
+  body::before { display: none; }
+}
+
+/* ---------------------------------------------------------------------------
+   Ink drift — 墨流
+   Large soft washes wander in curved paths. Heavy blur + slow rotation and
+   translation make the motion feel like ink dissipating in still water, or
+   incense smoke curling on a windless day — not straight lines. Reduced
+   motion freezes the composition (still adds atmosphere).
+   --------------------------------------------------------------------------- */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -40%;
+  z-index: 9998;
+  pointer-events: none;
+  /* Anchor in the bottom-right corner; motion carries it diagonally toward
+     the upper-left — like incense smoke lifted by a slow air current.
+     Five ellipses of wildly different aspect ratios (tall narrow wisps mixed
+     with wider low pools) overlap off-axis, then get warped by an SVG
+     turbulence displacement filter to break the smooth radial boundary
+     into an organic amoeba silhouette. */
+  /* Light mode: 燻紙 (kunshi) — smoke-stained washi. Warm gray-brown around
+     #5a4a3a: quiet, low-saturation, reads as trace of smoke on aged paper.
+     Eight ellipses layered in three depth bands:
+       • dense cores (small, high opacity) — deepest ink
+       • mid bodies (medium, medium opacity) — main volume
+       • faint halos (large, low opacity) — soft outer diffusion */
+  background:
+    /* dense body — single wide low-slung ellipse anchoring the right side */
+    radial-gradient(ellipse 18% 24% at 85% 76%, rgba(130, 96, 50, 0.48), transparent 72%),
+    /* soft halo — encloses the body so there's no visible seam */
+    radial-gradient(ellipse 26% 32% at 84% 74%, rgba(150, 120, 68, 0.26), transparent 78%);
+  filter: blur(26px) url(#wabi-wisp);
+  animation: wabi-ink-drift 40s ease-in-out infinite;
+  mix-blend-mode: multiply;
+  contain: layout paint style;
+}
+/* Mobile / small screens — skip the filter entirely (biggest win on
+   low-power devices). Gradients still render, still animate, just no
+   SVG displacement or heavy blur. */
+@media (max-width: 640px), (hover: none) and (pointer: coarse) {
+  body::after {
+    filter: blur(30px);
+  }
+}
+.dark body::after {
+  /* Dark mode: warm moonlight through smoke — matches the kunshi warmth,
+     but lifted to a soft cream so it reads on the ink-well ground. */
+  background:
+    /* dense body */
+    radial-gradient(ellipse 18% 24% at 85% 76%, rgba(244, 228, 200, 0.34), transparent 72%),
+    /* soft halo */
+    radial-gradient(ellipse 26% 32% at 84% 74%, rgba(228, 210, 180, 0.20), transparent 78%);
+  mix-blend-mode: screen;
+}
+
+/* ---------------------------------------------------------------------------
+   Wisp trail — separate host so it drifts on its own timeline (55s, opposite
+   easing) instead of moving in lockstep with the main smoke body. Same
+   filter, mix-blend so it visually merges with the mass, but offset motion
+   creates the parallax-like layering the eye reads as depth.
+   --------------------------------------------------------------------------- */
+.wabi-wisps {
+  content: "";
+  position: fixed;
+  inset: -40%;
+  z-index: 9997;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 14% 12% at 66% 60%, rgba(160, 128, 72, 0.32), transparent 76%),
+    radial-gradient(ellipse 14% 12% at 56% 52%, rgba(160, 128, 72, 0.28), transparent 76%),
+    radial-gradient(ellipse 13% 11% at 46% 44%, rgba(160, 128, 72, 0.24), transparent 76%),
+    radial-gradient(ellipse 11%  9% at 36% 36%, rgba(160, 128, 72, 0.20), transparent 78%),
+    radial-gradient(ellipse  9%  7% at 26% 28%, rgba(160, 128, 72, 0.16), transparent 78%),
+    radial-gradient(ellipse  7%  5% at 16% 20%, rgba(160, 128, 72, 0.12), transparent 80%),
+    radial-gradient(ellipse  5%  4% at  8% 12%, rgba(160, 128, 72, 0.08), transparent 82%),
+    radial-gradient(ellipse  4%  3% at  2%  6%, rgba(160, 128, 72, 0.05), transparent 84%);
+  filter: blur(22px) url(#wabi-wisp);
+  animation: wabi-wisp-drift 55s ease-in-out infinite;
+  mix-blend-mode: multiply;
+  contain: layout paint style;
+}
+.dark .wabi-wisps {
+  background:
+    radial-gradient(ellipse 14% 12% at 66% 60%, rgba(220, 204, 180, 0.16), transparent 76%),
+    radial-gradient(ellipse 14% 12% at 56% 52%, rgba(220, 204, 180, 0.14), transparent 76%),
+    radial-gradient(ellipse 13% 11% at 46% 44%, rgba(220, 204, 180, 0.12), transparent 76%),
+    radial-gradient(ellipse 11%  9% at 36% 36%, rgba(220, 204, 180, 0.10), transparent 78%),
+    radial-gradient(ellipse  9%  7% at 26% 28%, rgba(220, 204, 180, 0.08), transparent 78%),
+    radial-gradient(ellipse  7%  5% at 16% 20%, rgba(220, 204, 180, 0.06), transparent 80%),
+    radial-gradient(ellipse  5%  4% at  8% 12%, rgba(220, 204, 180, 0.04), transparent 82%),
+    radial-gradient(ellipse  4%  3% at  2%  6%, rgba(220, 204, 180, 0.02), transparent 84%);
+  mix-blend-mode: screen;
+}
+@keyframes wabi-wisp-drift {
+  0%   { transform: translate(0, 0)      rotate(0deg)  scale(1);    }
+  17%  { transform: translate(-4%, 2%)   rotate(3deg)  scale(1.04); }
+  34%  { transform: translate(-2%, 5%)   rotate(-4deg) scale(1.10); }
+  50%  { transform: translate(-6%, 4%)   rotate(5deg)  scale(0.96); }
+  68%  { transform: translate(-3%, 6%)   rotate(-2deg) scale(1.08); }
+  85%  { transform: translate(-1%, 3%)   rotate(4deg)  scale(1.02); }
+  100% { transform: translate(0, 0)      rotate(0deg)  scale(1);    }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wabi-wisps { animation: none; }
+}
+@media (max-width: 640px), (hover: none) and (pointer: coarse) {
+  .wabi-wisps { filter: blur(28px); }
+}
+
+/* ---------------------------------------------------------------------------
+   Mid-wisp bridge — connects the dense body to the far trail. Sits between
+   the two other layers spatially (75–72% x) and temporally (47s, third
+   unique period). Slightly heavier than the far wisps but lighter than the
+   main body, so it reads as "smoke thinning as it leaves the source" rather
+   than as a distinct third blob.
+   --------------------------------------------------------------------------- */
+.wabi-wisps-mid {
+  content: "";
+  position: fixed;
+  inset: -40%;
+  z-index: 9996;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 14% 14% at 76% 70%, rgba(140, 108, 60, 0.22), transparent 74%),
+    radial-gradient(ellipse 16% 10% at 72% 66%, rgba(155, 125, 72, 0.15), transparent 78%);
+  filter: blur(24px) url(#wabi-wisp);
+  animation: wabi-wisp-mid-drift 47s ease-in-out infinite;
+  mix-blend-mode: multiply;
+  contain: layout paint style;
+}
+.dark .wabi-wisps-mid {
+  background:
+    radial-gradient(ellipse 14% 14% at 76% 70%, rgba(234, 218, 190, 0.18), transparent 74%),
+    radial-gradient(ellipse 16% 10% at 72% 66%, rgba(222, 206, 178, 0.13), transparent 78%);
+  mix-blend-mode: screen;
+}
+@keyframes wabi-wisp-mid-drift {
+  0%   { transform: translate(0, 0)      rotate(0deg)  scale(1);    }
+  14%  { transform: translate(-3%, -1%)  rotate(-4deg) scale(1.10); }
+  29%  { transform: translate(-1%, 2%)   rotate(6deg)  scale(0.98); }
+  46%  { transform: translate(-5%, -2%)  rotate(-3deg) scale(1.14); }
+  63%  { transform: translate(-4%, 1%)   rotate(7deg)  scale(1.02); }
+  79%  { transform: translate(-2%, -3%)  rotate(-5deg) scale(1.08); }
+  100% { transform: translate(0, 0)      rotate(0deg)  scale(1);    }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wabi-wisps-mid { animation: none; }
+}
+@media (max-width: 640px), (hover: none) and (pointer: coarse) {
+  .wabi-wisps-mid { filter: blur(30px); }
+}
+@keyframes wabi-ink-drift {
+  0%   { transform: translate(0, 0)       rotate(0deg)    scale(1);    }
+  11%  { transform: translate(-3%, -2%)   rotate(-5deg)   scale(1.08); }
+  23%  { transform: translate(-1%, -5%)   rotate(4deg)    scale(1.02); }
+  38%  { transform: translate(-5%, -3%)   rotate(-9deg)   scale(1.14); }
+  52%  { transform: translate(-6%, -6%)   rotate(-3deg)   scale(1.06); }
+  67%  { transform: translate(-3%, -5%)   rotate(8deg)    scale(1.16); }
+  82%  { transform: translate(-2%, -3%)   rotate(-4deg)   scale(0.94); }
+  100% { transform: translate(0, 0)       rotate(0deg)    scale(1);    }
+}
+@media (prefers-reduced-motion: reduce) {
+  body::after { animation: none; }
+  #wabi-wisp animate { display: none; }
 }

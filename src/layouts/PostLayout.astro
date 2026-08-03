@@ -2,6 +2,7 @@
 import Head from "./Head.astro";
 import Header from "./Header.astro";
 import Footer from "./Footer.astro";
+import Atmosphere from "../components/Atmosphere.astro";
 import FormattedDateTime from "../components/FormattedDateTime.astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { slugifyTag } from "../i18n/utils";
@@ -31,6 +32,7 @@ const t = breadcrumbs[lang] || breadcrumbs.en;
 		<Head title={title} description={description} />
 	</head>
 	<body class="min-h-screen bg-paper text-ink font-serif antialiased">
+		<Atmosphere />
 		<Header />
 		<main class="container mx-auto px-6 md:px-10 lg:px-12">
 			<article class="max-w-3xl mx-auto py-10 md:py-16" data-pagefind-body>

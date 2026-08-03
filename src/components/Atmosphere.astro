@@ -1,0 +1,15 @@
+---
+// Site atmosphere — SVG displacement filter shared by all smoke layers,
+// plus the two extra wisp layers (mid + trail) that live outside body
+// pseudo-elements. Include once inside <body> of every layout.
+// The dense body smoke (body::after) and grain (body::before) come from
+// global.css and render automatically wherever <body> exists.
+---
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+	<filter id="wabi-wisp">
+		<feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="1" seed="4"/>
+		<feDisplacementMap in="SourceGraphic" scale="160"/>
+	</filter>
+</svg>
+<div class="wabi-wisps-mid" aria-hidden="true"></div>
+<div class="wabi-wisps" aria-hidden="true"></div>
