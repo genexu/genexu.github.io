@@ -244,3 +244,27 @@
   outline-offset: 2px;
   border-radius: 1px;
 }
+
+/* Body scroll lock when a modal (search overlay) is open. */
+body.no-scroll { overflow: hidden; }
+
+/* Smooth open for the search modal (masks first-paint backdrop-blur flash). */
+@keyframes wabi-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.search-overlay-enter {
+  animation: wabi-fade-in 180ms ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .search-overlay-enter { animation: none; }
+}
+
+/* Pagefind search excerpt highlights — inherit the wabi mark treatment
+   even outside .prose. */
+.search-excerpt mark {
+  background: transparent;
+  color: var(--wabi-ink);
+  border-bottom: 2px solid var(--wabi-rust);
+  padding: 0 0.05em;
+}

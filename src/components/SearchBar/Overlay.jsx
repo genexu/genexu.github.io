@@ -1,5 +1,5 @@
 const Overlay = ({ children, ...rest }) => (
-	<div className="fixed inset-0 z-50 bg-ink/70 backdrop-blur-[2px]" {...rest}>
+	<div className="fixed inset-0 z-50 bg-black/75 search-overlay-enter" {...rest}>
 		{children}
 	</div>
 );

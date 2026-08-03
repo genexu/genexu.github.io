@@ -1,5 +1,5 @@
 const ResultItemList = ({ items }) => (
-	<div className="max-h-[60vh] overflow-y-auto">
+	<div className="max-h-[60vh] min-h-[140px] overflow-y-auto">
 		{items.length > 0 && (
 			<div className="px-6 py-3 border-b border-mist/40">
 				<p className="eyebrow">
@@ -23,7 +23,7 @@ const ResultItemList = ({ items }) => (
 							{item.meta.title}
 						</h3>
 						<div
-							className="text-sm text-ink-soft line-clamp-2"
+							className="search-excerpt text-sm text-ink-soft line-clamp-2"
 							dangerouslySetInnerHTML={{ __html: item.excerpt }}
 						/>
 					</a>

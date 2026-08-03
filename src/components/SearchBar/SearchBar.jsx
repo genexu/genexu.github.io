@@ -68,7 +68,7 @@ const SearchBar = () => {
 					<Container onClick={handleClickOnContainer}>
 						<SearchInput
 							ref={inputRef}
-							className="block w-full px-4 py-4 pl-12 text-base bg-transparent border-0 border-b-2 border-rust text-ink placeholder-mist italic font-serif focus:outline-none transition-colors"
+							className="block w-full px-4 py-4 pl-12 text-base bg-transparent border-0 border-b border-mist text-ink placeholder-mist italic font-serif focus:outline-none focus:border-rust transition-colors"
 							required
 							placeholder="Search..."
 							onChange={handleInputSearchValue}
