@@ -1,51 +1,38 @@
 ---
 interface Props {
-	size: number;
+	size?: number;
 }
-const { size } = Astro.props;
+const { size = 22 } = Astro.props;
 ---
 
-<style>
-	input:checked ~ .dot {
-		transform: translateX(130%);
-	}
-</style>
-
-<div class="flex flex-row justify-between">
-	<label for="theme-toggle" class="flex items-center cursor-pointer">
-		<div class="relative">
-			<input type="checkbox" id="theme-toggle" class="checkbox hidden" name="theme-toggle" checked />
-			<div class="w-11 h-6 block border dark:border-white border-gray-900 rounded-full"></div>
-			<div class="w-4 h-4 left-1 top-1 dot absolute dark:bg-white bg-gray-800 rounded-full transition"></div>
-			<!-- Moon -->
-			<div class="absolute left-1 top-1">
-				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-					<g class="stroke-2 stroke-blue-700 dark:stroke-none transition" fill="none" fill-rule="evenodd">
-						<path d="M20.958 15.325c.204-.486-.379-.9-.868-.684a7.684 7.684 0 0 1-3.101.648c-4.185 0-7.577-3.324-7.577-7.425a7.28 7.28 0 0 1 1.134-3.91c.284-.448-.057-1.068-.577-.936C5.96 4.041 3 7.613 3 11.862C3 16.909 7.175 21 12.326 21c3.9 0 7.24-2.345 8.632-5.675Z"></path>
-						<path d="M15.611 3.103c-.53-.354-1.162.278-.809.808l.63.945a2.332 2.332 0 0 1 0 2.588l-.63.945c-.353.53.28 1.162.81.808l.944-.63a2.332 2.332 0 0 1 2.588 0l.945.63c.53.354 1.162-.278.808-.808l-.63-.945a2.332 2.332 0 0 1 0-2.588l.63-.945c.354-.53-.278-1.162-.809-.808l-.944.63a2.332 2.332 0 0 1-2.588 0l-.945-.63Z"></path>
-					</g>
-				</svg>
-			</div>
-			<!-- Sun -->
-			<div class="absolute right-1 top-1">
-				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-					<g class="stroke-none dark:stroke-2 dark:stroke-amber-200 transition" fill="none" stroke-linecap="round">
-						<path d="M12 3V2m0 20v-1m9-9h1M2 12h1m15.5-6.5L20 4M4 20l1.5-1.5M4 4l1.5 1.5m13 13L20 20"/>
-						<circle cx="12" cy="12" r="4"/>
-					</g>
-				</svg>
-			</div>
-		</div>
-	</label>
-</div>
+<button
+	id="theme-toggle"
+	type="button"
+	class="inline-flex items-center justify-center p-1 text-ink-soft cursor-pointer"
+	aria-label="Toggle theme"
+	title="Toggle theme"
+>
+	<svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+		<defs>
+			<mask id="eclipse-mask">
+				<rect width="24" height="24" fill="white" />
+				<!-- Moon: cuts a crescent bite out of the sun's upper-right -->
+				<circle cx="16.5" cy="7.5" r="5" fill="black" />
+			</mask>
+		</defs>
+		<!-- Sun's rays: eight short strokes radiating outward -->
+		<g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none">
+			<path d="M12 2.5V4M12 20V21.5M2.5 12H4M20 12H21.5M5.4 5.4l1 1M17.6 17.6l1 1M5.4 18.6l1-1M17.6 6.4l1-1" />
+		</g>
+		<!-- Sun disc, masked so the moon "bites" a crescent from it -->
+		<circle cx="12" cy="12" r="5" fill="currentColor" mask="url(#eclipse-mask)" />
+	</svg>
+</button>
 
 <script is:inline>
 const DarkThemeClassKey = "dark";
 const StorageItemKey = "theme";
-const Theme = {
-	Dark: "dark",
-	Light: "light",
-};
+const Theme = { Dark: "dark", Light: "light" };
 
 function getTheme() {
 	if (typeof localStorage !== "undefined" && localStorage.getItem(StorageItemKey)) {
@@ -54,34 +41,21 @@ function getTheme() {
 	if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
 		return Theme.Dark;
 	}
-	// Default to dark theme
 	return Theme.Dark;
 }
 
-function handleToggleClick() {
-	const theme = getTheme();
-	const switchTo = theme === Theme.Dark ? Theme.Light : Theme.Dark;
-	if (switchTo === Theme.Dark) {
+function apply(theme) {
+	if (theme === Theme.Dark) {
 		document.documentElement.classList.add(DarkThemeClassKey);
 	} else {
 		document.documentElement.classList.remove(DarkThemeClassKey);
 	}
-	localStorage.setItem(StorageItemKey, switchTo);
+	localStorage.setItem(StorageItemKey, theme);
 	window.dispatchEvent(new Event("storage"));
 }
 
-const toggle = document.getElementById("theme-toggle");
-
-const theme = getTheme();
-if (theme === Theme.Dark) {
-	document.documentElement.classList.add(DarkThemeClassKey);
-	toggle.checked = false;
-} else {
-	document.documentElement.classList.remove(DarkThemeClassKey);
-	toggle.checked = true;
-}
-window.localStorage.setItem(StorageItemKey, theme);
-window.dispatchEvent(new Event("storage"));
-
-toggle.addEventListener("click", handleToggleClick);
+apply(getTheme());
+document.getElementById("theme-toggle").addEventListener("click", () => {
+	apply(getTheme() === Theme.Dark ? Theme.Light : Theme.Dark);
+});
 </script>

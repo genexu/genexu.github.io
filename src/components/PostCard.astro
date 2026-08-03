@@ -23,62 +23,49 @@ const { title, description, tags, pubDate, cover } = data;
 const postUrl = getRelativeLocaleUrl(lang, `${collection}/${slug}`);
 ---
 
-<article
-	class="group relative bg-white dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-accent-500 dark:hover:border-accent-500 transition-all duration-300 overflow-hidden hover:shadow-xl hover:shadow-accent-500/10 dark:hover:shadow-accent-500/20"
->
-	{cover && (
-		<a href={postUrl} class="block">
-			<div class="aspect-video w-full overflow-hidden bg-slate-100 dark:bg-slate-900">
+<article class="group py-6 border-b border-mist/40 last:border-b-0">
+	<a href={postUrl} class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-x-6 gap-y-3 items-start">
+		<div class="space-y-2 min-w-0">
+			<div class="flex items-center gap-3 eyebrow">
+				<FormattedDateTime datetime={pubDate} lang={lang} />
+				<span class="text-mist/60">/</span>
+				<span>{tags.length > 0 ? tags[0] : collection}</span>
+			</div>
+
+			<h2 class="font-display text-2xl leading-snug text-ink group-hover:text-rust transition-colors">
+				{title}
+			</h2>
+
+			<p class="text-base text-ink-soft leading-relaxed line-clamp-2">
+				{description}
+			</p>
+		</div>
+
+		{cover && (
+			<div class="order-first md:order-none w-full md:w-40 md:h-24 aspect-[3/2] overflow-hidden">
 				<img
 					src={cover}
 					alt={title}
-					class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+					loading="lazy"
+					class="w-full h-full object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-500"
 				/>
 			</div>
-		</a>
-	)}
-	<div class="p-5 md:p-6 space-y-3">
-		<a href={postUrl} class="block">
-			<div class="flex items-start justify-between gap-4">
-				<div class="flex-1 space-y-2">
-					<div class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
-						<FormattedDateTime datetime={pubDate} lang={lang} />
-						<span class="text-slate-300 dark:text-slate-600">•</span>
-						<span>{tags.length > 0 ? tags[0] : collection}</span>
-					</div>
-
-					<h2 class="font-bold text-base text-slate-900 dark:text-white group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors duration-300">
-						{title}
-					</h2>
-
-					<p class="text-sm text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed">
-						{description}
-					</p>
-				</div>
-
-				<div class="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-					<svg class="w-6 h-6 text-accent-600 dark:text-accent-400 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-					</svg>
-				</div>
-			</div>
-		</a>
-
-		{tags.length > 0 && (
-			<div class="flex flex-wrap gap-2 pt-2">
-				{tags.slice(0, 3).map((tag) => (
-					<a href={getRelativeLocaleUrl(lang, `tags/${slugifyTag(tag)}`)} class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-accent-50 dark:bg-accent-900/30 text-accent-700 dark:text-accent-300 border border-accent-200 dark:border-accent-700 hover:bg-accent-100 dark:hover:bg-accent-900/50 hover:border-accent-300 dark:hover:border-accent-600 transition-all duration-200">
-						{tag}
-					</a>
-				))}
-				{tags.length > 3 && (
-					<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium text-slate-500 dark:text-slate-400">
-						+{tags.length - 3} more
-					</span>
-				)}
-			</div>
 		)}
-	</div>
+	</a>
 
-	<div class="absolute inset-0 bg-gradient-to-r from-accent-500/0 via-accent-500/5 to-accent-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+	{tags.length > 0 && (
+		<div class="mt-3 flex flex-wrap gap-x-3 gap-y-1 eyebrow">
+			{tags.slice(0, 4).map((tag) => (
+				<a
+					href={getRelativeLocaleUrl(lang, `tags/${slugifyTag(tag)}`)}
+					class="text-moss hover:text-rust transition-colors"
+				>
+					· {tag}
+				</a>
+			))}
+			{tags.length > 4 && (
+				<span class="text-mist/70">+{tags.length - 4}</span>
+			)}
+		</div>
+	)}
 </article>

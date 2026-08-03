@@ -58,8 +58,8 @@ const SearchBar = () => {
 	return (
 		<div>
 			<SearchInput
-				className="block w-full px-4 py-3 pl-12 text-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-accent-500 dark:focus:ring-accent-400 focus:border-transparent transition-all duration-200 hover:border-slate-300 dark:hover:border-slate-600 cursor-pointer"
-				placeholder="Search posts..."
+				className="block w-full px-4 py-3 pl-12 text-sm bg-transparent border-0 border-b border-mist/50 text-ink placeholder-mist italic font-serif focus:outline-none focus:border-rust transition-colors cursor-pointer"
+				placeholder="Search..."
 				onClick={handleTriggerSearch}
 				readOnly
 			/>
@@ -68,9 +68,9 @@ const SearchBar = () => {
 					<Container onClick={handleClickOnContainer}>
 						<SearchInput
 							ref={inputRef}
-							className="block w-full px-4 py-4 pl-12 text-base bg-white dark:bg-slate-800 border-2 border-accent-500 dark:border-accent-400 rounded-xl text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-accent-500 dark:focus:ring-accent-400 transition-all duration-200 shadow-lg"
+							className="block w-full px-4 py-4 pl-12 text-base bg-transparent border-0 border-b-2 border-rust text-ink placeholder-mist italic font-serif focus:outline-none transition-colors"
 							required
-							placeholder="Search posts..."
+							placeholder="Search..."
 							onChange={handleInputSearchValue}
 						/>
 						<ResultItemList items={resultItems} />

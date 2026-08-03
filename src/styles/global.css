@@ -2,54 +2,213 @@
 
 @variant dark (&:is(.dark *));
 
+/* ---------------------------------------------------------------------------
+   Wabi-sabi tokens — 侘寂, monochrome (墨 sumi wash).
+   Names describe roles (paper / ink / mist / moss / rust); values are all
+   neutral grays. "rust" is retained as the token name for the accent used
+   on the kintsugi seam + link hover — visually it's now a deeper ink stroke.
+   Dark mode is a warm-off charcoal, not pure black, so text feels lit rather
+   than backlit.
+   --------------------------------------------------------------------------- */
+
+:root {
+  --wabi-paper: #f3f2ee;
+  --wabi-paper-sunk: #e7e6e1;
+  --wabi-ink: #141414;
+  --wabi-ink-soft: #4a4a4a;
+  --wabi-mist: #6f6f6d;
+  --wabi-moss: #6b6b69;
+  --wabi-rust: #1a1a1a;
+}
+
+.dark {
+  --wabi-paper: #171716;
+  --wabi-paper-sunk: #201f1d;
+  --wabi-ink: #eeeeec;
+  --wabi-ink-soft: #c4c4c1;
+  --wabi-mist: #828280;
+  --wabi-moss: #a5a5a2;
+  --wabi-rust: #f0efec;
+}
+
 @theme {
-  /* Fonts */
-  --font-family-sans: Lato, "Noto Sans TC", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  /* Font stacks — display italic serif, body wide serif, CJK brushed serif. */
+  --font-family-sans: "Fraunces", "Noto Serif TC", ui-serif, Georgia, Cambria, "Times New Roman", serif;
+  --font-family-serif: "Fraunces", "Noto Serif TC", ui-serif, Georgia, serif;
+  --font-family-display: "EB Garamond", "Noto Serif TC", ui-serif, Georgia, serif;
 
-  /* Custom Colors - Accent */
-  --color-accent-50: #f0f9ff;
-  --color-accent-100: #e0f2fe;
-  --color-accent-200: #bae6fd;
-  --color-accent-300: #7dd3fc;
-  --color-accent-400: #38bdf8;
-  --color-accent-500: #0ea5e9;
-  --color-accent-600: #0284c7;
-  --color-accent-700: #0369a1;
-  --color-accent-800: #075985;
-  --color-accent-900: #0c4a6e;
-
-  /* Animations */
-  --animate-fade-in: fade-in 0.5s ease-in-out;
-  --animate-slide-up: slide-up 0.5s ease-out;
+  /* Expose wabi tokens as Tailwind color utilities. */
+  --color-paper: var(--wabi-paper);
+  --color-paper-sunk: var(--wabi-paper-sunk);
+  --color-ink: var(--wabi-ink);
+  --color-ink-soft: var(--wabi-ink-soft);
+  --color-mist: var(--wabi-mist);
+  --color-moss: var(--wabi-moss);
+  --color-rust: var(--wabi-rust);
 }
 
-@keyframes fade-in {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+/* Small caps + wide tracking for utility labels: dates, tags, breadcrumbs. */
+@utility eyebrow {
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.16em;
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: var(--wabi-mist);
 }
 
-@keyframes slide-up {
-  0% { transform: translateY(20px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
+/* ---------------------------------------------------------------------------
+   Kintsugi seam — 金継ぎ
+   Two hairline segments meet at an offset, bridged by a diagonal rust stroke.
+   Used sparingly. Where the old design drew a full-width border, we draw this.
+   --------------------------------------------------------------------------- */
+@utility kintsugi {
+  position: relative;
+  height: 1px;
+  margin: 3rem 0;
+  border: 0;
+  overflow: visible;
+  background: linear-gradient(
+    to right,
+    transparent 0,
+    var(--wabi-mist) 6%,
+    var(--wabi-mist) 44%,
+    transparent 44%,
+    transparent 56%,
+    var(--wabi-mist) 56%,
+    var(--wabi-mist) 94%,
+    transparent 100%
+  );
 }
 
+.kintsugi::before {
+  content: "";
+  position: absolute;
+  left: 42%;
+  top: -6px;
+  width: 16%;
+  height: 13px;
+  background: linear-gradient(
+    115deg,
+    transparent 45%,
+    var(--wabi-rust) 45%,
+    var(--wabi-rust) 55%,
+    transparent 55%
+  );
+  opacity: 0.85;
+}
+
+.kintsugi::after {
+  content: "";
+  position: absolute;
+  left: 49.5%;
+  top: -2.5px;
+  width: 4px;
+  height: 4px;
+  background: var(--wabi-rust);
+  border-radius: 50%;
+  opacity: 0.9;
+}
+
+/* Reduced motion: seam stays put, but that was already the case; kept
+   here as a marker so future animation additions respect the preference. */
+@media (prefers-reduced-motion: reduce) {
+  .kintsugi::before,
+  .kintsugi::after {
+    animation: none !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Prose overrides — the reading surface for blog / life / notes / reading.
+   Body serif at 1.7 leading, italic h2/h3, blockquote with a rust hairline
+   accent instead of a heavy left bar.
+   --------------------------------------------------------------------------- */
 @plugin "@tailwindcss/typography";
 
-/* Typography Plugin Customization */
-@theme {
-  --prose-body-color: inherit;
-  --prose-headings-font-weight: 700;
-  --prose-headings-letter-spacing: -0.025em;
-  --prose-links-color: #0ea5e9;
-  --prose-links-hover-color: #0284c7;
-  --prose-links-font-weight: 500;
-  --prose-links-text-decoration: none;
-  --prose-code-font-weight: 500;
-  --prose-code-background-color: rgba(100, 116, 139, 0.1);
-  --prose-max-width: 75ch;
+/* Bind Tailwind Typography's own custom properties to the wabi tokens so
+   every prose element (strong, em, code, kbd, lists, tables, quotes...) picks
+   the right color automatically and flips with the .dark class. */
+.prose {
+  --tw-prose-body: var(--wabi-ink-soft);
+  --tw-prose-headings: var(--wabi-ink);
+  --tw-prose-lead: var(--wabi-ink-soft);
+  --tw-prose-links: var(--wabi-ink);
+  --tw-prose-bold: var(--wabi-ink);
+  --tw-prose-counters: var(--wabi-mist);
+  --tw-prose-bullets: var(--wabi-mist);
+  --tw-prose-hr: var(--wabi-mist);
+  --tw-prose-quotes: var(--wabi-ink-soft);
+  --tw-prose-quote-borders: var(--wabi-rust);
+  --tw-prose-captions: var(--wabi-mist);
+  --tw-prose-kbd: var(--wabi-ink);
+  --tw-prose-kbd-shadows: 20 20 20;
+  --tw-prose-code: var(--wabi-rust);
+  --tw-prose-pre-code: var(--wabi-ink);
+  --tw-prose-pre-bg: var(--wabi-paper-sunk);
+  --tw-prose-th-borders: var(--wabi-mist);
+  --tw-prose-td-borders: var(--wabi-mist);
+  line-height: 1.75;
+  max-width: 68ch;
 }
 
-/* Custom Typography Styles */
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  color: var(--wabi-ink);
+  font-family: var(--font-family-display);
+  letter-spacing: -0.005em;
+}
+
+/* Emphasis primitives */
+.prose strong { color: var(--wabi-ink); font-weight: 600; }
+.prose em { font-style: italic; }
+.prose mark {
+  background: transparent;
+  border-bottom: 2px solid var(--wabi-rust);
+  color: var(--wabi-ink);
+  padding: 0 0.05em;
+}
+.prose del, .prose s {
+  color: var(--wabi-mist);
+  text-decoration-color: var(--wabi-mist);
+}
+.prose ins, .prose u {
+  text-decoration-color: var(--wabi-rust);
+  text-underline-offset: 0.2em;
+}
+.prose kbd {
+  color: var(--wabi-ink);
+  background: var(--wabi-paper-sunk);
+  border: 1px solid var(--wabi-mist);
+  box-shadow: none;
+  padding: 0.1em 0.35em;
+  border-radius: 2px;
+  font-size: 0.85em;
+}
+
+.prose h1 { font-size: 2em; margin-top: 2em; margin-bottom: 0.6em; }
+.prose h2 { font-size: 1.5em; margin-top: 1.8em; margin-bottom: 0.6em; }
+.prose h3 { font-size: 1.25em; margin-top: 1.6em; margin-bottom: 0.5em; }
+.prose h4 { font-size: 1.1em; margin-top: 1.4em; margin-bottom: 0.4em; }
+
+.prose blockquote {
+  border-left: 1px solid var(--wabi-rust);
+  background: transparent;
+  padding-left: 1.5rem;
+  font-style: italic;
+  color: var(--wabi-ink-soft);
+}
+
+.prose a {
+  text-decoration-color: var(--wabi-mist);
+  text-underline-offset: 0.2em;
+}
+
+.prose a:hover {
+  text-decoration-color: var(--wabi-rust);
+}
+
 .prose ul > li:has(input[type="checkbox"]) {
   list-style: none;
 }
@@ -60,11 +219,28 @@
 
 .prose code {
   padding: 0.125rem 0.375rem;
-  border-radius: 0.25rem;
+  border-radius: 0.125rem;
   font-size: 0.875em;
+  color: var(--wabi-rust);
 }
 
 .prose code::before,
 .prose code::after {
   content: "";
+}
+
+.prose img {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.prose hr {
+  border-color: var(--wabi-mist);
+}
+
+/* Focus outline — rust, always visible on both paper backgrounds. */
+:where(a, button, input, textarea, select):focus-visible {
+  outline: 2px solid var(--wabi-rust);
+  outline-offset: 2px;
+  border-radius: 1px;
 }

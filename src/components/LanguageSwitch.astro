@@ -26,15 +26,11 @@ const switchTargetLocation = getRelativeLocaleUrl(switchTargetLanguage, pathWith
 
 <button
 	id="language-switch"
-	class=`
-		px-2 py-1
-		flex items-center space-x-2
-	 	border dark:border-white border-gray-900 rounded-lg
-	 	cursor-pointer
-	`
+	class="px-2 py-1 flex items-center gap-1.5 text-mist hover:text-rust transition-colors cursor-pointer eyebrow"
+	aria-label="Switch language"
 >
-	<Icon name="cil:language" width="16" height="16" />
-	<span class="text-xs">{label}</span>
+	<Icon name="cil:language" width="14" height="14" />
+	<span>{label}</span>
 </button>
 
 <script define:vars={{ switchTargetLocation }}>

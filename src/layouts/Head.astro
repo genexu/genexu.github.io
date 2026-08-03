@@ -28,13 +28,13 @@ const { title, description, image } = Astro.props;
 <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
 <meta name="generator" content={Astro.generator} />
 
-<!-- Font preloads -->
-<link rel="preload" href="/fonts/Lato-Regular.ttf" as="font" type="font/ttf" crossorigin />
-<link rel="preload" href="/fonts/Lato-Bold.ttf" as="font" type="font/ttf" crossorigin />
-<link rel="preload" href="/fonts/Lato-Thin.ttf" as="font" type="font/ttf" crossorigin />
-<link rel="preload" href="/fonts/Lato-Light.ttf" as="font" type="font/ttf" crossorigin />
-<link rel="preload" href="/fonts/NotoSansTC-Regular.ttf" as="font" type="font/ttf" crossorigin />
-<link rel="preload" href="/fonts/NotoSansTC-Bold.ttf" as="font" type="font/ttf" crossorigin />
+<!-- Fonts — wabi-sabi serif families (EB Garamond display italic, Fraunces body, Noto Serif TC for CJK). -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+	rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Noto+Serif+TC:wght@400;500;600&display=swap"
+/>
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />

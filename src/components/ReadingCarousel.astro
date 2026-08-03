@@ -23,20 +23,20 @@ const { posts, id = "reading-carousel" } = Astro.props;
 		<>
 			<button
 				data-carousel-prev={id}
-				class="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-slate-800 shadow-md rounded-full p-2 hover:bg-slate-50 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed -translate-x-1/2 transition-colors duration-300"
+				class="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 text-mist hover:text-rust disabled:opacity-30 disabled:cursor-not-allowed -translate-x-full transition-colors"
 				aria-label="Previous"
 			>
-				<svg class="w-4 h-4 text-slate-700 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"></path>
 				</svg>
 			</button>
 			<button
 				data-carousel-next={id}
-				class="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-slate-800 shadow-md rounded-full p-2 hover:bg-slate-50 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed translate-x-1/2 transition-colors duration-300"
+				class="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 text-mist hover:text-rust disabled:opacity-30 disabled:cursor-not-allowed translate-x-full transition-colors"
 				aria-label="Next"
 			>
-				<svg class="w-4 h-4 text-slate-700 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"></path>
 				</svg>
 			</button>
 		</>
@@ -49,7 +49,7 @@ const { posts, id = "reading-carousel" } = Astro.props;
 	>
 		{posts.map((post) => (
 			<div class="snap-start shrink-0 w-full">
-				<ReadingCard post={post} />
+				<ReadingCard post={post} variant="horizontal" />
 			</div>
 		))}
 	</div>
@@ -61,7 +61,7 @@ const { posts, id = "reading-carousel" } = Astro.props;
 				<button
 					data-carousel-dot={id}
 					data-index={index}
-					class="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-600 transition-all duration-300 hover:bg-accent-500 dark:hover:bg-accent-400"
+					class="w-1.5 h-1.5 rounded-full bg-mist/60 transition-all duration-300 hover:bg-moss"
 					aria-label={`Go to slide ${index + 1}`}
 				></button>
 			))}
@@ -80,12 +80,9 @@ const { posts, id = "reading-carousel" } = Astro.props;
 
 
 	[data-carousel-dot].active {
-		background-color: var(--color-accent-600);
-		width: 2rem;
-	}
-
-	.dark [data-carousel-dot].active {
-		background-color: var(--color-accent-400);
+		background-color: var(--wabi-moss);
+		width: 1.25rem;
+		border-radius: 999px;
 	}
 </style>
 

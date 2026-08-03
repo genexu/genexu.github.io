@@ -15,19 +15,11 @@ const { title, description, pubDate, tags } = frontmatter;
 const datetime = new Date(pubDate);
 
 const pathname = Astro.url.pathname;
-const collection = pathname.includes('/blog/') ? 'blog' : pathname.includes('/notes/') ? 'notes' : '';
+const collection = pathname.includes('/blog/') ? 'blog' : pathname.includes('/notes/') ? 'notes' : pathname.includes('/life/') ? 'life' : '';
 
 const breadcrumbs = {
-	en: {
-		home: 'Home',
-		blog: 'Blog',
-		notes: 'Notes',
-	},
-	'zh-tw': {
-		home: '首頁',
-		blog: '文章',
-		notes: '筆記',
-	},
+	en: { home: 'Home', blog: 'Blog', notes: 'Notes', life: 'Life' },
+	'zh-tw': { home: '首頁', blog: '文章', notes: '筆記', life: '生活' },
 };
 
 const t = breadcrumbs[lang] || breadcrumbs.en;
@@ -38,85 +30,72 @@ const t = breadcrumbs[lang] || breadcrumbs.en;
 	<head>
 		<Head title={title} description={description} />
 	</head>
-	<body class="min-h-screen text-slate-700 dark:text-slate-200 bg-gradient-to-br from-slate-50 via-white to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+	<body class="min-h-screen bg-paper text-ink font-serif antialiased">
 		<Header />
-		<main class="container mx-auto px-4 md:px-6 lg:px-8">
-			<article class="max-w-4xl mx-auto py-8 md:py-12" data-pagefind-body>
-				<nav class="flex items-center space-x-2 text-sm text-slate-500 dark:text-slate-400 mb-8">
-					<a href={getRelativeLocaleUrl(lang, '')} class="hover:text-accent-600 dark:hover:text-accent-400 transition-colors">
+		<main class="container mx-auto px-6 md:px-10 lg:px-12">
+			<article class="max-w-3xl mx-auto py-10 md:py-16" data-pagefind-body>
+				<nav class="flex items-center gap-2 eyebrow mb-10">
+					<a href={getRelativeLocaleUrl(lang, '')} class="hover:text-rust transition-colors">
 						{t.home}
 					</a>
-					<span>/</span>
+					<span class="text-mist/60">/</span>
 					{collection && (
 						<>
-							<a href={getRelativeLocaleUrl(lang, collection)} class="hover:text-accent-600 dark:hover:text-accent-400 transition-colors">
+							<a href={getRelativeLocaleUrl(lang, collection)} class="hover:text-rust transition-colors">
 								{t[collection]}
 							</a>
-							<span>/</span>
+							<span class="text-mist/60">/</span>
 						</>
 					)}
-					<span class="text-slate-700 dark:text-slate-300 truncate">{title}</span>
 				</nav>
 
-				<header class="mb-12 space-y-6 pb-8 border-b border-slate-200 dark:border-slate-800">
+				<header class="mb-4 space-y-6">
 					<div class="space-y-4">
-						<h1 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
+						<h1 class="font-display text-3xl md:text-4xl leading-[1.15] text-ink">
 							{title}
 						</h1>
-						<p class="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+						<p class="text-lg text-ink-soft leading-relaxed">
 							{description}
 						</p>
 					</div>
 
-					<div class="flex flex-wrap items-center gap-4 text-sm">
-						<div class="flex items-center gap-2 text-slate-500 dark:text-slate-400">
-							<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-							</svg>
-							<FormattedDateTime datetime={datetime} lang={lang} />
-						</div>
-
-						{tags.length > 0 && (
-							<div class="flex flex-wrap gap-2">
-								{tags.map((tag) => (
-									<a href={getRelativeLocaleUrl(lang, `tags/${slugifyTag(tag)}`)} class="group">
-										<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-accent-50 dark:bg-accent-900/30 text-accent-700 dark:text-accent-300 border border-accent-200 dark:border-accent-700 hover:bg-accent-100 dark:hover:bg-accent-900/50 transition-colors">
-											#{tag}
-										</span>
-									</a>
-								))}
-							</div>
+					<div class="flex flex-wrap items-center gap-x-4 gap-y-2 eyebrow">
+						<FormattedDateTime datetime={datetime} lang={lang} />
+						{tags && tags.length > 0 && (
+							<>
+								<span class="text-mist/60">/</span>
+								<div class="flex flex-wrap gap-x-3">
+									{tags.map((tag) => (
+										<a
+											href={getRelativeLocaleUrl(lang, `tags/${slugifyTag(tag)}`)}
+											class="text-moss hover:text-rust transition-colors"
+										>
+											· {tag}
+										</a>
+									))}
+								</div>
+							</>
 						)}
 					</div>
 				</header>
 
-				<div
-					class="prose prose-lg prose-slate dark:prose-invert max-w-none
-					prose-headings:font-bold prose-headings:tracking-tight
-					prose-h1:text-4xl prose-h2:text-3xl prose-h3:text-2xl
-					prose-p:leading-relaxed prose-p:text-slate-700 dark:prose-p:text-slate-300
-					prose-a:text-accent-600 dark:prose-a:text-accent-400 prose-a:no-underline prose-a:font-medium hover:prose-a:underline
-					prose-strong:text-slate-900 dark:prose-strong:text-white prose-strong:font-semibold
-					prose-code:text-accent-700 dark:prose-code:text-accent-300 prose-code:font-mono prose-code:text-sm
-					prose-pre:bg-slate-900 dark:prose-pre:bg-slate-950 prose-pre:border prose-pre:border-slate-700
-					prose-img:rounded-xl prose-img:shadow-lg
-					prose-blockquote:border-l-4 prose-blockquote:border-accent-500 prose-blockquote:bg-slate-50 dark:prose-blockquote:bg-slate-800/50 prose-blockquote:py-1 prose-blockquote:px-4
-					prose-ul:list-disc prose-ol:list-decimal
-					prose-li:text-slate-700 dark:prose-li:text-slate-300
-					prose-hr:border-slate-200 dark:prose-hr:border-slate-800"
-				>
+				<hr class="kintsugi" aria-hidden="true" />
+
+				<div class="prose prose-lg max-w-none">
 					<slot />
 				</div>
 
-				<div class="mt-16 pt-8 border-t border-slate-200 dark:border-slate-800">
+				<hr class="kintsugi" aria-hidden="true" />
+
+				<div class="mt-8">
 					<a
 						href={getRelativeLocaleUrl(lang, collection)}
-						class="inline-flex items-center gap-2 text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 font-medium group"
+						class="inline-flex items-center gap-2 font-display text-ink-soft hover:text-rust transition-colors group"
 					>
-						<svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"></path>
+						<svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16l-4-4m0 0l4-4m-4 4h18"></path>
 						</svg>
-						{t[collection] ? `Back to ${t[collection]}` : 'Back'}
+						{lang === 'zh-tw' ? `返回${t[collection] || ''}` : `Back to ${t[collection] || 'Home'}`}
 					</a>
 				</div>
 			</article>
