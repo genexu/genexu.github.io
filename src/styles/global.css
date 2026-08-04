@@ -342,13 +342,14 @@ body::after {
        • faint halos (large, low opacity) — soft outer diffusion */
   background:
     /* dense body — single wide low-slung ellipse anchoring the right side */
-    radial-gradient(ellipse 18% 24% at 85% 76%, rgba(130, 96, 50, 0.48), transparent 72%),
+    radial-gradient(ellipse 18% 24% at 85% 76%, rgba(240, 205, 115, 0.72), transparent 72%),
     /* soft halo — encloses the body so there's no visible seam */
-    radial-gradient(ellipse 26% 32% at 84% 74%, rgba(150, 120, 68, 0.26), transparent 78%);
+    radial-gradient(ellipse 26% 32% at 84% 74%, rgba(248, 222, 148, 0.44), transparent 78%);
   filter: blur(26px) url(#wabi-wisp);
-  animation: wabi-ink-drift 40s ease-in-out infinite;
+  animation: wabi-ink-drift 30s linear infinite;
   mix-blend-mode: multiply;
   contain: layout paint style;
+  will-change: transform;
 }
 /* Mobile / small screens — skip the filter entirely (biggest win on
    low-power devices). Gradients still render, still animate, just no
@@ -382,18 +383,18 @@ body::after {
   z-index: 9997;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 14% 12% at 66% 60%, rgba(160, 128, 72, 0.32), transparent 76%),
-    radial-gradient(ellipse 14% 12% at 56% 52%, rgba(160, 128, 72, 0.28), transparent 76%),
-    radial-gradient(ellipse 13% 11% at 46% 44%, rgba(160, 128, 72, 0.24), transparent 76%),
-    radial-gradient(ellipse 11%  9% at 36% 36%, rgba(160, 128, 72, 0.20), transparent 78%),
-    radial-gradient(ellipse  9%  7% at 26% 28%, rgba(160, 128, 72, 0.16), transparent 78%),
-    radial-gradient(ellipse  7%  5% at 16% 20%, rgba(160, 128, 72, 0.12), transparent 80%),
-    radial-gradient(ellipse  5%  4% at  8% 12%, rgba(160, 128, 72, 0.08), transparent 82%),
-    radial-gradient(ellipse  4%  3% at  2%  6%, rgba(160, 128, 72, 0.05), transparent 84%);
+    radial-gradient(ellipse 12% 10% at 54% 50%, rgba(240, 210, 130, 0.32), transparent 76%),
+    radial-gradient(ellipse 11%  9% at 44% 42%, rgba(240, 210, 130, 0.26), transparent 76%),
+    radial-gradient(ellipse  9%  8% at 34% 34%, rgba(240, 210, 130, 0.20), transparent 78%),
+    radial-gradient(ellipse  8%  6% at 24% 26%, rgba(240, 210, 130, 0.15), transparent 78%),
+    radial-gradient(ellipse  6%  5% at 16% 18%, rgba(240, 210, 130, 0.11), transparent 80%),
+    radial-gradient(ellipse  5%  4% at  8% 10%, rgba(240, 210, 130, 0.07), transparent 82%),
+    radial-gradient(ellipse  4%  3% at  2%  4%, rgba(240, 210, 130, 0.04), transparent 84%);
   filter: blur(22px) url(#wabi-wisp);
-  animation: wabi-wisp-drift 55s ease-in-out infinite;
+  animation: wabi-wisp-drift 40s linear infinite;
   mix-blend-mode: multiply;
   contain: layout paint style;
+  will-change: transform;
 }
 .dark .wabi-wisps {
   background:
@@ -408,13 +409,10 @@ body::after {
   mix-blend-mode: screen;
 }
 @keyframes wabi-wisp-drift {
-  0%   { transform: translate(0, 0)      rotate(0deg)  scale(1);    }
-  17%  { transform: translate(-4%, 2%)   rotate(3deg)  scale(1.04); }
-  34%  { transform: translate(-2%, 5%)   rotate(-4deg) scale(1.10); }
-  50%  { transform: translate(-6%, 4%)   rotate(5deg)  scale(0.96); }
-  68%  { transform: translate(-3%, 6%)   rotate(-2deg) scale(1.08); }
-  85%  { transform: translate(-1%, 3%)   rotate(4deg)  scale(1.02); }
-  100% { transform: translate(0, 0)      rotate(0deg)  scale(1);    }
+  0%   { transform: translate(0, 0)       rotate(0deg)  scale(1);    }
+  33%  { transform: translate(-14%, 4%)   rotate(4deg)  scale(1.12); }
+  66%  { transform: translate(-11%, 6%)   rotate(-3deg) scale(1.06); }
+  100% { transform: translate(0, 0)       rotate(0deg)  scale(1);    }
 }
 @media (prefers-reduced-motion: reduce) {
   .wabi-wisps { animation: none; }
@@ -437,12 +435,13 @@ body::after {
   z-index: 9996;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 14% 14% at 76% 70%, rgba(140, 108, 60, 0.22), transparent 74%),
-    radial-gradient(ellipse 16% 10% at 72% 66%, rgba(155, 125, 72, 0.15), transparent 78%);
+    radial-gradient(ellipse 16% 16% at 66% 62%, rgba(238, 205, 120, 0.58), transparent 74%),
+    radial-gradient(ellipse 20% 14% at 62% 58%, rgba(244, 218, 145, 0.40), transparent 78%);
   filter: blur(24px) url(#wabi-wisp);
-  animation: wabi-wisp-mid-drift 47s ease-in-out infinite;
+  animation: wabi-wisp-mid-drift 34s linear infinite;
   mix-blend-mode: multiply;
   contain: layout paint style;
+  will-change: transform;
 }
 .dark .wabi-wisps-mid {
   background:
@@ -451,13 +450,10 @@ body::after {
   mix-blend-mode: screen;
 }
 @keyframes wabi-wisp-mid-drift {
-  0%   { transform: translate(0, 0)      rotate(0deg)  scale(1);    }
-  14%  { transform: translate(-3%, -1%)  rotate(-4deg) scale(1.10); }
-  29%  { transform: translate(-1%, 2%)   rotate(6deg)  scale(0.98); }
-  46%  { transform: translate(-5%, -2%)  rotate(-3deg) scale(1.14); }
-  63%  { transform: translate(-4%, 1%)   rotate(7deg)  scale(1.02); }
-  79%  { transform: translate(-2%, -3%)  rotate(-5deg) scale(1.08); }
-  100% { transform: translate(0, 0)      rotate(0deg)  scale(1);    }
+  0%   { transform: translate(0, 0)       rotate(0deg)  scale(1);    }
+  33%  { transform: translate(-12%, -4%)  rotate(-5deg) scale(1.14); }
+  66%  { transform: translate(-9%,  3%)   rotate(5deg)  scale(1.08); }
+  100% { transform: translate(0, 0)       rotate(0deg)  scale(1);    }
 }
 @media (prefers-reduced-motion: reduce) {
   .wabi-wisps-mid { animation: none; }
@@ -466,14 +462,10 @@ body::after {
   .wabi-wisps-mid { filter: blur(30px); }
 }
 @keyframes wabi-ink-drift {
-  0%   { transform: translate(0, 0)       rotate(0deg)    scale(1);    }
-  11%  { transform: translate(-3%, -2%)   rotate(-5deg)   scale(1.08); }
-  23%  { transform: translate(-1%, -5%)   rotate(4deg)    scale(1.02); }
-  38%  { transform: translate(-5%, -3%)   rotate(-9deg)   scale(1.14); }
-  52%  { transform: translate(-6%, -6%)   rotate(-3deg)   scale(1.06); }
-  67%  { transform: translate(-3%, -5%)   rotate(8deg)    scale(1.16); }
-  82%  { transform: translate(-2%, -3%)   rotate(-4deg)   scale(0.94); }
-  100% { transform: translate(0, 0)       rotate(0deg)    scale(1);    }
+  0%   { transform: translate(0, 0)        rotate(0deg)    scale(1);    }
+  33%  { transform: translate(-13%, -8%)   rotate(-6deg)   scale(1.16); }
+  66%  { transform: translate(-9%,  -5%)   rotate(7deg)    scale(1.08); }
+  100% { transform: translate(0, 0)        rotate(0deg)    scale(1);    }
 }
 @media (prefers-reduced-motion: reduce) {
   body::after { animation: none; }
