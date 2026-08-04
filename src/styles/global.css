@@ -325,7 +325,7 @@ body::before {
 body::after {
   content: "";
   position: fixed;
-  inset: -40%;
+  inset: -30%;
   z-index: 9998;
   pointer-events: none;
   /* Anchor in the bottom-right corner; motion carries it diagonally toward
@@ -345,7 +345,7 @@ body::after {
     radial-gradient(ellipse 18% 24% at 85% 76%, rgba(240, 205, 115, 0.72), transparent 72%),
     /* soft halo — encloses the body so there's no visible seam */
     radial-gradient(ellipse 26% 32% at 84% 74%, rgba(248, 222, 148, 0.44), transparent 78%);
-  filter: blur(26px) url(#wabi-wisp);
+  filter: blur(14px) url(#wabi-wisp);
   animation: wabi-ink-drift 30s linear infinite;
   mix-blend-mode: multiply;
   contain: layout paint style;
@@ -356,7 +356,7 @@ body::after {
    SVG displacement or heavy blur. */
 @media (max-width: 640px), (hover: none) and (pointer: coarse) {
   body::after {
-    filter: blur(30px);
+    filter: blur(20px);
   }
 }
 .dark body::after {
@@ -379,18 +379,15 @@ body::after {
 .wabi-wisps {
   content: "";
   position: fixed;
-  inset: -40%;
+  inset: -30%;
   z-index: 9997;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 12% 10% at 54% 50%, rgba(240, 210, 130, 0.32), transparent 76%),
-    radial-gradient(ellipse 11%  9% at 44% 42%, rgba(240, 210, 130, 0.26), transparent 76%),
-    radial-gradient(ellipse  9%  8% at 34% 34%, rgba(240, 210, 130, 0.20), transparent 78%),
-    radial-gradient(ellipse  8%  6% at 24% 26%, rgba(240, 210, 130, 0.15), transparent 78%),
-    radial-gradient(ellipse  6%  5% at 16% 18%, rgba(240, 210, 130, 0.11), transparent 80%),
-    radial-gradient(ellipse  5%  4% at  8% 10%, rgba(240, 210, 130, 0.07), transparent 82%),
-    radial-gradient(ellipse  4%  3% at  2%  4%, rgba(240, 210, 130, 0.04), transparent 84%);
-  filter: blur(22px) url(#wabi-wisp);
+    radial-gradient(ellipse 14% 12% at 52% 48%, rgba(240, 210, 130, 0.34), transparent 76%),
+    radial-gradient(ellipse 11%  9% at 38% 38%, rgba(240, 210, 130, 0.22), transparent 78%),
+    radial-gradient(ellipse  8%  6% at 22% 24%, rgba(240, 210, 130, 0.13), transparent 80%),
+    radial-gradient(ellipse  5%  4% at  8% 10%, rgba(240, 210, 130, 0.06), transparent 82%);
+  filter: blur(12px) url(#wabi-wisp);
   animation: wabi-wisp-drift 40s linear infinite;
   mix-blend-mode: multiply;
   contain: layout paint style;
@@ -398,14 +395,10 @@ body::after {
 }
 .dark .wabi-wisps {
   background:
-    radial-gradient(ellipse 14% 12% at 66% 60%, rgba(220, 204, 180, 0.16), transparent 76%),
-    radial-gradient(ellipse 14% 12% at 56% 52%, rgba(220, 204, 180, 0.14), transparent 76%),
-    radial-gradient(ellipse 13% 11% at 46% 44%, rgba(220, 204, 180, 0.12), transparent 76%),
-    radial-gradient(ellipse 11%  9% at 36% 36%, rgba(220, 204, 180, 0.10), transparent 78%),
-    radial-gradient(ellipse  9%  7% at 26% 28%, rgba(220, 204, 180, 0.08), transparent 78%),
-    radial-gradient(ellipse  7%  5% at 16% 20%, rgba(220, 204, 180, 0.06), transparent 80%),
-    radial-gradient(ellipse  5%  4% at  8% 12%, rgba(220, 204, 180, 0.04), transparent 82%),
-    radial-gradient(ellipse  4%  3% at  2%  6%, rgba(220, 204, 180, 0.02), transparent 84%);
+    radial-gradient(ellipse 14% 12% at 60% 56%, rgba(220, 204, 180, 0.16), transparent 76%),
+    radial-gradient(ellipse 12% 10% at 46% 44%, rgba(220, 204, 180, 0.11), transparent 78%),
+    radial-gradient(ellipse  9%  7% at 28% 30%, rgba(220, 204, 180, 0.07), transparent 80%),
+    radial-gradient(ellipse  5%  4% at 10% 14%, rgba(220, 204, 180, 0.03), transparent 82%);
   mix-blend-mode: screen;
 }
 @keyframes wabi-wisp-drift {
@@ -418,7 +411,7 @@ body::after {
   .wabi-wisps { animation: none; }
 }
 @media (max-width: 640px), (hover: none) and (pointer: coarse) {
-  .wabi-wisps { filter: blur(28px); }
+  .wabi-wisps { filter: blur(16px); }
 }
 
 /* ---------------------------------------------------------------------------
@@ -431,13 +424,13 @@ body::after {
 .wabi-wisps-mid {
   content: "";
   position: fixed;
-  inset: -40%;
+  inset: -30%;
   z-index: 9996;
   pointer-events: none;
   background:
     radial-gradient(ellipse 16% 16% at 66% 62%, rgba(238, 205, 120, 0.58), transparent 74%),
     radial-gradient(ellipse 20% 14% at 62% 58%, rgba(244, 218, 145, 0.40), transparent 78%);
-  filter: blur(24px) url(#wabi-wisp);
+  filter: blur(14px) url(#wabi-wisp);
   animation: wabi-wisp-mid-drift 34s linear infinite;
   mix-blend-mode: multiply;
   contain: layout paint style;
@@ -459,7 +452,7 @@ body::after {
   .wabi-wisps-mid { animation: none; }
 }
 @media (max-width: 640px), (hover: none) and (pointer: coarse) {
-  .wabi-wisps-mid { filter: blur(30px); }
+  .wabi-wisps-mid { filter: blur(20px); }
 }
 @keyframes wabi-ink-drift {
   0%   { transform: translate(0, 0)        rotate(0deg)    scale(1);    }
