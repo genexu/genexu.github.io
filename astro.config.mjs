@@ -1,3 +1,6 @@
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import partytown from "@astrojs/partytown";
@@ -10,6 +13,47 @@ import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 import tailwindcss from "@tailwindcss/vite";
+
+// ponytail: read zh-tw slugs at config load so sitemap i18n can pair alternates.
+// Route files live at src/pages/{collection}/[...slug].astro and rely on
+// fallbackType: "rewrite", so zh-tw HTMLs exist on disk but aren't declared as
+// distinct routes. Feed them in via customPages instead of restructuring routes.
+const site = "https://genexu.github.io";
+const contentDir = fileURLToPath(new URL("./src/content", import.meta.url));
+const collections = ["blog", "life", "notes", "reading"];
+
+const zhTwPostPages = collections.flatMap((c) => {
+	const dir = path.join(contentDir, c, "zh-tw");
+	if (!fs.existsSync(dir)) return [];
+	return fs
+		.readdirSync(dir)
+		.filter((f) => /\.mdx?$/.test(f))
+		.map((f) => `${site}/zh-tw/${c}/${f.replace(/\.mdx?$/, "")}/`);
+});
+
+// ponytail: parse `tags: [...]` line only — every post keeps it single-line.
+// Upgrade to gray-matter if multi-line or non-array tag frontmatter appears.
+const tagSet = new Set();
+for (const c of collections) {
+	for (const lang of ["en", "zh-tw"]) {
+		const dir = path.join(contentDir, c, lang);
+		if (!fs.existsSync(dir)) continue;
+		for (const f of fs.readdirSync(dir)) {
+			if (!/\.mdx?$/.test(f)) continue;
+			const src = fs.readFileSync(path.join(dir, f), "utf8");
+			const m = src.match(/^tags:\s*\[([^\]]*)\]/m);
+			if (!m) continue;
+			for (const raw of m[1].matchAll(/"([^"]+)"|'([^']+)'/g)) {
+				tagSet.add((raw[1] ?? raw[2]).replace(/\s+/g, "-"));
+			}
+		}
+	}
+}
+const zhTwTagPages = [...tagSet].map(
+	(slug) => `${site}/zh-tw/tags/${encodeURIComponent(slug)}/`
+);
+
+const zhTwCustomPages = [...zhTwPostPages, ...zhTwTagPages];
 
 // https://astro.build/config
 export default defineConfig({
@@ -29,6 +73,7 @@ export default defineConfig({
           en: "en-US",
         },
       },
+      customPages: zhTwCustomPages,
     }),
     icon(),
   ],

@@ -21,7 +21,7 @@ importers:
         specifier: 4.0.19
         version: 4.0.19
       '@astrojs/sitemap':
-        specifier: 3.7.3
+        specifier: ^3.7.3
         version: 3.7.3
       '@iconify-json/cil':
         specifier: ^1.2.3

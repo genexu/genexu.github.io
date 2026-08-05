@@ -5,7 +5,7 @@ author: "Timothy Gallwey"
 rating: 5
 cover: "/images/book-covers/inner-game-of-tennis.jpg"
 pubDate: "Jul 07 2025"
-tags: ["Leadership & Management", "Sports Psychology", "Self-Growth", "Focus"]
+tags: ["Leadership", "Management", "Sports Psychology", "Self-Growth", "Focus"]
 ---
 
 ## Core Content Overview

@@ -5,7 +5,7 @@ author: "Will Huang"
 rating: 4
 cover: "/images/book-covers/how-much-is-enough.jpg"
 pubDate: "Aug 25 2025"
-tags: ["Investment & Finance", "Financial Planning", "Life Planning", "Goal Setting"]
+tags: ["Investment", "Finance", "Financial Planning", "Life Planning", "Goal Setting"]
 ---
 
 ## Core Content Overview
